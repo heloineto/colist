@@ -1,0 +1,19 @@
+---
+alwaysApply: false
+---
+
+Componentize means to extract a component or a part of a component into a separate file.
+
+When componentizing react components, follow these rules:
+
+IMPORTANT:
+
+- File names should be in kebab-case
+- Prioritize putting the props type "inline", like such:
+- If the user did not specify a folder or path, put it in the same folder as the current component
+
+```tsx
+export function Component({ prop }: { prop: string }) {
+  return <div>{prop}</div>;
+}
+```

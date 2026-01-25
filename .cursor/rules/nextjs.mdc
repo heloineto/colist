@@ -1,0 +1,19 @@
+---
+globs: *.tsx
+alwaysApply: false
+---
+
+## When creating new components:
+
+    - ALWAYS use function instead of const
+    - IF props are less than 10, use in-line props (see example)
+
+    EXAMPLE:
+
+    ```tsx
+    function MyComponent({ prop1, prop2 }: { prop1: string, prop2: number}) {
+        return <>
+        {/* ... */}
+        </>
+    }
+    ```

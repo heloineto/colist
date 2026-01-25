@@ -1,0 +1,38 @@
+---
+description: Rules when working with the ag-grid package (<AgGridReact />)
+alwaysApply: false
+---
+
+IMPORTANT:
+
+- ALWAYS provide a getRowId function to the <AgGridReact /> component.
+
+  Example:
+
+  ```tsx
+  const getRowId = useCallback((params: GetRowIdParams) => {
+    // Figure out how to get and stringify the id
+    return params.data.cfop_id.toString();
+  }, []);
+
+  return (
+    <AgGridReact
+      // ... other props
+      getRowId={getRowId}
+    />
+  );
+  ```
+
+- If the sable uses server side model, ALWAYS pass the prop "suppressServerSideFullWidthLoadingRow" so we can have a nice skeleton when loading
+
+  Example:
+
+  ```tsx
+  return (
+    <AgGridReact
+      // ... Other props
+      rowModelType="serverSide"
+      suppressServerSideFullWidthLoadingRow
+    />
+  );
+  ```

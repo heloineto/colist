@@ -1,0 +1,9 @@
+---
+alwaysApply: false
+---
+
+# How to add a footer grid using AG Grid
+
+To create a footer with aggregated values, we will use Aligned Grids
+
+Read the docs: - https://www.ag-grid.com/react-data-grid/aligned-grids/
