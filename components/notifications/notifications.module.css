@@ -1,0 +1,12 @@
+.notification {
+  & + & {
+    margin-top: var(--mantine-spacing-xs) !important;
+  }
+}
+
+.root {
+  &[data-position='bottom-center'] {
+    width: 325px;
+    bottom: calc(3.75rem + var(--mantine-spacing-xs));
+  }
+}

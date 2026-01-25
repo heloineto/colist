@@ -5,6 +5,7 @@ import type { SupportedLanguage } from '@information-systems/translations';
 import { cookies } from 'next/headers';
 import { Providers } from './providers';
 import { getLanguageCookie } from './get-language-cookie';
+import { geistMono, geistSans } from './fonts';
 
 import './globals.css';
 import '@mantine/core/styles.css';
@@ -15,7 +16,6 @@ import '@information-systems/auth/styles.css';
 import '@information-systems/states/styles.css';
 import '@information-systems/mantine/styles.css';
 import '@information-systems/uploader/styles.css';
-import { geistMono, geistSans } from './fonts';
 
 const APP_NAME = 'Shopping List';
 const APP_DEFAULT_TITLE = 'Shopping List';
