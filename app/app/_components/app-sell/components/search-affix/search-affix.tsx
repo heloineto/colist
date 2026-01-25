@@ -1,0 +1,52 @@
+import { useTranslation } from '@information-systems/translations';
+import { Affix, Button, Transition, FocusTrap } from '@mantine/core';
+import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
+import { useWatch, type Control } from 'react-hook-form';
+import { TextInput } from 'mantine-hook-form';
+import { useOptionsForm } from '@/app/app/_utils/options-form-context';
+
+export function SearchAffix() {
+  const { t } = useTranslation();
+  const optionsForm = useOptionsForm();
+  const searchOpened = useWatch({
+    control: optionsForm.control,
+    name: 'searchOpened',
+  });
+
+  return (
+    <Affix position={{ top: 0, left: 0 }} w="100%">
+      <Transition
+        transition="slide-down"
+        mounted={searchOpened}
+        onExited={() => optionsForm.setValue('search', '')}
+      >
+        {(transitionStyles) => (
+          <FocusTrap active={searchOpened}>
+            <div
+              className="flex h-14 items-center gap-xs bg-white px-xs dark:bg-dark-7"
+              style={transitionStyles}
+            >
+              <TextInput
+                leftSection={<MagnifyingGlass size="1.125rem" />}
+                className="grow"
+                type="search"
+                placeholder={t({ pt: 'Pesquisar', en: 'Search', es: 'Buscar' })}
+                name="search"
+                control={optionsForm.control as unknown as Control}
+                data-autofocus
+              />
+              <Button
+                variant="light"
+                onClick={() => {
+                  optionsForm.setValue('searchOpened', false);
+                }}
+              >
+                {t({ pt: 'Fechar', en: 'Close', es: 'Cerrar' })}
+              </Button>
+            </div>
+          </FocusTrap>
+        )}
+      </Transition>
+    </Affix>
+  );
+}

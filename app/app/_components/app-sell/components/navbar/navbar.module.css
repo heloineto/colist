@@ -1,0 +1,37 @@
+[data-state='expanded'] .addButton {
+  width: 100%;
+
+  :global(.mantine-Button-label) {
+    opacity: 100;
+  }
+}
+
+.addButton {
+  height: 42px;
+  width: 42px;
+  padding-right: 0;
+  padding-left: 8px;
+  transition-property: width;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+
+  :global(.mantine-Button-inner) {
+    justify-content: start;
+  }
+
+  :global(.mantine-Button-section) {
+    &[data-position='left'] {
+      margin-inline-end: 0;
+    }
+  }
+
+  :global(.mantine-Button-label) {
+    position: absolute;
+    opacity: 0;
+    transition-property: opacity, left;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    left: 2.625rem;
+    white-space: nowrap;
+  }
+}
