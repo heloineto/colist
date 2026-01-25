@@ -93,7 +93,7 @@ export function ItemForm() {
             <AmountButton />
             <CategoryButton />
           </div>
-          <div className="flex gap-xs">
+          <div className="gap-xs flex">
             <DeleteItemButton />
             <SubmitItemButton
               onClick={() => {

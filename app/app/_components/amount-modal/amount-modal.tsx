@@ -36,7 +36,7 @@ export const AmountModal = forwardRef(function AmountModal(
         })}
       />
       <Divider mb="md" />
-      <div className="flex justify-center px-md pb-md">
+      <div className="px-md pb-md flex justify-center">
         <ActionIcon
           className="!rounded-r-none !border-r-0"
           size={50}

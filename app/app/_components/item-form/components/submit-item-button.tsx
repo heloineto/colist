@@ -6,7 +6,8 @@ import type { ComponentPropsWithoutRef } from 'react';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 
 interface Props
-  extends ButtonProps,
+  extends
+    ButtonProps,
     Omit<ComponentPropsWithoutRef<'button'>, keyof ButtonProps> {}
 
 export function SubmitItemButton({ ...rest }: Props) {

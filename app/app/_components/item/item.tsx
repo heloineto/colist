@@ -14,7 +14,7 @@ export function Item({ item }: Props) {
   const { updateMutation, search, openAmountModal } = useItemsContext();
 
   return (
-    <div className="flex items-center gap-md px-sm">
+    <div className="gap-md px-sm flex items-center">
       <Checkbox
         className="my-2.5 shrink-0"
         radius="xl"
@@ -26,7 +26,7 @@ export function Item({ item }: Props) {
         }}
       />
       <button
-        className="mantine-focus-auto flex grow cursor-pointer border-none bg-transparent px-0 py-sm [--webkit-tap-highlight-color:transparent]"
+        className="mantine-focus-auto py-sm flex grow cursor-pointer border-none bg-transparent px-0 [--webkit-tap-highlight-color:transparent]"
         type="button"
         style={{ height: getItemHeight(item) }}
         onClick={() => {
@@ -35,11 +35,11 @@ export function Item({ item }: Props) {
         }}
       >
         <div className="relative grow">
-          <div className="absolute left-0 top-0 w-full">
+          <div className="absolute top-0 left-0 w-full">
             <Highlight
               c="gray"
               className={clsx(
-                'h-6 truncate text-left !text-md',
+                '!text-md h-6 truncate text-left',
                 item.checked ? 'line-through' : ''
               )}
               highlight={search}
@@ -48,7 +48,7 @@ export function Item({ item }: Props) {
             </Highlight>
             {item.details ? (
               <Highlight
-                className="h-5 truncate text-left !text-sm !text-dimmed"
+                className="!text-dimmed h-5 truncate text-left !text-sm"
                 highlight={search}
               >
                 {item.details}

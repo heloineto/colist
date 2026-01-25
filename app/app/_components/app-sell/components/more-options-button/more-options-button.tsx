@@ -185,7 +185,7 @@ export function MoreOptionsButton({
         }}
       >
         {content}
-        <div className="flex h-5 items-center justify-center text-xs text-dimmed">
+        <div className="text-dimmed flex h-5 items-center justify-center text-xs">
           Alpha v0.0.1
         </div>
       </Drawer>

@@ -8,7 +8,7 @@ export function LanguageSelect() {
 
   return (
     <Select
-      className="px-md pt-0.5 hover:bg-gray-1 hover:dark:bg-dark-8"
+      className="px-md hover:bg-gray-1 hover:dark:bg-dark-8 pt-0.5"
       value={language}
       onChange={(value) =>
         setLanguage((value as SupportedLanguage | null) ?? 'pt')

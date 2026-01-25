@@ -39,7 +39,7 @@ export function ListTabs() {
           <QueryBoundary
             query={listsQuery}
             loadingComponent={
-              <div className="flex items-center gap-lg px-md py-xs">
+              <div className="gap-lg px-md py-xs flex items-center">
                 <Skeleton w={80} h={16} />
                 <Skeleton w={70} h={16} />
                 <Skeleton w={90} h={16} />

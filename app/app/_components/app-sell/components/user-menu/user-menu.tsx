@@ -28,7 +28,7 @@ export function UserMenu() {
         >
           {(query) => (
             <Avatar
-              className="cursor-pointer rounded-xl border-none bg-body"
+              className="bg-body cursor-pointer rounded-xl border-none"
               name={query.data.name || undefined}
               color="initials"
               size={40}
@@ -45,7 +45,7 @@ export function UserMenu() {
         classNames={{ header: '!p-0', body: '!p-0' }}
       >
         <UserCard />
-        <div className="flex flex-col pb-md">
+        <div className="pb-md flex flex-col">
           <ColorThemeToggle />
           <LanguageSelect />
           <PrimaryColorSelect />

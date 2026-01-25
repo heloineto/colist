@@ -51,7 +51,7 @@ export function Member({ member, list, showOptions = true }: Props) {
         />
         <div className="flex flex-col overflow-x-hidden">
           <div className="truncate text-sm font-bold">{name || <NoName />}</div>
-          <div className="truncate text-sm text-dimmed">{email}</div>
+          <div className="text-dimmed truncate text-sm">{email}</div>
         </div>
       </div>
       <div className="flex items-center gap-1">

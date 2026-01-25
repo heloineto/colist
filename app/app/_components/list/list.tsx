@@ -70,9 +70,9 @@ export function List({ listId }: Props) {
               <div
                 // eslint-disable-next-line react/no-array-index-key --- This is fine because the array is static
                 key={index}
-                className="flex items-center justify-between p-sm"
+                className="p-sm flex items-center justify-between"
               >
-                <div className="flex items-center gap-md">
+                <div className="gap-md flex items-center">
                   <Skeleton className="shrink-0" h={28} w={28} circle />
                   <Skeleton h={18} w={100} />
                 </div>

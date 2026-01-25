@@ -73,11 +73,11 @@ export function Items({ items }: Props) {
             '!border-b-0',
             uncheckedItems.length === 0
               ? ''
-              : 'mt-xs border-0 border-t border-solid border-gray-3 dark:border-dark-4'
+              : 'mt-xs border-gray-3 dark:border-dark-4 border-0 border-t border-solid'
           )}
         >
           <AccordionControl
-            className="!px-3 !text-md font-medium"
+            className="!text-md !px-3 font-medium"
             disabled={checkedItems.length === 0}
           >
             {`${t({

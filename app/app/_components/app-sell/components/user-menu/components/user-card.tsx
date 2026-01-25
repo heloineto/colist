@@ -33,8 +33,8 @@ export function UserCard() {
   );
 
   return (
-    <div className="flex grow justify-between p-md">
-      <div className="mr-xs flex grow items-center gap-xs text-black dark:text-dark-0">
+    <div className="p-md flex grow justify-between">
+      <div className="mr-xs gap-xs dark:text-dark-0 flex grow items-center text-black">
         <QueryBoundary
           query={profileQuery}
           errorProps={{
@@ -88,10 +88,10 @@ export function UserCard() {
                 />
 
                 <div className="mt-1 grow">
-                  <div className="relative text-lg font-medium leading-6">
+                  <div className="relative text-lg leading-6 font-medium">
                     {profile.name || <NoName />}
                   </div>
-                  <div className="text-md font-normal leading-6 text-dimmed">
+                  <div className="text-md text-dimmed leading-6 font-normal">
                     {profile.email}
                   </div>
                   <Button

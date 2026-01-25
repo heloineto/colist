@@ -81,7 +81,7 @@ export function ProfileForm({ profile, onClose }: ProfileFormProps) {
         control={form.control}
         placeholder={getNoName(t)}
       />
-      <div className="mt-lg flex flex-col-reverse gap-xs xs:flex-row xs:justify-end">
+      <div className="mt-lg gap-xs xs:flex-row xs:justify-end flex flex-col-reverse">
         <Button className="min-w-32" variant="default" onClick={onClose}>
           {t({ pt: 'Cancelar', en: 'Cancel', es: 'Cancelar' })}
         </Button>

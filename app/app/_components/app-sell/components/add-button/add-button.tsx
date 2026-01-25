@@ -8,7 +8,8 @@ import { useItemForm } from '@/app/app/_utils/item-form-context';
 import { useListContext } from '@/app/app/_utils/list-context';
 
 interface Props
-  extends ActionIconProps,
+  extends
+    ActionIconProps,
     Omit<ComponentPropsWithoutRef<'button'>, keyof ActionIconProps> {}
 
 export function AddButton({ ...rest }: Props) {
@@ -17,9 +18,9 @@ export function AddButton({ ...rest }: Props) {
   const itemForm = useItemForm();
 
   return (
-    <div className="absolute right-0 top-0 mr-lg h-full">
+    <div className="mr-lg absolute top-0 right-0 h-full">
       <svg
-        className="absolute left-1/2 top-0 -translate-x-1/2 fill-white dark:fill-dark-7"
+        className="dark:fill-dark-7 absolute top-0 left-1/2 -translate-x-1/2 fill-white"
         width="86"
         height="55"
         viewBox="0 0 86 55"

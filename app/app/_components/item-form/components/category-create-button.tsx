@@ -38,7 +38,7 @@ export function CategoryCreateButton({ search, setSearch, disclosure }: Props) {
       fw={400}
       bd="none"
       leftSection={
-        <div className="flex size-5 items-center justify-center rounded-full bg-green-light">
+        <div className="bg-green-light flex size-5 items-center justify-center rounded-full">
           <Plus size="1rem" />
         </div>
       }

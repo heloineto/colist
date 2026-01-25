@@ -49,9 +49,9 @@ export function ShareModal({ list, members, ...rest }: Props) {
         />
         <Divider />
         <ScrollAreaAutosize mah="calc(100dvh - var(--modal-y-offset) * 2 - 75px)">
-          <div className="flex w-[var(--modal-size)] max-w-[calc(100vw-var(--modal-x-offset)*2)] flex-col gap-xs p-md">
+          <div className="gap-xs p-md flex w-[var(--modal-size)] max-w-[calc(100vw-var(--modal-x-offset)*2)] flex-col">
             {showForm ? <ShareForm members={members} /> : null}
-            <div className="flex flex-col gap-xs">
+            <div className="gap-xs flex flex-col">
               {members.map((member) => (
                 <Member
                   key={`${member.listId}-${member.profileId}`}

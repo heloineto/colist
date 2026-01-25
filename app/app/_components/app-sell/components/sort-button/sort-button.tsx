@@ -95,7 +95,7 @@ export function SortButton({
 
   const content = (
     <>
-      <div className="mb-1 mt-0.5 flex items-center gap-1.5 font-medium">
+      <div className="mt-0.5 mb-1 flex items-center gap-1.5 font-medium">
         <ArrowsDownUp size="1.125rem" weight="bold" />
         {t({ pt: 'Ordenar por', en: 'Sort by', es: 'Ordenar por' })}
       </div>

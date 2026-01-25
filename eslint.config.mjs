@@ -1,8 +1,8 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -11,38 +11,38 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   globalIgnores([
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-    "node_modules/**",
-    "supabase/**",
-    "public/**",
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+    'node_modules/**',
+    'supabase/**',
+    'public/**',
   ]),
   {
-    files: ["{app,components,lib,packages}/**/*.{ts,tsx}"],
+    files: ['{app,components,lib,packages}/**/*.{ts,tsx}'],
     rules: {
-      "@next/next/no-img-element": "off",
-      "no-console": ["error", { allow: ["warn", "error"] }],
+      '@next/next/no-img-element': 'off',
+      'no-console': ['error', { allow: ['warn', 'error'] }],
     },
   },
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
-        project: ["./tsconfig.json"],
+        project: ['./tsconfig.json'],
         tsconfigRootDir: __dirname,
       },
     },
     rules: {
-      "@typescript-eslint/consistent-type-imports": "error",
-      "@typescript-eslint/no-empty-object-type": "off",
-      "@typescript-eslint/no-misused-promises": [
-        "error",
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-misused-promises': [
+        'error',
         { checksVoidReturn: false },
       ],
-      "@typescript-eslint/strict-boolean-expressions": [
-        "error",
+      '@typescript-eslint/strict-boolean-expressions': [
+        'error',
         {
           allowAny: true,
           allowNullableBoolean: true,
@@ -55,15 +55,15 @@ const eslintConfig = defineConfig([
           allowString: true,
         },
       ],
-      "@typescript-eslint/no-unused-vars": [
-        "error",
+      '@typescript-eslint/no-unused-vars': [
+        'error',
         {
-          args: "all",
-          argsIgnorePattern: "^_",
-          caughtErrors: "all",
-          caughtErrorsIgnorePattern: "^_",
-          destructuredArrayIgnorePattern: "^_",
-          varsIgnorePattern: "^_",
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
           ignoreRestSiblings: true,
         },
       ],

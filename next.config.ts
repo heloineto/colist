@@ -1,18 +1,18 @@
-import type { NextConfig } from "next";
-import withSerwistInit from "@serwist/next";
+import type { NextConfig } from 'next';
+import withSerwistInit from '@serwist/next';
 
 const withSerwist = withSerwistInit({
-  swSrc: "app/sw.ts",
-  swDest: "public/sw.js",
-  disable: process.env.NODE_ENV !== "production",
+  swSrc: 'app/sw.ts',
+  swDest: 'public/sw.js',
+  disable: process.env.NODE_ENV !== 'production',
 });
 
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: [
-      "@mantine/core",
-      "@mantine/hooks",
-      "@phosphor-icons/react",
+      '@mantine/core',
+      '@mantine/hooks',
+      '@phosphor-icons/react',
     ],
   },
 };

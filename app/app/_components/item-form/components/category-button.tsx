@@ -58,7 +58,7 @@ export function CategoryButton() {
         >
           <Tag size="1.25rem" />
           {categoryQuery.data?.[0] ? (
-            <p className="ml-1.5 max-w-28 truncate text-sm text-dimmed">
+            <p className="text-dimmed ml-1.5 max-w-28 truncate text-sm">
               {categoryQuery.data[0].name}
             </p>
           ) : null}

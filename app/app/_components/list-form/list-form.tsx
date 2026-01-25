@@ -34,7 +34,7 @@ export function ListForm() {
 
   const content = (
     <form
-      className="flex flex-col gap-md"
+      className="gap-md flex flex-col"
       onSubmit={form.handleSubmit(async (values) => {
         if (!values.id) {
           await createMutation.mutateAsync(values);
@@ -52,7 +52,7 @@ export function ListForm() {
         autoComplete="off"
         data-autofocus
       />
-      <div className="flex justify-end gap-xs">
+      <div className="gap-xs flex justify-end">
         <Button variant="light" color="gray" onClick={form.disclosure.close}>
           {t({ pt: 'Cancelar', en: 'Cancel', es: 'Cancelar' })}
         </Button>

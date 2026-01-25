@@ -13,9 +13,9 @@ export function NpsForm({ opened, onClose, mode = 'affix' }: Props) {
 
   const content = (
     <>
-      <CloseButton className="!absolute right-2 top-2" onClick={onClose} />
-      <div className="flex flex-col items-center justify-center p-md">
-        <div className="text-xl font-bold text-bright">
+      <CloseButton className="!absolute top-2 right-2" onClick={onClose} />
+      <div className="p-md flex flex-col items-center justify-center">
+        <div className="text-bright text-xl font-bold">
           {t({
             pt: 'Sua experiência conosco',
             en: 'Your experience with us',

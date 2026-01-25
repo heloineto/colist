@@ -62,7 +62,7 @@ export function CategoryModalContent({ disclosure }: Props) {
         })}
       />
       <Divider />
-      <div className="flex p-md">
+      <div className="p-md flex">
         <TextInput
           radius="xl"
           className="grow"

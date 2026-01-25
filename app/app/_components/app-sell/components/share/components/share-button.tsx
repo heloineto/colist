@@ -9,7 +9,8 @@ import {
 } from 'react';
 
 interface Props
-  extends ButtonProps,
+  extends
+    ButtonProps,
     Omit<ComponentPropsWithoutRef<'button'>, keyof ButtonProps> {}
 
 export const ShareButton = forwardRef(function ShareButton(

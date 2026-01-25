@@ -34,36 +34,36 @@ export function ProfileModalContent({ profile, listId }: Props) {
   );
 
   return (
-    <div className="flex flex-col gap-xs">
-      <div className="relative flex justify-center px-md pt-md">
+    <div className="gap-xs flex flex-col">
+      <div className="px-md pt-md relative flex justify-center">
         <Avatar
-          className="relative z-10 border-[5px] border-solid border-body bg-body"
+          className="border-body bg-body relative z-10 border-[5px] border-solid"
           name={profile.name || undefined}
           color="initials"
           size={100}
           src={getProfilePicture(profile)}
         />
         <div
-          className="absolute left-0 top-0 h-4/5 w-full bg-blue-light-hover"
+          className="bg-blue-light-hover absolute top-0 left-0 h-4/5 w-full"
           style={{
             backgroundColor: `var(--mantine-color-${getColor(getInitials(profile.name ?? ''))}-light-hover,#228be61f)`,
           }}
         />
       </div>
       <div className="px-md text-center">
-        <div className="text-xl font-bold leading-5">{profile.name}</div>
+        <div className="text-xl leading-5 font-bold">{profile.name}</div>
         <div className="text-md text-dimmed">{profile.email}</div>
       </div>
-      <div className="mt-lg flex flex-col gap-xs px-md pb-md xs:flex-row">
+      <div className="mt-lg gap-xs px-md pb-md xs:flex-row flex flex-col">
         <Button
-          className="grow xs:basis-0"
+          className="xs:basis-0 grow"
           variant="default"
           onClick={() => modals.closeAll()}
         >
           {t({ pt: 'Cancelar', en: 'Cancel', es: 'Cancelar' })}
         </Button>
         <Button
-          className="grow xs:basis-0"
+          className="xs:basis-0 grow"
           onClick={async () => {
             if (!listId) {
               showNotification({

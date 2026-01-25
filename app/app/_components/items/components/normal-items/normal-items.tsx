@@ -18,7 +18,7 @@ export function NormalItems({ items }: Props) {
           animate={{ height: getItemHeight(item), opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
         >
-          <div className="absolute left-0 top-0 size-full">
+          <div className="absolute top-0 left-0 size-full">
             <Item item={item} />
           </div>
         </motion.div>

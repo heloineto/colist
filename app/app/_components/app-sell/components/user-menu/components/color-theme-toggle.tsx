@@ -20,7 +20,7 @@ export function ColorThemeToggle() {
       data={[
         {
           label: (
-            <div className="flex items-center justify-center gap-xs">
+            <div className="gap-xs flex items-center justify-center">
               <MoonStars
                 className="text-blue-8 dark:text-blue-3"
                 size="1.125rem"
@@ -33,7 +33,7 @@ export function ColorThemeToggle() {
         },
         {
           label: (
-            <div className="flex items-center justify-center gap-xs">
+            <div className="gap-xs flex items-center justify-center">
               <Sun
                 className="text-yellow-8 dark:text-yellow-4"
                 size="1.125rem"

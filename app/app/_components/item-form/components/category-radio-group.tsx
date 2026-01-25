@@ -54,7 +54,7 @@ export function CategoryRadioGroup({
       transformValue={(value) => Number(value)}
       onChange={disclosure.close}
     >
-      <div className="flex flex-col gap-sm pb-md">
+      <div className="gap-sm pb-md flex flex-col">
         {search ? (
           <CategoryCreateButton
             search={search}
@@ -74,7 +74,7 @@ export function CategoryRadioGroup({
               <div className="flex flex-col">
                 {Array.from({ length: 8 }).map((_, index) => (
                   <div
-                    className="mb-sm flex items-center gap-sm last:mb-0"
+                    className="mb-sm gap-sm flex items-center last:mb-0"
                     // eslint-disable-next-line react/no-array-index-key --- This is fine since the array is static
                     key={index}
                   >
