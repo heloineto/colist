@@ -23,7 +23,7 @@ export function UncheckedItemsIndicator({ listId }: Props) {
   }
 
   return (
-    <Badge className="!w-7 !p-0" variant="light" size="sm" color="gray">
+    <Badge className="w-7! p-0!" variant="light" size="sm" color="gray">
       {count}
     </Badge>
   );

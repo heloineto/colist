@@ -2,8 +2,9 @@
 
 import { use } from 'react';
 import { AuthForm } from '@information-systems/auth';
-import { signIn, signUp } from '@information-systems/supabase';
 import { useTranslation } from '@information-systems/translations';
+import { signIn } from '@/old-packages/supabase/sign-in';
+import { signUp } from '@/old-packages/supabase/sign-up';
 
 interface Props {
   searchParams: Promise<{ success?: string; error?: string }>;

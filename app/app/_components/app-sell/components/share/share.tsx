@@ -7,7 +7,7 @@ import {
 } from '@supabase-cache-helpers/postgrest-react-query';
 import { QueryBoundary } from '@information-systems/states';
 import { useQueryClient } from '@tanstack/react-query';
-import { getQueryKey } from '@information-systems/supabase';
+import { getQueryKey } from '@information-systems/supabase/get-query-key';
 import { ShareButton } from './components/share-button';
 import { ShareModal } from './components/share-modal';
 import {
@@ -35,7 +35,7 @@ export function Share() {
       .select(MEMBERS_COLUMNS)
       .eq('listId', listId as number)
       .order('role', { ascending: true }),
-    { enabled: !!listId }
+    { enabled: listId !== null }
   );
   const memberForm = useMemberFormProvider();
 

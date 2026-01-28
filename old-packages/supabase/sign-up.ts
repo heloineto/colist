@@ -1,3 +1,5 @@
+'use server';
+
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerClient } from './create-server-client';

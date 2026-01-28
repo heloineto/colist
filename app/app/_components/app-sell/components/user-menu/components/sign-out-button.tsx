@@ -1,7 +1,7 @@
-import { signOut } from '@information-systems/supabase';
+import { signOut } from '@information-systems/supabase/sign-out';
 import { useTranslation } from '@information-systems/translations';
 import { Loader, NavLink } from '@mantine/core';
-import { SignOut } from '@phosphor-icons/react/dist/ssr';
+import { SignOutIcon } from '@phosphor-icons/react/dist/ssr';
 import { useState } from 'react';
 
 export function SignOutButton() {
@@ -15,7 +15,7 @@ export function SignOutButton() {
         loading ? (
           <Loader size="1.125rem" />
         ) : (
-          <SignOut
+          <SignOutIcon
             size="1.125rem"
             className="text-gray-6 dark:text-dark-0"
             weight="bold"
