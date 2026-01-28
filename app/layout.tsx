@@ -12,21 +12,16 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';
 import '@mantine/tiptap/styles.css';
-import '@information-systems/auth/styles.css';
-import '@information-systems/states/styles.css';
-import '@information-systems/mantine/styles.css';
-import '@information-systems/uploader/styles.css';
-
-const APP_NAME = 'Shopping List';
-const APP_DEFAULT_TITLE = 'Shopping List';
-const APP_TITLE_TEMPLATE = '%s - Shopping List';
-const APP_DESCRIPTION = 'Create shared shopping lists';
-const DEFAULT_URL = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : 'http://localhost:3000';
+import {
+  APP_DEFAULT_TITLE,
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_TITLE_TEMPLATE,
+  BASE_URL,
+} from '@/lib/constants';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(DEFAULT_URL),
+  metadataBase: new URL(BASE_URL),
   applicationName: APP_NAME,
   manifest: '/manifest.json',
   title: {
