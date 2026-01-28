@@ -7,7 +7,7 @@ export function createServerClient<Database>(
   cookieStore: Awaited<ReturnType<typeof cookies>>
 ) {
   const supabaseUrl = getEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
-  const supabaseKey = getEnv(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+  const supabaseKey = getEnv(process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY);
 
   return originalCreateServerClient<Database>(supabaseUrl, supabaseKey, {
     cookies: {

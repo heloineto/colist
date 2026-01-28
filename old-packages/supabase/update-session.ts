@@ -7,7 +7,7 @@ export async function updateSession<Database>(request: NextRequest) {
   let response = NextResponse.next({ request: { headers: request.headers } });
 
   const supabaseUrl = getEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
-  const supabaseKey = getEnv(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+  const supabaseKey = getEnv(process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY);
 
   const supabase = createServerClient<Database>(supabaseUrl, supabaseKey, {
     cookies: {

@@ -30,12 +30,9 @@
     "@supabase/storage-js": "^2.93.2",
     "@supabase/supabase-js": "^2.91.1",
     "@tanstack/react-query": "^5.90.20",
-    "@tanstack/react-query-devtools": "^5.91.2",
     "@tiptap/extension-underline": "^3.17.1",
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
-    "@types/js-cookie": "^3.0.6",
-    "@types/negotiator": "^0.6.4",
     "@uppy/audio": "^2.1.1",
     "@uppy/core": "^4.4.3",
     "@uppy/dashboard": "^4.3.2",
@@ -52,7 +49,6 @@
     "js-cookie": "^3.0.5",
     "negotiator": "^1.0.0",
     "next": "latest",
-    "postcss-load-config": "^6.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.71.1",
@@ -62,10 +58,13 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
     "@eslint/eslintrc": "^3.3.3",
     "@types/node": "^24.10.9",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
+    "@types/js-cookie": "^3.0.6",
+    "@types/negotiator": "^0.6.4",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.4",
@@ -78,6 +77,8 @@
     "serwist": "^9.5.0",
     "supabase": "^2.72.8",
     "tailwindcss": "^4.1.18",
+    "@tanstack/react-query-devtools": "^5.91.2",
+    "postcss-load-config": "^6.0.1",
     "typescript": "^5.9.3"
   },
   "cspell": {
@@ -86,6 +87,7 @@
       "esnext",
       "formatjs",
       "geist",
+      "hocs",
       "localematcher",
       "plpgsql",
       "pooler",
@@ -95,6 +97,7 @@
       "serwist",
       "supabase",
       "tailwindcss",
+      "testid",
       "turbopack",
       "uuidv4"
     ]

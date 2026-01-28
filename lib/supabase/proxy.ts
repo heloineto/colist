@@ -1,6 +1,12 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { hasEnvVars } from '../utils';
+import {
+  DEFAULT_ROUTE,
+  LANDING_PAGE_ROUTE,
+  LOGIN_ROUTE,
+  PUBLIC_ROUTES,
+} from '../constants';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -47,15 +53,11 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  if (
-    request.nextUrl.pathname !== '/' &&
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+  const redirectRoute = getRedirectRoute(request, !!user);
+
+  if (redirectRoute) {
     const url = request.nextUrl.clone();
-    url.pathname = '/auth/login';
+    url.pathname = redirectRoute;
     return NextResponse.redirect(url);
   }
 
@@ -73,4 +75,34 @@ export async function updateSession(request: NextRequest) {
   // of sync and terminate the user's session prematurely!
 
   return supabaseResponse;
+}
+
+function getRedirectRoute(
+  request: NextRequest,
+  isAuthenticated: boolean
+): string | null {
+  if (!isAuthenticated) {
+    if (PUBLIC_ROUTES.includes(request.nextUrl.pathname)) {
+      return null;
+    }
+
+    return LOGIN_ROUTE;
+  }
+
+  // NOTE: If arrived to the landing page from a referer (Ex: Google), don't redirect
+  if (request.nextUrl.pathname === LANDING_PAGE_ROUTE) {
+    const referer = request.headers.get('referer');
+
+    if (referer) {
+      return null;
+    }
+
+    return DEFAULT_ROUTE;
+  }
+
+  if (PUBLIC_ROUTES.includes(request.nextUrl.pathname)) {
+    return DEFAULT_ROUTE;
+  }
+
+  return null;
 }
