@@ -44,7 +44,7 @@ const weights = new Map<IconWeight, ReactElement>([
   ],
 ]);
 
-export const NumberCircleTen = forwardRef<SVGSVGElement, IconProps>(
+export const NumberCircleTenIcon = forwardRef<SVGSVGElement, IconProps>(
   function NumberCircleTen(props, ref) {
     const {
       alt,

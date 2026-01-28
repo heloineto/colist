@@ -1,0 +1,31 @@
+.copyrightNotice,
+.optionsWrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.copyrightNotice {
+  flex-direction: column-reverse;
+  font-size: var(--mantine-font-size-sm);
+  margin-bottom: var(--mantine-spacing-md);
+  text-align: center;
+  margin-left: var(--mantine-spacing-xs);
+  margin-right: var(--mantine-spacing-xs);
+}
+
+.firstBullet {
+  display: none;
+}
+
+@media (min-width: 36em) {
+  .copyrightNotice {
+    flex-direction: row;
+  }
+
+  .firstBullet {
+    display: block;
+  }
+}

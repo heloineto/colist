@@ -1,0 +1,285 @@
+.uppy-Root {
+  font-family: var(--mantine-font-family);
+}
+
+.uppy-Dashboard-inner {
+  border-color: transparent;
+}
+
+.uppy-Dashboard-AddFiles-title {
+  color: var(--mantine-color-bright);
+}
+
+.uppy-Dashboard-browse {
+  color: var(--mantine-color-anchor);
+  border-color: var(--mantine-color-anchor) !important;
+}
+
+[data-uppy-drag-drop-supported='true'] .uppy-Dashboard-AddFiles,
+.uppy-Dashboard-dropFilesHereHint {
+  border-width: 2px;
+  margin: 0;
+}
+
+[data-uppy-drag-drop-supported='true'] .uppy-Dashboard-AddFiles {
+  border-color: var(--mantine-color-placeholder);
+  margin: 0;
+  height: 100%;
+}
+
+.uppy-Dashboard-dropFilesHereHint {
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  border-color: var(--mantine-primary-color-filled);
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="%23339af0" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm37.66-101.66a8,8,0,0,1-11.32,11.32L136,107.31V168a8,8,0,0,1-16,0V107.31l-18.34,18.35a8,8,0,0,1-11.32-11.32l32-32a8,8,0,0,1,11.32,0Z"></path></svg>');
+  color: var(--mantine-color-text);
+}
+
+.uppy-DashboardTab-btn {
+  color: var(--mantine-color-text);
+}
+
+.uppy-DashboardTab-btn:hover,
+.uppy-DashboardTab-btn:active,
+.uppy-DashboardTab-btn:focus {
+  background-color: var(--mantine-color-default-hover);
+}
+
+.uppy-DashboardTab {
+  border-color: var(--mantine-color-placeholder);
+}
+
+.uppy-StatusBar-progress {
+  background-color: var(--mantine-color-blue-filled);
+}
+
+.uppy-DashboardContent-bar,
+.uppy-StatusBar.is-waiting .uppy-StatusBar-actions,
+.uppy-StatusBar:not([aria-hidden='true']).is-waiting {
+  border-color: var(--mantine-color-default-border);
+}
+
+/* Default text */
+
+.uppy-Root,
+.uppy-StatusBar-content {
+  color: var(--mantine-color-text);
+}
+
+/* Dimmed text */
+
+.uppy-StatusBar-statusSecondary {
+  color: var(--mantine-color-dimmed);
+}
+
+/* Default background */
+
+.uppy-DashboardContent-bar,
+.uppy-StatusBar,
+.uppy-Dashboard-inner,
+.uppy-StatusBar:not([aria-hidden='true']).is-waiting,
+.uppy-StatusBar.is-waiting .uppy-StatusBar-actions,
+.uppy-DashboardContent-panel {
+  background-color: var(--mantine-color-default);
+}
+
+/* Mantine radius */
+
+.uppy-Dashboard-inner,
+.uppy-Dashboard-innerWrap,
+.uppy-c-btn-primary,
+.uppy-DashboardContent-back,
+.uppy-DashboardContent-save,
+[data-uppy-drag-drop-supported='true'] .uppy-Dashboard-AddFiles,
+.uppy-Dashboard-dropFilesHereHint,
+.uppy-StatusBar-actionBtn--done,
+.uppy-Dashboard-Item-action--edit {
+  border-radius: var(--mantine-radius-default);
+}
+
+/* Mantine focus */
+
+.uppy-Dashboard button:focus-visible {
+  outline: 2px solid var(--mantine-primary-color-filled);
+  outline-offset: calc(0.125rem * var(--mantine-scale));
+}
+
+.uppy-Dashboard:not(.uppy-size--md) .uppy-DashboardTab-btn:focus-visible {
+  outline-offset: calc(-0.125rem * var(--mantine-scale));
+}
+
+/* Mantine active */
+
+.uppy-c-btn-primary:active,
+.uppy-DashboardContent-back:active,
+.uppy-DashboardContent-save:active,
+.uppy-Dashboard-Item-action--edit:active,
+.uppy-StatusBar-actionBtn--done:active,
+.uppy-Dashboard-Item-action--edit:active {
+  transform: translateY(calc(0.0625rem * var(--mantine-scale)));
+}
+
+/* Buttons */
+
+.uppy-c-btn-primary {
+  background-color: var(--mantine-primary-color-filled);
+  color: var(--mantine-color-white);
+  font-weight: 600;
+}
+
+.uppy-c-btn-primary:focus {
+  box-shadow: none;
+}
+
+/* Filled buttons */
+
+.uppy-StatusBar-actionBtn--upload,
+.uppy-StatusBar-actionBtn--done,
+.uppy-StatusBar-actionBtn--done:focus,
+.uppy-DashboardContent-save,
+.uppy-DashboardContent-save:focus {
+  background-color: var(--mantine-primary-color-filled);
+  color: var(--mantine-color-bright);
+}
+
+.uppy-StatusBar-actionBtn--upload:hover,
+.uppy-StatusBar-actionBtn--done:hover,
+.uppy-DashboardContent-save:hover {
+  background-color: var(--mantine-primary-color-filled-hover);
+  color: var(--mantine-color-bright);
+}
+
+.uppy-StatusBar-actionBtn--done {
+  padding: 0 var(--mantine-spacing-sm);
+  height: 30px;
+  font-weight: 600;
+  font-size: var(--mantine-font-size-xs);
+}
+
+/* buttons - subtle */
+
+.uppy-DashboardContent-back,
+.uppy-DashboardContent-back:focus {
+  background-color: transparent;
+  font-weight: 600;
+}
+
+/* buttons - subtle - red */
+
+.uppy-DashboardContent-back {
+  color: var(--mantine-color-red-light-color);
+}
+
+.uppy-DashboardContent-back:hover {
+  color: var(--mantine-color-red-light-color);
+  background-color: var(--mantine-color-red-light-hover);
+}
+
+/* buttons - light */
+
+.uppy-Dashboard-Item-action--edit {
+  font-weight: 600;
+}
+
+/* buttons - light - primary */
+
+.uppy-Dashboard-Item-action--edit,
+.uppy-Dashboard-Item-action--edit:focus {
+  color: var(--mantine-primary-color-light-color);
+  background-color: var(--mantine-primary-color-light);
+}
+
+.uppy-Dashboard-Item-action--edit:hover {
+  color: var(--mantine-primary-color-light-color);
+  background-color: var(--mantine-primary-color-light-hover);
+}
+
+.uppy-Dashboard-Item-action--edit:focus {
+  box-shadow: none;
+}
+
+.uppy-size--md .uppy-Dashboard-Item-action--edit {
+  height: 28px;
+  width: 28px;
+}
+
+.uppy-size--md .uppy-Dashboard-Item-action--edit > svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Light Buttons */
+
+.uppy-size--md .uppy-DashboardTab-btn {
+  width: 7rem;
+}
+
+.uppy-size--md .uppy-Dashboard-AddFiles-list,
+.uppy-size--md [role='presentation'] {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+}
+
+.uppy-DashboardTab-btn .uppy-DashboardTab-name {
+  font-weight: 600;
+}
+
+.uppy-size--md [data-uppy-acquirer-id='MyDevice'] .uppy-DashboardTab-btn {
+  background-color: var(--mantine-color-blue-light);
+  color: var(--mantine-color-blue-light-color);
+}
+
+.uppy-size--md [data-uppy-acquirer-id='MyDevice'] .uppy-DashboardTab-btn:hover {
+  background-color: var(--mantine-color-blue-light-hover);
+}
+
+.uppy-DashboardTab-inner {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+[data-uppy-acquirer-id='MyDevice'] path {
+  fill: var(--mantine-color-blue-light-color);
+  d: path(
+    'M30.625 13.83C30.4394 13.5727 30.1952 13.3632 29.9127 13.2189C29.6301 13.0746 29.3173 12.9995 29 13H27V11C27 10.4696 26.7893 9.96086 26.4142 9.58579C26.0391 9.21071 25.5304 9 25 9H16.3337L12.8675 6.4C12.5207 6.14148 12.1 6.00125 11.6675 6H5C4.46957 6 3.96086 6.21071 3.58579 6.58579C3.21071 6.96086 3 7.46957 3 8V26C3 26.2652 3.10536 26.5196 3.29289 26.7071C3.48043 26.8946 3.73478 27 4 27H26.3875C26.5974 27 26.802 26.934 26.9722 26.8113C27.1425 26.6886 27.2699 26.5154 27.3363 26.3162L30.8975 15.6325C30.9976 15.3319 31.0252 15.0118 30.9778 14.6985C30.9304 14.3852 30.8095 14.0876 30.625 13.83ZM11.6675 8L15.4 10.8C15.5731 10.9298 15.7836 11 16 11H25V13H8.72125C8.30147 13 7.89232 13.132 7.55176 13.3775C7.2112 13.6229 6.95651 13.9693 6.82375 14.3675L5 19.8375V8H11.6675ZM25.6675 25H5.3875L8.72125 15H29L25.6675 25Z'
+  );
+}
+
+.uppy-size--md [data-uppy-acquirer-id='Webcam'] .uppy-DashboardTab-btn {
+  background-color: var(--mantine-color-teal-light);
+  color: var(--mantine-color-teal-light-color);
+}
+
+.uppy-size--md [data-uppy-acquirer-id='Webcam'] .uppy-DashboardTab-btn:hover {
+  background-color: var(--mantine-color-teal-light-hover);
+}
+
+[data-uppy-acquirer-id='Webcam'] path {
+  fill: var(--mantine-color-teal-light-color);
+  d: path(
+    'M26 7H22.535L20.8312 4.445C20.74 4.30819 20.6164 4.196 20.4714 4.11838C20.3264 4.04076 20.1645 4.0001 20 4H12C11.8355 4.0001 11.6736 4.04076 11.5286 4.11838C11.3836 4.196 11.26 4.30819 11.1687 4.445L9.46375 7H6C5.20435 7 4.44129 7.31607 3.87868 7.87868C3.31607 8.44129 3 9.20435 3 10V24C3 24.7956 3.31607 25.5587 3.87868 26.1213C4.44129 26.6839 5.20435 27 6 27H26C26.7956 27 27.5587 26.6839 28.1213 26.1213C28.6839 25.5587 29 24.7956 29 24V10C29 9.20435 28.6839 8.44129 28.1213 7.87868C27.5587 7.31607 26.7956 7 26 7ZM27 24C27 24.2652 26.8946 24.5196 26.7071 24.7071C26.5196 24.8946 26.2652 25 26 25H6C5.73478 25 5.48043 24.8946 5.29289 24.7071C5.10536 24.5196 5 24.2652 5 24V10C5 9.73478 5.10536 9.48043 5.29289 9.29289C5.48043 9.10536 5.73478 9 6 9H10C10.1647 9.00011 10.3268 8.95954 10.4721 8.88191C10.6173 8.80428 10.7411 8.69199 10.8325 8.555L12.535 6H19.4638L21.1675 8.555C21.2589 8.69199 21.3827 8.80428 21.5279 8.88191C21.6732 8.95954 21.8353 9.00011 22 9H26C26.2652 9 26.5196 9.10536 26.7071 9.29289C26.8946 9.48043 27 9.73478 27 10V24ZM16 11C14.9122 11 13.8488 11.3226 12.9444 11.9269C12.0399 12.5313 11.3349 13.3902 10.9187 14.3952C10.5024 15.4002 10.3935 16.5061 10.6057 17.573C10.8179 18.6399 11.3417 19.6199 12.1109 20.3891C12.8801 21.1583 13.8601 21.6821 14.927 21.8943C15.9939 22.1065 17.0998 21.9976 18.1048 21.5813C19.1098 21.1651 19.9687 20.4601 20.5731 19.5556C21.1774 18.6512 21.5 17.5878 21.5 16.5C21.4983 15.0418 20.9184 13.6438 19.8873 12.6127C18.8562 11.5816 17.4582 11.0017 16 11ZM16 20C15.3078 20 14.6311 19.7947 14.0555 19.4101C13.4799 19.0256 13.0313 18.4789 12.7664 17.8394C12.5015 17.1999 12.4322 16.4961 12.5673 15.8172C12.7023 15.1382 13.0356 14.5146 13.5251 14.0251C14.0146 13.5356 14.6382 13.2023 15.3172 13.0673C15.9961 12.9322 16.6999 13.0015 17.3394 13.2664C17.9789 13.5313 18.5256 13.9799 18.9101 14.5555C19.2947 15.1311 19.5 15.8078 19.5 16.5C19.5 17.4283 19.1313 18.3185 18.4749 18.9749C17.8185 19.6313 16.9283 20 16 20Z'
+  );
+}
+
+.uppy-size--md [data-uppy-acquirer-id='Audio'] .uppy-DashboardTab-btn {
+  background-color: var(--mantine-color-grape-light);
+  color: var(--mantine-color-grape-light-color);
+}
+
+.uppy-size--md [data-uppy-acquirer-id='Audio'] .uppy-DashboardTab-btn:hover {
+  background-color: var(--mantine-color-grape-light-hover);
+}
+
+[data-uppy-acquirer-id='Audio'] path {
+  fill: var(--mantine-color-grape-light-color);
+  d: path(
+    'M16 22C17.5908 21.9983 19.116 21.3657 20.2408 20.2408C21.3657 19.116 21.9983 17.5908 22 16V8C22 6.4087 21.3679 4.88258 20.2426 3.75736C19.1174 2.63214 17.5913 2 16 2C14.4087 2 12.8826 2.63214 11.7574 3.75736C10.6321 4.88258 10 6.4087 10 8V16C10.0017 17.5908 10.6343 19.116 11.7592 20.2408C12.884 21.3657 14.4092 21.9983 16 22ZM12 8C12 6.93913 12.4214 5.92172 13.1716 5.17157C13.9217 4.42143 14.9391 4 16 4C17.0609 4 18.0783 4.42143 18.8284 5.17157C19.5786 5.92172 20 6.93913 20 8V16C20 17.0609 19.5786 18.0783 18.8284 18.8284C18.0783 19.5786 17.0609 20 16 20C14.9391 20 13.9217 19.5786 13.1716 18.8284C12.4214 18.0783 12 17.0609 12 16V8ZM17 25.95V30C17 30.2652 16.8946 30.5196 16.7071 30.7071C16.5196 30.8946 16.2652 31 16 31C15.7348 31 15.4804 30.8946 15.2929 30.7071C15.1054 30.5196 15 30.2652 15 30V25.95C12.5346 25.6991 10.2497 24.543 8.5873 22.7051C6.9249 20.8672 6.00305 18.4782 6 16C6 15.7348 6.10536 15.4804 6.29289 15.2929C6.48043 15.1054 6.73478 15 7 15C7.26522 15 7.51957 15.1054 7.70711 15.2929C7.89464 15.4804 8 15.7348 8 16C8 18.1217 8.84285 20.1566 10.3431 21.6569C11.8434 23.1571 13.8783 24 16 24C18.1217 24 20.1566 23.1571 21.6569 21.6569C23.1571 20.1566 24 18.1217 24 16C24 15.7348 24.1054 15.4804 24.2929 15.2929C24.4804 15.1054 24.7348 15 25 15C25.2652 15 25.5196 15.1054 25.7071 15.2929C25.8946 15.4804 26 15.7348 26 16C25.997 18.4782 25.0751 20.8672 23.4127 22.7051C21.7503 24.543 19.4654 25.6991 17 25.95Z'
+  );
+}
+
+.uppy-Dashboard-innerWrap:not(:has(.uppy-Dashboard-AddFiles)),
+.uppy-Dashboard-innerWrap:has(.uppy-DashboardContent-panel) {
+  border: 1px solid var(--mantine-color-default-border);
+}

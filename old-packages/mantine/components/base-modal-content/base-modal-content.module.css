@@ -1,0 +1,72 @@
+:global(.mantine-Modal-body):has(> .root) {
+  padding: var(--mantine-spacing-md);
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-md);
+}
+
+.body {
+  display: flex;
+  gap: var(--mantine-spacing-md);
+}
+
+.iconWrapper {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--mantine-color-gray-light);
+  color: var(--mantine-color-gray-light-color);
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: end;
+  gap: var(--mantine-spacing-md);
+}
+
+@media (max-width: 26em) {
+  .root {
+    gap: var(--mantine-spacing-lg);
+  }
+
+  .body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: var(--mantine-spacing-md);
+    right: var(--mantine-spacing-md);
+  }
+
+  .buttons {
+    flex-direction: column;
+    justify-content: start;
+    gap: var(--mantine-spacing-xs);
+  }
+
+  .textWrapper {
+    text-align: center;
+  }
+
+  .iconWrapper {
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+  }
+}

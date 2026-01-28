@@ -1,29 +1,29 @@
 import type { RatingProps } from '@mantine/core';
 import { Rating, Text } from '@mantine/core';
 import {
-  NumberCircleEight,
-  NumberCircleFive,
-  NumberCircleFour,
-  NumberCircleNine,
-  NumberCircleOne,
-  NumberCircleSeven,
-  NumberCircleSix,
-  NumberCircleThree,
-  NumberCircleTwo,
+  NumberCircleEightIcon,
+  NumberCircleFiveIcon,
+  NumberCircleFourIcon,
+  NumberCircleNineIcon,
+  NumberCircleOneIcon,
+  NumberCircleSevenIcon,
+  NumberCircleSixIcon,
+  NumberCircleThreeIcon,
+  NumberCircleTwoIcon,
 } from '@phosphor-icons/react/dist/ssr';
-import { NumberCircleTen } from './number-circle-ten';
+import { NumberCircleTenIcon } from './number-circle-ten';
 
 const indexToIcon = {
-  1: { icon: NumberCircleOne, color: 'red' },
-  2: { icon: NumberCircleTwo, color: 'red' },
-  3: { icon: NumberCircleThree, color: 'orange' },
-  4: { icon: NumberCircleFour, color: 'orange' },
-  5: { icon: NumberCircleFive, color: 'yellow' },
-  6: { icon: NumberCircleSix, color: 'yellow' },
-  7: { icon: NumberCircleSeven, color: 'lime' },
-  8: { icon: NumberCircleEight, color: 'lime' },
-  9: { icon: NumberCircleNine, color: 'green' },
-  10: { icon: NumberCircleTen, color: 'green' },
+  1: { icon: NumberCircleOneIcon, color: 'red' },
+  2: { icon: NumberCircleTwoIcon, color: 'red' },
+  3: { icon: NumberCircleThreeIcon, color: 'orange' },
+  4: { icon: NumberCircleFourIcon, color: 'orange' },
+  5: { icon: NumberCircleFiveIcon, color: 'yellow' },
+  6: { icon: NumberCircleSixIcon, color: 'yellow' },
+  7: { icon: NumberCircleSevenIcon, color: 'lime' },
+  8: { icon: NumberCircleEightIcon, color: 'lime' },
+  9: { icon: NumberCircleNineIcon, color: 'green' },
+  10: { icon: NumberCircleTenIcon, color: 'green' },
 };
 
 const getEmptyIcon = (value: number) => {

@@ -1,0 +1,65 @@
+.avatarState {
+  --avatar-size-xs: 16px;
+  --avatar-size-sm: 26px;
+  --avatar-size-md: 38px;
+  --avatar-size-lg: 56px;
+  --avatar-size-xl: 84px;
+
+  --avatar-size: var(--avatar-size-md);
+  --avatar-radius: 1000px;
+
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  overflow: hidden;
+  border-radius: var(--avatar-radius);
+  text-decoration: none;
+  padding: 0;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  min-width: var(--avatar-size);
+
+  &:where([data-within-group]) {
+    margin-inline-start: var(--ag-offset);
+    border: 2px solid var(--mantine-color-body);
+    background: var(--mantine-color-body);
+  }
+
+  &[data-state='error'] {
+    background-color: var(--mantine-color-red-light);
+    color: var(--mantine-color-red-light-color);
+    padding-bottom: 0.25rem;
+  }
+}
+
+.menu {
+  & :global(.mantine-Menu-itemSection) {
+    font-size: 1rem;
+  }
+}
+
+.menuButton {
+  background-color: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 0;
+}
+
+.inlineWrapper {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  align-items: center;
+
+  & :global(.mantine-Button-section) {
+    font-size: 1.125rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xs);
+}

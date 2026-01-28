@@ -1,1 +1,1 @@
-export * from './modal-header.tsx';
+export * from './modal-header';

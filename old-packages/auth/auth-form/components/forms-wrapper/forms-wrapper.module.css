@@ -1,0 +1,114 @@
+:root {
+  --auth-form-padding: 25px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formSelector {
+  display: flex;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+  transform: translateX(calc(-100vw * var(--auth-form-index)));
+  gap: calc(var(--auth-form-padding) * 2);
+}
+
+.rememberWrapper {
+  display: flex;
+  margin-top: 0.375rem;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-xs);
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.formTitle {
+  font-size: var(--mantine-h2-font-size);
+  line-height: var(--mantine-h2-line-height);
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.formSubtitle {
+  color: var(--mantine-color-text-dimmed);
+  font-size: var(--mantine-font-size-sm);
+  line-height: var(--mantine-line-height-sm);
+  text-align: center;
+  margin-top: 0.3125rem;
+}
+
+.resetPasswordWrapper {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-sm);
+}
+
+.resetPasswordAnchor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.paper {
+  transition-property: height;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+  overflow: hidden;
+  padding: var(--auth-form-padding);
+  height: calc(var(--auth-form-height) + var(--auth-form-padding) * 2);
+  width: 100vw;
+  min-width: 100vw;
+}
+
+@media (min-width: 576px) {
+  .formWrapper {
+    gap: var(--mantine-spacing-lg);
+  }
+
+  .paper {
+    width: calc(var(--auth-form-width) + var(--auth-form-padding) * 2);
+    min-width: unset;
+  }
+
+  .formSelector {
+    transform: translateX(
+      calc((-100% - var(--auth-form-padding) * 2) * var(--auth-form-index))
+    );
+  }
+}
+
+@media (max-width: 576px) {
+  .paper {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .formWrapper {
+    width: 100vw;
+    min-width: 100vw;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .form {
+    width: calc(100vw - var(--auth-form-padding) * 2) !important;
+    min-width: calc(100vw - var(--auth-form-padding) * 2) !important;
+  }
+}

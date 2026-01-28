@@ -1,0 +1,37 @@
+.checkIcon {
+  opacity: 0.4;
+  width: 0.8em;
+  min-width: 0.8em;
+  height: 0.8em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: rem(8px);
+}
+
+.groupLabel {
+  padding: var(--combobox-option-padding);
+  font-size: var(--combobox-option-fz, var(--mantine-font-size-sm));
+  border-radius: var(--mantine-radius-default);
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  word-break: break-word;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.groupLabel:hover {
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-7)
+  );
+}

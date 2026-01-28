@@ -1,0 +1,36 @@
+.authForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100dvh;
+
+  @mixin where-light {
+    background-color: var(--mantine-color-gray-0);
+  }
+
+  @mixin where-dark {
+    background-color: var(--mantine-color-dark-9);
+  }
+}
+
+.container {
+  display: flex;
+  margin-bottom: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.alert {
+  width: calc(100% - (2 * var(--auth-form-padding)));
+  margin: 0 var(--auth-form-padding);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+}
+
+@media (min-width: 36em) {
+  .alert {
+    width: 100%;
+    margin-top: var(--mantine-spacing-xs);
+  }
+}

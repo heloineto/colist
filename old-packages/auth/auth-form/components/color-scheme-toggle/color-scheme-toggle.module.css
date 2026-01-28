@@ -1,0 +1,18 @@
+.colorSchemeToggle {
+  font-size: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.lightHidden {
+  @mixin where-light {
+    display: none;
+  }
+}
+
+.darkHidden {
+  @mixin where-dark {
+    display: none;
+  }
+}
