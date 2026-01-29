@@ -21,7 +21,7 @@ import {
   useItemFormProvider,
 } from './_utils/item-form-context';
 import { ListProvider } from './_utils/list-context';
-import { AuthProvider } from '@/contexts/auth-context';
+import { AuthProvider } from '@/app/contexts/auth-context';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import {
   PROFILES_COLUMNS,

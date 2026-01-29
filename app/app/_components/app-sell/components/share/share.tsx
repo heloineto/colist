@@ -21,7 +21,7 @@ import {
   MEMBERS_COLUMNS,
   MEMBERS_TABLE,
 } from '@/deprecated/utils/queries/members';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/app/contexts/auth-context';
 import { getProfilePicture } from '@/deprecated/utils/supabase/get-profile-picture';
 import { LISTS_TABLE } from '@/deprecated/utils/queries/lists';
 

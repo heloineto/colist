@@ -26,7 +26,7 @@ import {
   Tooltip,
 } from '@mantine/core';
 import { useCookie } from '@/deprecated/hooks/use-cookie';
-import { PrimaryColorProvider } from '@/contexts/primary-color-context';
+import { PrimaryColorProvider } from '@/app/contexts/primary-color-context';
 import { FeedbackContextModal } from '@/components/feedback-modal/components/feedback-context-modal';
 import { Notifications } from '@/components/notifications';
 import { geistMono, geistSans } from './fonts';

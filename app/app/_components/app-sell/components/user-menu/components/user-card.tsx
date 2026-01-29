@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 import { NotePencil } from '@phosphor-icons/react/dist/ssr';
 import { useUpdateMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { ProfileForm } from './profile-form';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/app/contexts/auth-context';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import {
   PROFILES_COLUMNS,

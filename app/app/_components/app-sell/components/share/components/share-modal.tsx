@@ -8,7 +8,7 @@ import { ShareForm } from './share-form';
 import type { List } from '@/deprecated/utils/queries/lists';
 import { ModalHeader } from '@/components/modal-header';
 import type { Member as MemberType } from '@/deprecated/utils/queries/members';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/app/contexts/auth-context';
 
 interface Props extends ModalProps {
   list: List;

@@ -7,7 +7,7 @@ import { ColorThemeToggle } from './components/color-theme-toggle';
 import { LanguageSelect } from './components/language-select';
 import { SignOutButton } from './components/sign-out-button';
 import { PrimaryColorSelect } from './components/primary-color-select';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/app/contexts/auth-context';
 import { getProfilePicture } from '@/deprecated/utils/supabase/get-profile-picture';
 
 export function UserMenu() {

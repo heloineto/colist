@@ -12,7 +12,7 @@ import {
 } from '@/deprecated/utils/queries/lists';
 import { useCookie } from '@/deprecated/hooks/use-cookie';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/app/contexts/auth-context';
 
 interface ListContext {
   listId: number | null;

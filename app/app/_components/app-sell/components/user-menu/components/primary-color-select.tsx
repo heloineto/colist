@@ -1,5 +1,5 @@
 import { ColorSelect } from '@/deprecated/packages/mantine';
-import { usePrimaryColor } from '@/contexts/primary-color-context';
+import { usePrimaryColor } from '@/app/contexts/primary-color-context';
 
 export function PrimaryColorSelect() {
   const { primaryColor, setPrimaryColor } = usePrimaryColor();
