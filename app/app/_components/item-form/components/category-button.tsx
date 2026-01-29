@@ -1,5 +1,5 @@
-import { useDisclosure } from '@information-systems/mantine';
-import { useTranslation } from '@information-systems/translations';
+import { useDisclosure } from '@/deprecated/packages/mantine';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Modal, Tooltip } from '@mantine/core';
 import { Tag } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
@@ -9,8 +9,8 @@ import { useItemForm } from '@/app/app/_utils/item-form-context';
 import {
   CATEGORIES_COLUMNS,
   CATEGORIES_TABLE,
-} from '@/utils/queries/categories';
-import { supabase } from '@/utils/supabase/create-browser-client';
+} from '@/deprecated/utils/queries/categories';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 
 export function CategoryButton() {
   const { t } = useTranslation();

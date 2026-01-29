@@ -1,14 +1,14 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon } from '@mantine/core';
 import { Plus } from '@phosphor-icons/react/dist/ssr';
 import { useMutation } from '@tanstack/react-query';
 import { showNotification } from '@mantine/notifications';
 import { modals } from '@mantine/modals';
-import { TextInput } from 'mantine-hook-form';
+import { TextInput } from '@/deprecated/packages/mantine-hook-form';
 import { useMemberForm } from '../contexts/member-form-context';
 import { ProfileModalContent } from './profile-modal-content';
-import type { Member as MemberType } from '@/utils/queries/members';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import type { Member as MemberType } from '@/deprecated/utils/queries/members';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { useListContext } from '@/app/app/_utils/list-context';
 
 interface Props {

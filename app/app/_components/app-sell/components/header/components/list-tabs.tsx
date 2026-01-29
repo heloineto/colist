@@ -1,7 +1,7 @@
 import { ScrollArea, Skeleton, Tabs, TabsList, TabsTab } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Plus } from '@phosphor-icons/react/dist/ssr';
-import { QueryBoundary } from '@information-systems/states';
+import { QueryBoundary } from '@/deprecated/packages/states';
 import { useEffect } from 'react';
 import { LIST_TABS_HEIGHT } from '../../../utils/constants';
 import { UncheckedItemsIndicator } from './unchecked-items-indicator';

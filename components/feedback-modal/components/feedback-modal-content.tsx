@@ -1,5 +1,5 @@
-import type { TFunction } from '@information-systems/translations';
-import { useTranslation } from '@information-systems/translations';
+import type { TFunction } from '@/deprecated/packages/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { SegmentedControl, type SegmentedControlProps } from '@mantine/core';
 import { BugBeetle, ChatCircle } from '@phosphor-icons/react/dist/ssr';
 import type { CSSProperties, ReactNode } from 'react';

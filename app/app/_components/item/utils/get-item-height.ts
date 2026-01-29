@@ -1,4 +1,4 @@
-import type { Item } from '@/utils/queries/items';
+import type { Item } from '@/deprecated/utils/queries/items';
 
 export function getItemHeight(item: Item) {
   if (item.details) {

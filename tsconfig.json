@@ -17,9 +17,7 @@
     "types": ["@serwist/next/typings"],
     "plugins": [{ "name": "next" }],
     "paths": {
-      "@/*": ["./*"],
-      "@information-systems/*": ["./old-packages/*"],
-      "mantine-hook-form": ["./old-packages/mantine-hook-form"]
+      "@/*": ["./*"]
     }
   },
   "include": [

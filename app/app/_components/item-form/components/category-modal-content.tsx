@@ -1,18 +1,18 @@
 import { useQuery } from '@supabase-cache-helpers/postgrest-react-query';
-import { ErrorState } from '@information-systems/states';
-import { useTranslation } from '@information-systems/translations';
+import { ErrorState } from '@/deprecated/packages/states';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Tag } from '@phosphor-icons/react/dist/ssr';
 import { Divider, ScrollAreaAutosize, TextInput } from '@mantine/core';
 import { useRef, useState } from 'react';
 import { useDebouncedValue } from '@mantine/hooks';
 import { keepPreviousData } from '@tanstack/react-query';
-import type { Disclosure } from '@information-systems/mantine';
+import type { Disclosure } from '@/deprecated/packages/mantine';
 import { CategoryRadioGroup } from './category-radio-group';
 import {
   CATEGORIES_COLUMNS,
   CATEGORIES_TABLE,
-} from '@/utils/queries/categories';
-import { supabase } from '@/utils/supabase/create-browser-client';
+} from '@/deprecated/utils/queries/categories';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { useListContext } from '@/app/app/_utils/list-context';
 import { ModalHeader } from '@/components/modal-header';
 

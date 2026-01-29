@@ -1,8 +1,8 @@
-import { useDisclosure } from '@information-systems/mantine';
-import { useTranslation } from '@information-systems/translations';
+import { useDisclosure } from '@/deprecated/packages/mantine';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Drawer, Modal, Tooltip, NavLink } from '@mantine/core';
 import { ClockCounterClockwise } from '@phosphor-icons/react/dist/ssr';
-import { EmptyState } from '@information-systems/states';
+import { EmptyState } from '@/deprecated/packages/states';
 
 interface Props {
   mode?: 'nav' | 'footer';

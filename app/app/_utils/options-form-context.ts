@@ -1,4 +1,4 @@
-import { createFormContext } from '@information-systems/mantine';
+import { createFormContext } from '@/deprecated/packages/mantine';
 
 export const optionsInitialValues = {
   orderBy: 'name',

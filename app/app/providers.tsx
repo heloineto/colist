@@ -3,7 +3,7 @@
 import { useEffect, type ReactNode } from 'react';
 import cookies from 'js-cookie';
 import { useWatch } from 'react-hook-form';
-import { useSessionQuery, useUserQuery } from '@information-systems/mantine';
+import { useSessionQuery, useUserQuery } from '@/deprecated/packages/mantine';
 import { useQuery } from '@supabase-cache-helpers/postgrest-react-query';
 import type { OptionsFieldValues } from './_utils/options-form-context';
 import {
@@ -22,8 +22,11 @@ import {
 } from './_utils/item-form-context';
 import { ListProvider } from './_utils/list-context';
 import { AuthProvider } from '@/contexts/auth-context';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import { PROFILES_COLUMNS, PROFILES_TABLE } from '@/utils/queries/profiles';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import {
+  PROFILES_COLUMNS,
+  PROFILES_TABLE,
+} from '@/deprecated/utils/queries/profiles';
 
 interface Props {
   children: ReactNode;

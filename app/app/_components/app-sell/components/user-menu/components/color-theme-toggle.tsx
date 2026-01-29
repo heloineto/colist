@@ -1,4 +1,4 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import {
   SegmentedControl,
   useComputedColorScheme,

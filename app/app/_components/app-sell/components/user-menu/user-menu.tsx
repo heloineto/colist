@@ -1,14 +1,14 @@
 import { Avatar, Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { QueryBoundary } from '@information-systems/states';
-import { AvatarError, AvatarLoading } from '@information-systems/uploader';
+import { QueryBoundary } from '@/deprecated/packages/states';
+import { AvatarError, AvatarLoading } from '@/deprecated/packages/uploader';
 import { UserCard } from './components/user-card';
 import { ColorThemeToggle } from './components/color-theme-toggle';
 import { LanguageSelect } from './components/language-select';
 import { SignOutButton } from './components/sign-out-button';
 import { PrimaryColorSelect } from './components/primary-color-select';
 import { useAuth } from '@/contexts/auth-context';
-import { getProfilePicture } from '@/utils/supabase/get-profile-picture';
+import { getProfilePicture } from '@/deprecated/utils/supabase/get-profile-picture';
 
 export function UserMenu() {
   const [opened, { close, open }] = useDisclosure();

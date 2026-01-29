@@ -1,4 +1,4 @@
-import { createFormContext } from '@information-systems/mantine';
+import { createFormContext } from '@/deprecated/packages/mantine';
 import { object, string } from 'zod';
 
 export const memberDefaultValues = {

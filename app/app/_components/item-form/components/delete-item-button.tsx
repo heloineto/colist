@@ -1,10 +1,10 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Button } from '@mantine/core';
 import { useDeleteMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { useWatch } from 'react-hook-form';
-import { openDeleteModal } from '@information-systems/mantine';
-import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/utils/queries/items';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import { openDeleteModal } from '@/deprecated/packages/mantine';
+import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/deprecated/utils/queries/items';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 
 export function DeleteItemButton() {

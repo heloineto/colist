@@ -1,5 +1,5 @@
-import { SelectList as OriginalSelectList } from '@information-systems/mantine';
-import { useTranslation } from '@information-systems/translations';
+import { SelectList as OriginalSelectList } from '@/deprecated/packages/mantine';
+import { useTranslation } from '@/deprecated/packages/translations';
 import {
   ActionIcon,
   Divider,
@@ -13,7 +13,7 @@ import {
 import { ArrowsDownUp, Shapes } from '@phosphor-icons/react/dist/ssr';
 import { useUncontrolled } from '@mantine/hooks';
 import { useMemo } from 'react';
-import { withController } from 'mantine-hook-form';
+import { withController } from '@/deprecated/packages/mantine-hook-form';
 import { useOptionsForm } from '@/app/app/_utils/options-form-context';
 
 const SelectList = withController(OriginalSelectList);

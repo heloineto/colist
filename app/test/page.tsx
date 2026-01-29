@@ -1,6 +1,6 @@
 'use client';
 
-import { CollapsibleNavbar } from '@information-systems/mantine';
+import { CollapsibleNavbar } from '@/deprecated/packages/mantine';
 import { NavLink } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 

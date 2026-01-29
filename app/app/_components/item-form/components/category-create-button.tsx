@@ -1,15 +1,15 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Button } from '@mantine/core';
 import { useInsertMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { Plus } from '@phosphor-icons/react/dist/ssr';
 import { showNotification } from '@mantine/notifications';
-import type { Disclosure } from '@information-systems/mantine';
+import type { Disclosure } from '@/deprecated/packages/mantine';
 import { useListContext } from '@/app/app/_utils/list-context';
 import {
   CATEGORIES_COLUMNS,
   CATEGORIES_TABLE,
-} from '@/utils/queries/categories';
-import { supabase } from '@/utils/supabase/create-browser-client';
+} from '@/deprecated/utils/queries/categories';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 
 interface Props {

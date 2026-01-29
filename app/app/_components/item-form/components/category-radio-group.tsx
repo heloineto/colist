@@ -2,23 +2,23 @@ import {
   useDeleteMutation,
   type UseQuerySingleReturn,
 } from '@supabase-cache-helpers/postgrest-react-query';
-import { QueryBoundary } from '@information-systems/states';
-import { useTranslation } from '@information-systems/translations';
+import { QueryBoundary } from '@/deprecated/packages/states';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Plus, Tag, Trash } from '@phosphor-icons/react/dist/ssr';
 import { ActionIcon, Button, Highlight, Radio, Skeleton } from '@mantine/core';
-import type { Disclosure } from '@information-systems/mantine';
+import type { Disclosure } from '@/deprecated/packages/mantine';
 import type { RefObject } from 'react';
-import { openDeleteModal } from '@information-systems/mantine';
-import { RadioGroup } from 'mantine-hook-form';
+import { openDeleteModal } from '@/deprecated/packages/mantine';
+import { RadioGroup } from '@/deprecated/packages/mantine-hook-form';
 import { CategoryCreateButton } from './category-create-button';
 import {
   CATEGORIES_COLUMNS,
   CATEGORIES_TABLE,
   type Category,
-} from '@/utils/queries/categories';
+} from '@/deprecated/utils/queries/categories';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
-import { random } from '@/utils/other/random';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import { random } from '@/deprecated/utils/other/random';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 
 interface Props {
   query: UseQuerySingleReturn<Category[]>;

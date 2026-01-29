@@ -1,14 +1,17 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Avatar, Button } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useInsertMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { showNotification } from '@mantine/notifications';
 import { getColor } from '../utils/get-color';
 import { getInitials } from '../utils/get-initials';
-import { MEMBERS_COLUMNS, MEMBERS_TABLE } from '@/utils/queries/members';
-import { getProfilePicture } from '@/utils/supabase/get-profile-picture';
-import type { Profile } from '@/utils/queries/profiles';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import {
+  MEMBERS_COLUMNS,
+  MEMBERS_TABLE,
+} from '@/deprecated/utils/queries/members';
+import { getProfilePicture } from '@/deprecated/utils/supabase/get-profile-picture';
+import type { Profile } from '@/deprecated/utils/queries/profiles';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 
 export interface Props {
   listId: number;

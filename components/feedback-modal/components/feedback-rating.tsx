@@ -1,7 +1,7 @@
 import {
   useTranslation,
   type TFunction,
-} from '@information-systems/translations';
+} from '@/deprecated/packages/translations';
 import { InputError, Rating } from '@mantine/core';
 import clsx from 'clsx';
 import { useMemo } from 'react';
@@ -26,8 +26,9 @@ function getLabel(value: number | null, t: TFunction) {
   return labels[value - 1];
 }
 
-export interface FeedbackRatingProps<T extends FieldValues>
-  extends UseControllerProps<T> {
+export interface FeedbackRatingProps<
+  T extends FieldValues,
+> extends UseControllerProps<T> {
   className?: string;
 }
 

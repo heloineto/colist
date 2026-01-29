@@ -1,4 +1,4 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip } from '@mantine/core';
 import { ListPlus } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';

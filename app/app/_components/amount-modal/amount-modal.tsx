@@ -1,4 +1,4 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import type { NumberInputHandlers, NumberInputProps } from '@mantine/core';
 import { ActionIcon, Divider, Modal, NumberInput } from '@mantine/core';
 import { Hash, Minus, Plus } from '@phosphor-icons/react/dist/ssr';

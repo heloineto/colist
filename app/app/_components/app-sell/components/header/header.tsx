@@ -1,6 +1,6 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import dynamic from 'next/dynamic';
-import { AvatarLoading } from '@information-systems/uploader';
+import { AvatarLoading } from '@/deprecated/packages/uploader';
 import { Badge } from '@mantine/core';
 import { ShareButton } from '../share/components/share-button';
 import { UPPER_HEADER_HEIGHT } from '../../utils/constants';

@@ -1,20 +1,26 @@
 import { Button } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
-import { AvatarLoading } from '@information-systems/uploader';
+import { useTranslation } from '@/deprecated/packages/translations';
+import { AvatarLoading } from '@/deprecated/packages/uploader';
 import { useUpdateMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { useForm } from 'react-hook-form';
 import type { ReactNode } from 'react';
 import { lazy, Suspense } from 'react';
-import type { AvatarInputProps } from '@information-systems/uploader';
-import { getNoName } from '@information-systems/states';
-import { TextInput, withController } from 'mantine-hook-form';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import type { Profile } from '@/utils/queries/profiles';
-import { PROFILES_COLUMNS, PROFILES_TABLE } from '@/utils/queries/profiles';
-import { MEMBERS_TABLE } from '@/utils/queries/members';
+import type { AvatarInputProps } from '@/deprecated/packages/uploader';
+import { getNoName } from '@/deprecated/packages/states';
+import {
+  TextInput,
+  withController,
+} from '@/deprecated/packages/mantine-hook-form';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import type { Profile } from '@/deprecated/utils/queries/profiles';
+import {
+  PROFILES_COLUMNS,
+  PROFILES_TABLE,
+} from '@/deprecated/utils/queries/profiles';
+import { MEMBERS_TABLE } from '@/deprecated/utils/queries/members';
 
 const OriginalAvatarInput = lazy(() =>
-  import('@information-systems/uploader').then((mod) => ({
+  import('@/deprecated/packages/uploader').then((mod) => ({
     default: mod.AvatarInput,
   }))
 ) as unknown as (props: AvatarInputProps) => ReactNode;

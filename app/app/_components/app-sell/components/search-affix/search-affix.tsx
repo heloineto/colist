@@ -1,8 +1,8 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Affix, Button, Transition, FocusTrap } from '@mantine/core';
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
 import { useWatch, type Control } from 'react-hook-form';
-import { TextInput } from 'mantine-hook-form';
+import { TextInput } from '@/deprecated/packages/mantine-hook-form';
 import { useOptionsForm } from '@/app/app/_utils/options-form-context';
 
 export function SearchAffix() {

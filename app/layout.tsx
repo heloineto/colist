@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { ColorSchemeScript } from '@mantine/core';
 import type { Metadata, Viewport } from 'next';
-import type { SupportedLanguage } from '@information-systems/translations';
+import type { SupportedLanguage } from '@/deprecated/packages/translations';
 import { cookies } from 'next/headers';
 import { Providers } from './providers';
 import { getLanguageCookie } from './get-language-cookie';

@@ -1,11 +1,11 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { showNotification } from '@mantine/notifications';
 import { useUpsertItem } from '@supabase-cache-helpers/postgrest-react-query';
 import type { UseMutationOptions } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
-import { LISTS_TABLE } from '@/utils/queries/lists';
-import type { List } from '@/utils/queries/lists';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import { LISTS_TABLE } from '@/deprecated/utils/queries/lists';
+import type { List } from '@/deprecated/utils/queries/lists';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 
 export function useCreateListMutation({
   onSuccess,

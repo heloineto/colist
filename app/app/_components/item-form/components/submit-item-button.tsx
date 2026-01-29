@@ -1,4 +1,4 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import type { ButtonProps } from '@mantine/core';
 import { Button } from '@mantine/core';
 import { useWatch } from 'react-hook-form';

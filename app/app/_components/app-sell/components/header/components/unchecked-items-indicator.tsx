@@ -1,8 +1,8 @@
 import { useQuery } from '@supabase-cache-helpers/postgrest-react-query';
 import { useMemo } from 'react';
 import { Badge } from '@mantine/core';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/utils/queries/items';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/deprecated/utils/queries/items';
 
 interface Props {
   listId: number;

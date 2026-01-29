@@ -1,7 +1,7 @@
 import { Select } from '@mantine/core';
 import { Translate } from '@phosphor-icons/react/dist/ssr';
-import type { SupportedLanguage } from '@information-systems/translations';
-import { useTranslation } from '@information-systems/translations';
+import type { SupportedLanguage } from '@/deprecated/packages/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 
 export function LanguageSelect() {
   const { language, setLanguage } = useTranslation();

@@ -1,5 +1,5 @@
-import type { TFunction } from '@information-systems/translations';
-import { useTranslation } from '@information-systems/translations';
+import type { TFunction } from '@/deprecated/packages/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Button, InputLabel } from '@mantine/core';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -8,11 +8,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useInsertMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { serializeError } from 'serialize-error';
 import clsx from 'clsx';
-import { Checkbox, withController } from 'mantine-hook-form';
+import {
+  Checkbox,
+  withController,
+} from '@/deprecated/packages/mantine-hook-form';
 import { SimpleRichTextInput as OriginalSimpleRichTextInput } from './simple-rich-text-input';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import type { Json } from '@/utils/supabase/database-types';
-import { ERRORS_COLUMNS, ERRORS_TABLE } from '@/utils/queries/errors';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import type { Json } from '@/deprecated/utils/supabase/database-types';
+import {
+  ERRORS_COLUMNS,
+  ERRORS_TABLE,
+} from '@/deprecated/utils/queries/errors';
 
 const SimpleRichTextInput = withController(OriginalSimpleRichTextInput);
 
@@ -61,7 +67,7 @@ export function ErrorForm({ className, error, onCancel }: FeedbackFormProps) {
 
   return (
     <form
-      className={clsx('flex grow flex-col items-center p-md', className)}
+      className={clsx('p-md flex grow flex-col items-center', className)}
       onSubmit={form.handleSubmit(async (values) => {
         await insertMutation.mutateAsync([
           {
@@ -77,7 +83,7 @@ export function ErrorForm({ className, error, onCancel }: FeedbackFormProps) {
         <h2 className="m-0 text-2xl">
           {t({ pt: 'Reportar erro', en: 'Report error', es: 'Reportar error' })}
         </h2>
-        <div className="text-sm text-dimmed xs:text-md">
+        <div className="text-dimmed xs:text-md text-sm">
           {t({
             pt: 'Pedimos desculpas pelo inconveniente. Nos ajude-nos a corrigir este erro reportando-o',
             en: 'We apologize for the inconvenience. Help us fix this error by reporting it',
@@ -112,7 +118,7 @@ export function ErrorForm({ className, error, onCancel }: FeedbackFormProps) {
           es: 'Permitir que los desarrolladores se pongan en contacto',
         })}
       />
-      <div className="mt-lg flex w-full gap-xs">
+      <div className="mt-lg gap-xs flex w-full">
         <Button className="grow basis-0" variant="default" onClick={onCancel}>
           {t({ pt: 'Cancelar', en: 'Cancel', es: 'Cancelar' })}
         </Button>

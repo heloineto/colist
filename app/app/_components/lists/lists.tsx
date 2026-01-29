@@ -1,8 +1,8 @@
 'use client';
 
-import { EmptyState } from '@information-systems/states';
+import { EmptyState } from '@/deprecated/packages/states';
 import { Plus, ShoppingCart } from '@phosphor-icons/react/dist/ssr';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Button } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { CSSProperties } from 'react';

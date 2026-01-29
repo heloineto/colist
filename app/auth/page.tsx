@@ -1,10 +1,10 @@
 'use client';
 
 import { use } from 'react';
-import { AuthForm } from '@information-systems/auth';
-import { useTranslation } from '@information-systems/translations';
-import { signIn } from '@/old-packages/supabase/sign-in';
-import { signUp } from '@/old-packages/supabase/sign-up';
+import { AuthForm } from '@/deprecated/packages/auth';
+import { useTranslation } from '@/deprecated/packages/translations';
+import { signIn } from '@/deprecated/packages/supabase/sign-in';
+import { signUp } from '@/deprecated/packages/supabase/sign-up';
 
 interface Props {
   searchParams: Promise<{ success?: string; error?: string }>;

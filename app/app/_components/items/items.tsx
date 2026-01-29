@@ -6,7 +6,7 @@ import {
 } from '@mantine/core';
 import { useUpdateMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import clsx from 'clsx';
 import { useWatch } from 'react-hook-form';
 import { useOptionsForm } from '../../_utils/options-form-context';
@@ -16,9 +16,9 @@ import { ItemsProvider } from './utils/items-context';
 import { useItemAmountModal } from './components/item-amount-modal/hooks/use-item-amount-modal';
 import { ItemAmountModal } from './components/item-amount-modal';
 import { GroupedItems } from './components/grouped-items';
-import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/utils/queries/items';
-import type { Item } from '@/utils/queries/items';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/deprecated/utils/queries/items';
+import type { Item } from '@/deprecated/utils/queries/items';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 
 interface Props {
   items: Item[];

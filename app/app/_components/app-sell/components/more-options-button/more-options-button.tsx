@@ -1,4 +1,4 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Drawer, NavLink, Tooltip } from '@mantine/core';
 import {
   BugBeetle,
@@ -10,11 +10,11 @@ import {
 import { useUncontrolled } from '@mantine/hooks';
 import { useDeleteMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { showNotification } from '@mantine/notifications';
-import { openDeleteModal } from '@information-systems/mantine';
+import { openDeleteModal } from '@/deprecated/packages/mantine';
 import { useListForm } from '@/app/app/_utils/list-form-context';
 import { useListContext } from '@/app/app/_utils/list-context';
-import { LISTS_COLUMNS, LISTS_TABLE } from '@/utils/queries/lists';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import { LISTS_COLUMNS, LISTS_TABLE } from '@/deprecated/utils/queries/lists';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { openFeedbackModal } from '@/components/feedback-modal/components/feedback-context-modal';
 
 interface Props {

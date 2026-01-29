@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { getItemHeight } from '../../../item/utils/get-item-height';
 import { Item } from '../../../item/item';
-import type { Item as ItemType } from '@/utils/queries/items';
+import type { Item as ItemType } from '@/deprecated/utils/queries/items';
 
 interface Props {
   items: ItemType[];

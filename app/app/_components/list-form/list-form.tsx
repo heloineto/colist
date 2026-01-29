@@ -1,15 +1,15 @@
 'use client';
 
 import { Button, Drawer, Modal } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { useUpdateMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { useMediaQuery } from '@mantine/hooks';
 import { useWatch } from 'react-hook-form';
-import { TextInput } from 'mantine-hook-form';
+import { TextInput } from '@/deprecated/packages/mantine-hook-form';
 import { useListForm } from '../../_utils/list-form-context';
 import { useCreateListMutation } from './utils/use-create-list-mutation';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import { LISTS_COLUMNS, LISTS_TABLE } from '@/utils/queries/lists';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import { LISTS_COLUMNS, LISTS_TABLE } from '@/deprecated/utils/queries/lists';
 
 export function ListForm() {
   const { t } = useTranslation();

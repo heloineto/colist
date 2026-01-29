@@ -1,5 +1,5 @@
-import { signOut } from '@information-systems/supabase/sign-out';
-import { useTranslation } from '@information-systems/translations';
+import { signOut } from '@/deprecated/packages/supabase/sign-out';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Loader, NavLink } from '@mantine/core';
 import { SignOutIcon } from '@phosphor-icons/react/dist/ssr';
 import { useState } from 'react';

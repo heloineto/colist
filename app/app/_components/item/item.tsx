@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useItemForm } from '../../_utils/item-form-context';
 import { useItemsContext } from '../items/utils/items-context';
 import { getItemHeight } from './utils/get-item-height';
-import type { Item as ItemType } from '@/utils/queries/items';
+import type { Item as ItemType } from '@/deprecated/utils/queries/items';
 
 interface Props {
   item: ItemType;

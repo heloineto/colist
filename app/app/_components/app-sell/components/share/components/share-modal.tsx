@@ -1,13 +1,13 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import type { ModalProps } from '@mantine/core';
 import { Divider, Modal, ScrollAreaAutosize } from '@mantine/core';
 import { UsersThree } from '@phosphor-icons/react/dist/ssr';
 import { useMemberForm } from '../contexts/member-form-context';
 import { Member } from './member';
 import { ShareForm } from './share-form';
-import type { List } from '@/utils/queries/lists';
+import type { List } from '@/deprecated/utils/queries/lists';
 import { ModalHeader } from '@/components/modal-header';
-import type { Member as MemberType } from '@/utils/queries/members';
+import type { Member as MemberType } from '@/deprecated/utils/queries/members';
 import { useAuth } from '@/contexts/auth-context';
 
 interface Props extends ModalProps {

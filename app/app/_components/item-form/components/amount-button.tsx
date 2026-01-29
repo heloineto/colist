@@ -1,5 +1,5 @@
-import { useDisclosure } from '@information-systems/mantine';
-import { useTranslation } from '@information-systems/translations';
+import { useDisclosure } from '@/deprecated/packages/mantine';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip } from '@mantine/core';
 import {
   Hash,
@@ -14,7 +14,7 @@ import {
   NumberCircleNine,
 } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
-import { withController } from 'mantine-hook-form';
+import { withController } from '@/deprecated/packages/mantine-hook-form';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 import { AmountModal as OriginalAmountModal } from '@/app/app/_components/amount-modal';
 

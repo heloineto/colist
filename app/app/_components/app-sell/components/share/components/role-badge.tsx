@@ -1,7 +1,7 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Badge } from '@mantine/core';
 import { CrownSimple } from '@phosphor-icons/react/dist/ssr';
-import type { Enums } from '@/utils/supabase/database-types';
+import type { Enums } from '@/deprecated/utils/supabase/database-types';
 
 export interface RoleBadgeProps {
   role: Enums<'membersRole'>;

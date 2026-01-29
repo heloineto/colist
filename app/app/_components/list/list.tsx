@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Button, Skeleton } from '@mantine/core';
 import { Plus, ShoppingCart } from '@phosphor-icons/react/dist/ssr';
 import { useDebouncedValue } from '@mantine/hooks';
@@ -8,16 +8,16 @@ import {
   useQuery,
   useSubscription,
 } from '@supabase-cache-helpers/postgrest-react-query';
-import { QueryBoundary } from '@information-systems/states';
+import { QueryBoundary } from '@/deprecated/packages/states';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useWatch } from 'react-hook-form';
 import { Items } from '../items';
 import { useItemForm } from '../../_utils/item-form-context';
 import { useOptionsForm } from '../../_utils/options-form-context';
 import { ItemForm } from '../item-form';
-import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/utils/queries/items';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import type { List } from '@/utils/queries/lists';
+import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/deprecated/utils/queries/items';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import type { List } from '@/deprecated/utils/queries/lists';
 
 interface Props {
   listId: number | null;

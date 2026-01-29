@@ -1,6 +1,6 @@
 import { boolean, number, object, string } from 'zod';
-import { createDisclosureDbFormContext } from '@information-systems/mantine';
-import type { TablesInsert } from '@/utils/supabase/database-types';
+import { createDisclosureDbFormContext } from '@/deprecated/packages/mantine';
+import type { TablesInsert } from '@/deprecated/utils/supabase/database-types';
 
 export const [useItemFormProvider, useItemForm, ItemFormProvider] =
   createDisclosureDbFormContext({

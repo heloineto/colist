@@ -1,6 +1,6 @@
-import { useDisclosure } from '@information-systems/mantine';
+import { useDisclosure } from '@/deprecated/packages/mantine';
 import { useState } from 'react';
-import type { Item } from '@/utils/queries/items';
+import type { Item } from '@/deprecated/utils/queries/items';
 
 export function useItemAmountModal() {
   const [item, setItem] = useState<Item | null>(null);

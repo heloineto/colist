@@ -1,23 +1,26 @@
-import { NoName, QueryBoundary } from '@information-systems/states';
+import { NoName, QueryBoundary } from '@/deprecated/packages/states';
 import { ModalCloseButton, Skeleton, Button, Modal } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
-import { useDisclosure } from '@information-systems/mantine';
+import { useTranslation } from '@/deprecated/packages/translations';
+import { useDisclosure } from '@/deprecated/packages/mantine';
 import {
   type AvatarInput as AvatarInputType,
   AvatarLoading,
-} from '@information-systems/uploader';
+} from '@/deprecated/packages/uploader';
 import dynamic from 'next/dynamic';
 import { NotePencil } from '@phosphor-icons/react/dist/ssr';
 import { useUpdateMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { ProfileForm } from './profile-form';
 import { useAuth } from '@/contexts/auth-context';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import { PROFILES_COLUMNS, PROFILES_TABLE } from '@/utils/queries/profiles';
-import { MEMBERS_TABLE } from '@/utils/queries/members';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import {
+  PROFILES_COLUMNS,
+  PROFILES_TABLE,
+} from '@/deprecated/utils/queries/profiles';
+import { MEMBERS_TABLE } from '@/deprecated/utils/queries/members';
 
 const AvatarInput = dynamic(
   // @ts-expect-error --- TypeScript does not like that AvatarInput is a polymorphic component
-  () => import('@information-systems/uploader').then((mod) => mod.AvatarInput),
+  () => import('@/deprecated/packages/uploader').then((mod) => mod.AvatarInput),
   { loading: () => <AvatarLoading size="xl" /> }
 ) as typeof AvatarInputType;
 

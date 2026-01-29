@@ -1,17 +1,17 @@
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Drawer } from '@mantine/core';
 import { useRef } from 'react';
 import { useUpsertMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { showNotification } from '@mantine/notifications';
 import { useWatch } from 'react-hook-form';
-import { Textarea, TextInput } from 'mantine-hook-form';
+import { Textarea, TextInput } from '@/deprecated/packages/mantine-hook-form';
 import { AmountButton } from './components/amount-button';
 import { CategoryButton } from './components/category-button';
 import { SubmitItemButton } from './components/submit-item-button';
 import { DeleteItemButton } from './components/delete-item-button';
 import { DetailsButton } from './components/details-button';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/utils/queries/items';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/deprecated/utils/queries/items';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 import { useListContext } from '@/app/app/_utils/list-context';
 

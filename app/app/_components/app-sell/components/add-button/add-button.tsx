@@ -3,7 +3,7 @@ import { ActionIcon } from '@mantine/core';
 import { Plus } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentPropsWithoutRef } from 'react';
 import { showNotification } from '@mantine/notifications';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 import { useListContext } from '@/app/app/_utils/list-context';
 

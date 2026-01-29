@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button } from '@mantine/core';
 import { Plus } from '@phosphor-icons/react/dist/ssr';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { showNotification } from '@mantine/notifications';
-import { CollapsibleNavbar } from '@information-systems/mantine';
+import { CollapsibleNavbar } from '@/deprecated/packages/mantine';
 import { SearchButton } from '../search-button';
 import { SortButton } from '../sort-button';
 import { MoreOptionsButton } from '../more-options-button';

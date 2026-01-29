@@ -5,9 +5,13 @@ import {
   type UseQuerySingleReturn,
 } from '@supabase-cache-helpers/postgrest-react-query';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { LISTS_COLUMNS, LISTS_TABLE, type List } from '@/utils/queries/lists';
-import { useCookie } from '@/hooks/use-cookie';
-import { supabase } from '@/utils/supabase/create-browser-client';
+import {
+  LISTS_COLUMNS,
+  LISTS_TABLE,
+  type List,
+} from '@/deprecated/utils/queries/lists';
+import { useCookie } from '@/deprecated/hooks/use-cookie';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { useAuth } from '@/contexts/auth-context';
 
 interface ListContext {

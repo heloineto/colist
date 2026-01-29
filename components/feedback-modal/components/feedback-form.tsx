@@ -1,5 +1,5 @@
-import type { TFunction } from '@information-systems/translations';
-import { useTranslation } from '@information-systems/translations';
+import type { TFunction } from '@/deprecated/packages/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { Button, InputLabel } from '@mantine/core';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,12 +7,15 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useInsertMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import clsx from 'clsx';
-import { withController } from 'mantine-hook-form';
+import { withController } from '@/deprecated/packages/mantine-hook-form';
 import { FeedbackRating } from './feedback-rating';
 import { SimpleRichTextInput as OriginalSimpleRichTextInput } from './simple-rich-text-input';
-import { FEEDBACKS_COLUMNS, FEEDBACKS_TABLE } from '@/utils/queries/feedbacks';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import type { Json } from '@/utils/supabase/database-types';
+import {
+  FEEDBACKS_COLUMNS,
+  FEEDBACKS_TABLE,
+} from '@/deprecated/utils/queries/feedbacks';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import type { Json } from '@/deprecated/utils/supabase/database-types';
 
 const SimpleRichTextInput = withController(OriginalSimpleRichTextInput);
 
@@ -56,7 +59,7 @@ export function FeedbackForm({ className, onCancel }: FeedbackFormProps) {
 
   return (
     <form
-      className={clsx('flex grow flex-col items-center p-md', className)}
+      className={clsx('p-md flex grow flex-col items-center', className)}
       onSubmit={form.handleSubmit(async (values) => {
         await insertMutation.mutateAsync([
           { message: values.message as Json, rating: values.rating },
@@ -72,7 +75,7 @@ export function FeedbackForm({ className, onCancel }: FeedbackFormProps) {
             es: 'Califica tu experiencia',
           })}
         </h2>
-        <div className="text-sm text-dimmed xs:text-md">
+        <div className="text-dimmed xs:text-md text-sm">
           {t({
             pt: 'Seu feedback nos ajuda a aprimorar a experiência de todos. Obrigado por compartilhar!',
             en: "Your feedback helps us enhance everyone's experience. Thank you for sharing!",
@@ -96,7 +99,7 @@ export function FeedbackForm({ className, onCancel }: FeedbackFormProps) {
           }}
         />
       </div>
-      <div className="mt-md flex w-full gap-xs">
+      <div className="mt-md gap-xs flex w-full">
         <Button className="grow basis-0" variant="default" onClick={onCancel}>
           {t({ pt: 'Cancelar', en: 'Cancel', es: 'Cancelar' })}
         </Button>

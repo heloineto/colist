@@ -1,8 +1,8 @@
-import type { Disclosure } from '@information-systems/mantine';
+import type { Disclosure } from '@/deprecated/packages/mantine';
 import { useEffect, useState } from 'react';
 import { AmountModal } from '../../../amount-modal';
 import { useItemsContext } from '../../utils/items-context';
-import type { Item } from '@/utils/queries/items';
+import type { Item } from '@/deprecated/utils/queries/items';
 
 interface Props {
   item: Item | null;

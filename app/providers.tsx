@@ -10,12 +10,12 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   type SupportedLanguage,
   TranslationProvider,
-} from '@information-systems/translations';
+} from '@/deprecated/packages/translations';
 import { ModalsProvider } from '@mantine/modals';
 import {
   createQueryClient,
   DeleteContextModal,
-} from '@information-systems/mantine';
+} from '@/deprecated/packages/mantine';
 import {
   Checkbox,
   createTheme,
@@ -25,7 +25,7 @@ import {
   Modal,
   Tooltip,
 } from '@mantine/core';
-import { useCookie } from '@/hooks/use-cookie';
+import { useCookie } from '@/deprecated/hooks/use-cookie';
 import { PrimaryColorProvider } from '@/contexts/primary-color-context';
 import { FeedbackContextModal } from '@/components/feedback-modal/components/feedback-context-modal';
 import { Notifications } from '@/components/notifications';

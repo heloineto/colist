@@ -1,5 +1,5 @@
 import { Affix, CloseButton, Modal, Paper, Transition } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { NpsRating } from './components/nps-rating';
 
 interface Props {

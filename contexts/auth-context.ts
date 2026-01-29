@@ -1,6 +1,6 @@
 'use client';
 
-import { createAuthContext } from '@information-systems/mantine';
-import type { Profile } from '@/utils/queries/profiles';
+import { createAuthContext } from '@/deprecated/packages/mantine';
+import type { Profile } from '@/deprecated/utils/queries/profiles';
 
 export const { useAuth, AuthProvider } = createAuthContext<Profile>();

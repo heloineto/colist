@@ -1,13 +1,13 @@
 import { Avatar, AvatarGroup, Tooltip, TooltipGroup } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
-import { useDisclosure } from '@information-systems/mantine';
+import { useTranslation } from '@/deprecated/packages/translations';
+import { useDisclosure } from '@/deprecated/packages/mantine';
 import {
   useQuery,
   useSubscription,
 } from '@supabase-cache-helpers/postgrest-react-query';
-import { QueryBoundary } from '@information-systems/states';
+import { QueryBoundary } from '@/deprecated/packages/states';
 import { useQueryClient } from '@tanstack/react-query';
-import { getQueryKey } from '@information-systems/supabase/get-query-key';
+import { getQueryKey } from '@/deprecated/packages/supabase/get-query-key';
 import { ShareButton } from './components/share-button';
 import { ShareModal } from './components/share-modal';
 import {
@@ -15,12 +15,15 @@ import {
   useMemberFormProvider,
 } from './contexts/member-form-context';
 import { useListContext } from '@/app/app/_utils/list-context';
-import { supabase } from '@/utils/supabase/create-browser-client';
-import type { Member } from '@/utils/queries/members';
-import { MEMBERS_COLUMNS, MEMBERS_TABLE } from '@/utils/queries/members';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
+import type { Member } from '@/deprecated/utils/queries/members';
+import {
+  MEMBERS_COLUMNS,
+  MEMBERS_TABLE,
+} from '@/deprecated/utils/queries/members';
 import { useAuth } from '@/contexts/auth-context';
-import { getProfilePicture } from '@/utils/supabase/get-profile-picture';
-import { LISTS_TABLE } from '@/utils/queries/lists';
+import { getProfilePicture } from '@/deprecated/utils/supabase/get-profile-picture';
+import { LISTS_TABLE } from '@/deprecated/utils/queries/lists';
 
 const MAX_AVATARS = 4;
 

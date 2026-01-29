@@ -7,21 +7,21 @@ import {
   MenuItem,
   MenuTarget,
 } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { modals } from '@mantine/modals';
 import { DotsThreeOutlineVertical, X } from '@phosphor-icons/react/dist/ssr';
-import { BaseModalContent } from '@information-systems/mantine';
+import { BaseModalContent } from '@/deprecated/packages/mantine';
 import { useDeleteMutation } from '@supabase-cache-helpers/postgrest-react-query';
-import { NoName } from '@information-systems/states';
+import { NoName } from '@/deprecated/packages/states';
 import { RoleBadge } from './role-badge';
 import {
   MEMBERS_COLUMNS_BASE,
   MEMBERS_TABLE,
   type Member as MemberType,
-} from '@/utils/queries/members';
-import { getProfilePicture } from '@/utils/supabase/get-profile-picture';
-import type { List } from '@/utils/queries/lists';
-import { supabase } from '@/utils/supabase/create-browser-client';
+} from '@/deprecated/utils/queries/members';
+import { getProfilePicture } from '@/deprecated/utils/supabase/get-profile-picture';
+import type { List } from '@/deprecated/utils/queries/lists';
+import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 
 interface Props {
   member: MemberType;

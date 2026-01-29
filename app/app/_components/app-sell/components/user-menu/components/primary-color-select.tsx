@@ -1,4 +1,4 @@
-import { ColorSelect } from '@information-systems/mantine';
+import { ColorSelect } from '@/deprecated/packages/mantine';
 import { usePrimaryColor } from '@/contexts/primary-color-context';
 
 export function PrimaryColorSelect() {

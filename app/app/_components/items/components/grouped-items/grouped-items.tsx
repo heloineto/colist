@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { Divider } from '@mantine/core';
-import { useTranslation } from '@information-systems/translations';
+import { useTranslation } from '@/deprecated/packages/translations';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getItemHeight } from '../../../item/utils/get-item-height';
 import { Item } from '../../../item/item';
-import type { Item as ItemType } from '@/utils/queries/items';
-import type { Category } from '@/utils/queries/categories';
+import type { Item as ItemType } from '@/deprecated/utils/queries/items';
+import type { Category } from '@/deprecated/utils/queries/categories';
 
 interface Props {
   items: ItemType[];
