@@ -11,9 +11,9 @@ interface Props {
 export function DetailsButton({ onClick }: Props) {
   const { t } = useTranslation();
 
-  const form = useItemForm();
+  const itemForm = useItemForm();
   const detailsOpened = useWatch({
-    control: form.control,
+    control: itemForm.control,
     name: 'detailsOpened',
   });
 
@@ -32,11 +32,11 @@ export function DetailsButton({ onClick }: Props) {
         color="gray"
         onClick={() => {
           if (detailsOpened) {
-            form.setValue('details', '');
-            form.setValue('detailsOpened', false);
+            itemForm.setValue('details', '');
+            itemForm.setValue('detailsOpened', false);
             onClick();
           } else {
-            form.setValue('detailsOpened', true);
+            itemForm.setValue('detailsOpened', true);
           }
         }}
       >

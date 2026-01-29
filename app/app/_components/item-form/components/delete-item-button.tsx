@@ -8,25 +8,25 @@ import { supabase } from '@/utils/supabase/create-browser-client';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 
 export function DeleteItemButton() {
-  const form = useItemForm();
-  const id = useWatch({ control: form.control, name: 'id' });
+  const itemForm = useItemForm();
+  const id = useWatch({ control: itemForm.control, name: 'id' });
   const { t } = useTranslation();
 
   const mutation = useDeleteMutation(
     supabase.from(ITEMS_TABLE),
     ['id'],
     ITEMS_COLUMNS,
-    { onSuccess: () => form.disclosure.close({ confirmation: false }) }
+    { onSuccess: () => itemForm.disclosure.close({ confirmation: false }) }
   );
 
-  if (!id) return null;
+  if (id === null) return null;
 
   return (
     <Button
       color="red"
       variant="light"
       onClick={() => {
-        const name = form.getValues('name');
+        const name = itemForm.getValues('name');
 
         openDeleteModal({
           label: {

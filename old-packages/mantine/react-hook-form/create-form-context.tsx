@@ -90,13 +90,11 @@ export function createFormContext<
     const resolver = useMemo(() => {
       if (!getSchema) return undefined;
       const schema = getSchema(t);
-      // @ts-ignore --- TODO: Fix types
       return zodResolver(schema);
     }, [getSchema, t]);
 
     const form = useForm<TFieldValues, TContext, TTransformedValues>({
       defaultValues: initialValues,
-      // @ts-ignore --- TODO: Fix types
       resolver,
       ...props,
     });

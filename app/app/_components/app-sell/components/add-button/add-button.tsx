@@ -30,11 +30,11 @@ export function AddButton({ ...rest }: Props) {
       </svg>
 
       <ActionIcon
-        className="-mt-6 !border-none"
+        className="-mt-6 border-none!"
         variant="filled"
         radius="4.5rem"
         onClick={() => {
-          if (!listId) {
+          if (listId !== null) {
             showNotification({
               message: t({
                 pt: 'Nenhuma lista selecionada',

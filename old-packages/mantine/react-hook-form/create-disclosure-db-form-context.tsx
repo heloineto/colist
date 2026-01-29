@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case --- This makes it easier to override the functions */
 import { type FieldValues } from 'react-hook-form';
 import { type ReactNode } from 'react';
 import { type Disclosure, useDisclosure } from '../hooks/use-disclosure';

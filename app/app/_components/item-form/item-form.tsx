@@ -17,12 +17,12 @@ import { useListContext } from '@/app/app/_utils/list-context';
 
 export function ItemForm() {
   const { t } = useTranslation();
-  const form = useItemForm();
+  const itemForm = useItemForm();
   const detailsRef = useRef<HTMLTextAreaElement>(null);
   const { listId } = useListContext();
 
   const detailsOpened = useWatch({
-    control: form.control,
+    control: itemForm.control,
     name: 'detailsOpened',
   });
 
@@ -30,25 +30,25 @@ export function ItemForm() {
     supabase.from(ITEMS_TABLE),
     ['id'],
     ITEMS_COLUMNS,
-    { onSuccess: () => form.disclosure.close({ confirmation: false }) }
+    { onSuccess: () => itemForm.disclosure.close({ confirmation: false }) }
   );
 
   return (
     <Drawer
-      opened={form.disclosure.opened}
-      onClose={form.disclosure.close}
+      opened={itemForm.disclosure.opened}
+      onClose={itemForm.disclosure.close}
       position="bottom"
       withCloseButton={false}
       classNames={{ content: '!rounded-t-lg !h-fit', body: '!pt-xs' }}
       transitionProps={{
         onExit: () => {
-          form.reset(form.initialValues);
+          itemForm.reset(itemForm.initialValues);
         },
       }}
     >
       <form
-        onSubmit={form.handleSubmit(
-          (values) => mutation.mutateAsync([form.toDatabase(values)]),
+        onSubmit={itemForm.handleSubmit(
+          (values) => mutation.mutateAsync([itemForm.toDatabase(values)]),
           (error) => console.error(error)
         )}
       >
@@ -62,7 +62,7 @@ export function ItemForm() {
           })}
           size="lg"
           name="name"
-          control={form.control}
+          control={itemForm.control}
           autoComplete="off"
           data-autofocus
           type="search"
@@ -80,7 +80,7 @@ export function ItemForm() {
             en: 'Add details',
             es: 'Agregar detalles',
           })}
-          control={form.control}
+          control={itemForm.control}
           name="details"
         />
         <div className="flex justify-between">
@@ -108,7 +108,7 @@ export function ItemForm() {
                   });
                   return;
                 }
-                form.setValue('listId', listId);
+                itemForm.setValue('listId', listId);
               }}
             />
           </div>

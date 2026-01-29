@@ -11,23 +11,25 @@ interface Props
     Omit<ComponentPropsWithoutRef<'button'>, keyof ButtonProps> {}
 
 export function SubmitItemButton({ ...rest }: Props) {
-  const form = useItemForm();
+  const itemForm = useItemForm();
   const { t } = useTranslation();
 
-  const id = useWatch({ control: form.control, name: 'id' });
-  const name = useWatch({ control: form.control, name: 'name' });
+  const id = useWatch({ control: itemForm.control, name: 'id' });
+  const name = useWatch({ control: itemForm.control, name: 'name' });
+
+  const hasId = id !== null;
 
   return (
     <Button
-      className={id ? '' : 'disabled:bg-transparent'}
-      variant={id ? 'light' : 'subtle'}
+      className={hasId ? '' : 'disabled:bg-transparent'}
+      variant={hasId ? 'light' : 'subtle'}
       mr={-8}
-      px={id ? undefined : 'xs'}
+      px={hasId ? undefined : 'xs'}
       type="submit"
       disabled={!name}
       {...rest}
     >
-      {id
+      {hasId
         ? t({ pt: 'Salvar', en: 'Save', es: 'Guardar' })
         : t({ pt: 'Adicionar', en: 'Add', es: 'Añadir' })}
     </Button>

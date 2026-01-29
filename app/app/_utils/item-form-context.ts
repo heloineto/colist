@@ -40,7 +40,7 @@ export const [useItemFormProvider, useItemForm, ItemFormProvider] =
         categoryId: values.categoryId,
       };
 
-      if (values.id) {
+      if (values.id !== null) {
         row.id = values.id;
       }
 
