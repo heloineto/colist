@@ -23,9 +23,9 @@ export default function Page(props: Props) {
       onSignUp={signUp}
       resetPassword={false}
       title={t({
-        pt: 'Colist - Lista de Compras',
-        en: 'Colist - Shopping List',
-        es: 'Colist - Lista de Compras',
+        pt: 'Lista de Compras',
+        en: 'Shopping List',
+        es: 'Lista de Compras',
       })}
       signUpFields={{
         confirmPassword: false,

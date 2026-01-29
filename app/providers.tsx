@@ -29,6 +29,7 @@ import { useCookie } from '@/hooks/use-cookie';
 import { PrimaryColorProvider } from '@/contexts/primary-color-context';
 import { FeedbackContextModal } from '@/components/feedback-modal/components/feedback-context-modal';
 import { Notifications } from '@/components/notifications';
+import { geistMono, geistSans } from './fonts';
 
 const queryClient = createQueryClient();
 
