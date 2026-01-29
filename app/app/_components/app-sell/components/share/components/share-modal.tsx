@@ -1,7 +1,7 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import type { ModalProps } from '@mantine/core';
 import { Divider, Modal, ScrollAreaAutosize } from '@mantine/core';
-import { UsersThree } from '@phosphor-icons/react/dist/ssr';
+import { UsersThreeIcon } from '@phosphor-icons/react/dist/ssr';
 import { useMemberForm } from '../contexts/member-form-context';
 import { Member } from './member';
 import { ShareForm } from './share-form';
@@ -45,7 +45,7 @@ export function ShareModal({ list, members, ...rest }: Props) {
             en: `Members of the list "${list.name}"`,
             es: `Miembros de la lista "${list.name}"`,
           })}
-          icon={<UsersThree />}
+          icon={<UsersThreeIcon />}
         />
         <Divider />
         <ScrollAreaAutosize mah="calc(100dvh - var(--modal-y-offset) * 2 - 75px)">

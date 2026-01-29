@@ -9,7 +9,10 @@ import {
 } from '@mantine/core';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { modals } from '@mantine/modals';
-import { DotsThreeOutlineVertical, X } from '@phosphor-icons/react/dist/ssr';
+import {
+  DotsThreeOutlineVerticalIcon,
+  XIcon,
+} from '@phosphor-icons/react/dist/ssr';
 import { BaseModalContent } from '@/deprecated/packages/mantine';
 import { useDeleteMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { NoName } from '@/deprecated/packages/states';
@@ -72,14 +75,14 @@ export function Member({ member, list, showOptions = true }: Props) {
                 color="gray"
                 size="lg"
               >
-                <DotsThreeOutlineVertical size="1rem" weight="fill" />
+                <DotsThreeOutlineVerticalIcon size="1rem" weight="fill" />
               </ActionIcon>
             </MenuTarget>
 
             <MenuDropdown>
               <MenuItem
                 color="red"
-                leftSection={<X size="1.125rem" />}
+                leftSection={<XIcon size="1.125rem" />}
                 disabled={member.role === 'owner'}
                 onClick={() => {
                   modals.open({
@@ -87,7 +90,7 @@ export function Member({ member, list, showOptions = true }: Props) {
                     withCloseButton: false,
                     children: (
                       <BaseModalContent
-                        icon={<X />}
+                        icon={<XIcon />}
                         title={t({
                           pt: `Remover da lista`,
                           en: `Remove from list`,

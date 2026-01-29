@@ -6,7 +6,7 @@ import {
   MenuItem,
   MenuTarget,
 } from '@mantine/core';
-import { Translate } from '@phosphor-icons/react/dist/ssr';
+import { TranslateIcon } from '@phosphor-icons/react/dist/ssr';
 import classes from './language-picker.module.css';
 
 export function LanguagePicker() {
@@ -20,7 +20,7 @@ export function LanguagePicker() {
           component="button"
           type="button"
         >
-          <Translate weight="bold" />
+          <TranslateIcon weight="bold" />
           {t({ pt: 'Português', en: 'English', es: 'Español' })}
         </Anchor>
       </MenuTarget>

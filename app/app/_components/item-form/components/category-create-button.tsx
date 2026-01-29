@@ -1,7 +1,7 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { Button } from '@mantine/core';
 import { useInsertMutation } from '@supabase-cache-helpers/postgrest-react-query';
-import { Plus } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import { showNotification } from '@mantine/notifications';
 import type { Disclosure } from '@/deprecated/packages/mantine';
 import { useListContext } from '@/app/app/_utils/list-context';
@@ -39,7 +39,7 @@ export function CategoryCreateButton({ search, setSearch, disclosure }: Props) {
       bd="none"
       leftSection={
         <div className="bg-green-light flex size-5 items-center justify-center rounded-full">
-          <Plus size="1rem" />
+          <PlusIcon size="1rem" />
         </div>
       }
       classNames={{

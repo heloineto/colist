@@ -1,6 +1,6 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { Badge } from '@mantine/core';
-import { CrownSimple } from '@phosphor-icons/react/dist/ssr';
+import { CrownSimpleIcon } from '@phosphor-icons/react/dist/ssr';
 import type { Enums } from '@/deprecated/utils/supabase/database-types';
 
 export interface RoleBadgeProps {
@@ -33,7 +33,7 @@ export function RoleBadge({ role }: RoleBadgeProps) {
         label: 'flex items-center gap-1',
       }}
     >
-      {role === 'owner' ? <CrownSimple size="1rem" weight="fill" /> : null}
+      {role === 'owner' ? <CrownSimpleIcon size="1rem" weight="fill" /> : null}
       {name}
     </Badge>
   );

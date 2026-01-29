@@ -2,7 +2,7 @@
 
 import { useTranslation } from '@/deprecated/packages/translations';
 import { Button, Skeleton } from '@mantine/core';
-import { Plus, ShoppingCart } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon, ShoppingCartIcon } from '@phosphor-icons/react/dist/ssr';
 import { useDebouncedValue } from '@mantine/hooks';
 import {
   useQuery,
@@ -92,7 +92,7 @@ export function List({ listId }: Props) {
         }}
         withEmptyState
         emptyProps={{
-          icon: <ShoppingCart />,
+          icon: <ShoppingCartIcon />,
           hasFilters: !!search,
           button: search ? (
             <Button
@@ -109,7 +109,7 @@ export function List({ listId }: Props) {
           ) : (
             <Button
               size="sm"
-              leftSection={<Plus size="1rem" weight="bold" />}
+              leftSection={<PlusIcon size="1rem" weight="bold" />}
               onClick={itemForm.disclosure.open}
               variant="light"
             >

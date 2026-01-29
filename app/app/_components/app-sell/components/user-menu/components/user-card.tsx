@@ -7,7 +7,7 @@ import {
   AvatarLoading,
 } from '@/deprecated/packages/uploader';
 import dynamic from 'next/dynamic';
-import { NotePencil } from '@phosphor-icons/react/dist/ssr';
+import { NotePencilIcon } from '@phosphor-icons/react/dist/ssr';
 import { useUpdateMutation } from '@supabase-cache-helpers/postgrest-react-query';
 import { ProfileForm } from './profile-form';
 import { useAuth } from '@/app/contexts/auth-context';
@@ -102,7 +102,7 @@ export function UserCard() {
                       root: '-ml-[0.375rem] mt-0.5',
                       label: 'uppercase',
                     }}
-                    leftSection={<NotePencil size="1rem" weight="bold" />}
+                    leftSection={<NotePencilIcon size="1rem" weight="bold" />}
                     size="compact-xs"
                     variant="subtle"
                     radius="xl"

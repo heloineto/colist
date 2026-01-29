@@ -10,7 +10,7 @@ import {
   Tooltip,
   NavLink,
 } from '@mantine/core';
-import { ArrowsDownUp, Shapes } from '@phosphor-icons/react/dist/ssr';
+import { ArrowsDownUpIcon, ShapesIcon } from '@phosphor-icons/react/dist/ssr';
 import { useUncontrolled } from '@mantine/hooks';
 import { useMemo } from 'react';
 import { withController } from '@/deprecated/packages/mantine-hook-form';
@@ -96,7 +96,7 @@ export function SortButton({
   const content = (
     <>
       <div className="mt-0.5 mb-1 flex items-center gap-1.5 font-medium">
-        <ArrowsDownUp size="1.125rem" weight="bold" />
+        <ArrowsDownUpIcon size="1.125rem" weight="bold" />
         {t({ pt: 'Ordenar por', en: 'Sort by', es: 'Ordenar por' })}
       </div>
       <SelectList
@@ -120,7 +120,7 @@ export function SortButton({
       />
       <Divider className="my-2" />
       <div className="mb-1 flex items-center gap-1.5 font-medium">
-        <Shapes size="1.125rem" weight="bold" />
+        <ShapesIcon size="1.125rem" weight="bold" />
         {t({ pt: 'Agrupar por', en: 'Group by', es: 'Agrupar por' })}
       </div>
       <SelectList
@@ -149,7 +149,7 @@ export function SortButton({
           <NavLink
             label={label}
             component="button"
-            leftSection={<ArrowsDownUp size="1.25rem" />}
+            leftSection={<ArrowsDownUpIcon size="1.25rem" />}
             onClick={() => handleChange(!_opened)}
           />
         </PopoverTarget>
@@ -168,7 +168,7 @@ export function SortButton({
           radius="md"
           onClick={() => handleChange(!_opened)}
         >
-          <ArrowsDownUp size="1.375rem" />
+          <ArrowsDownUpIcon size="1.375rem" />
         </ActionIcon>
       </Tooltip>
       <Drawer

@@ -1,6 +1,6 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip, NavLink } from '@mantine/core';
-import { ChatCircle } from '@phosphor-icons/react/dist/ssr';
+import { ChatCircleIcon } from '@phosphor-icons/react/dist/ssr';
 import { openFeedbackModal } from '@/components/feedback-modal/components/feedback-context-modal';
 
 interface Props {
@@ -21,7 +21,7 @@ export function FeedbackButton({ mode }: Props) {
       <NavLink
         label={label}
         component="button"
-        leftSection={<ChatCircle size="1.25rem" />}
+        leftSection={<ChatCircleIcon size="1.25rem" />}
         onClick={() => openFeedbackModal({ initialTab: 'feedback' })}
       />
     );
@@ -36,7 +36,7 @@ export function FeedbackButton({ mode }: Props) {
         radius="md"
         onClick={() => openFeedbackModal({ initialTab: 'feedback' })}
       >
-        <ChatCircle size="1.375rem" />
+        <ChatCircleIcon size="1.375rem" />
       </ActionIcon>
     </Tooltip>
   );

@@ -10,7 +10,11 @@ import {
   MenuLabel,
   MenuTarget,
 } from '@mantine/core';
-import { Plus, ArrowsClockwise, Trash } from '@phosphor-icons/react/dist/ssr';
+import {
+  PlusIcon,
+  ArrowsClockwiseIcon,
+  TrashIcon,
+} from '@phosphor-icons/react/dist/ssr';
 import { forwardRef, useState } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { QueryBoundary } from '@/deprecated/packages/states';
@@ -63,12 +67,12 @@ export const AvatarInput = createPolymorphicComponent<'div', AvatarInputProps>(
     });
 
     const addProps = {
-      leftSection: <Plus weight="bold" />,
+      leftSection: <PlusIcon weight="bold" />,
       onClick: () => setOpen(true),
       children: t({ pt: 'Adicionar foto', en: 'Add photo', es: 'Añadir foto' }),
     };
     const updateProps = {
-      leftSection: <ArrowsClockwise weight="bold" />,
+      leftSection: <ArrowsClockwiseIcon weight="bold" />,
       onClick: () => setOpen(true),
       children: t({
         pt: 'Atualizar foto',
@@ -77,7 +81,7 @@ export const AvatarInput = createPolymorphicComponent<'div', AvatarInputProps>(
       }),
     };
     const removeProps = {
-      leftSection: <Trash weight="bold" />,
+      leftSection: <TrashIcon weight="bold" />,
       onClick: () => onChange?.(null),
       children: t({
         pt: 'Remover foto',

@@ -2,7 +2,7 @@
 
 import { CollapsibleNavbar } from '@/deprecated/packages/mantine';
 import { NavLink } from '@mantine/core';
-import { MagnifyingGlass } from '@phosphor-icons/react';
+import { MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr';
 
 export default function Page() {
   return (
@@ -11,60 +11,60 @@ export default function Page() {
         <NavLink
           label="Search"
           component="button"
-          leftSection={<MagnifyingGlass size="1.25rem" />}
+          leftSection={<MagnifyingGlassIcon size="1.25rem" />}
         />
         <NavLink
           label="With children"
           component="button"
-          leftSection={<MagnifyingGlass size="1.25rem" />}
+          leftSection={<MagnifyingGlassIcon size="1.25rem" />}
         >
           <NavLink
             label="Search"
             component="button"
-            leftSection={<MagnifyingGlass size="1.25rem" />}
+            leftSection={<MagnifyingGlassIcon size="1.25rem" />}
           />
           <NavLink
             label="Search"
             component="button"
-            leftSection={<MagnifyingGlass size="1.25rem" />}
+            leftSection={<MagnifyingGlassIcon size="1.25rem" />}
           />
           <NavLink
             label="Search"
             component="button"
-            leftSection={<MagnifyingGlass size="1.25rem" />}
+            leftSection={<MagnifyingGlassIcon size="1.25rem" />}
           />
         </NavLink>
         <NavLink
           label="Sub sub children"
           component="button"
-          leftSection={<MagnifyingGlass size="1.25rem" />}
+          leftSection={<MagnifyingGlassIcon size="1.25rem" />}
         >
           <NavLink
             label="Search"
             component="button"
-            leftSection={<MagnifyingGlass size="1.25rem" />}
+            leftSection={<MagnifyingGlassIcon size="1.25rem" />}
           >
             <NavLink
               label="Search"
               component="button"
-              leftSection={<MagnifyingGlass size="1.25rem" />}
+              leftSection={<MagnifyingGlassIcon size="1.25rem" />}
             >
               <NavLink
                 label="Search"
                 component="button"
-                leftSection={<MagnifyingGlass size="1.25rem" />}
+                leftSection={<MagnifyingGlassIcon size="1.25rem" />}
               />
             </NavLink>
             <NavLink
               label="Search"
               component="button"
-              leftSection={<MagnifyingGlass size="1.25rem" />}
+              leftSection={<MagnifyingGlassIcon size="1.25rem" />}
             />
           </NavLink>
           <NavLink
             label="Search"
             component="button"
-            leftSection={<MagnifyingGlass size="1.25rem" />}
+            leftSection={<MagnifyingGlassIcon size="1.25rem" />}
           />
         </NavLink>
       </CollapsibleNavbar>

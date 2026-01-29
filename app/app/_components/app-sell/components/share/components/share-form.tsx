@@ -1,6 +1,6 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon } from '@mantine/core';
-import { Plus } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import { useMutation } from '@tanstack/react-query';
 import { showNotification } from '@mantine/notifications';
 import { modals } from '@mantine/modals';
@@ -104,7 +104,7 @@ export function ShareForm({ members }: Props) {
         })}
         rightSection={
           <ActionIcon className="mr-px" radius="xl" type="submit">
-            <Plus size="1rem" weight="bold" />
+            <PlusIcon size="1rem" weight="bold" />
           </ActionIcon>
         }
         type="email"

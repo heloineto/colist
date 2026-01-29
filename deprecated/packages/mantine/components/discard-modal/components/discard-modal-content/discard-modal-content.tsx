@@ -1,4 +1,4 @@
-import { Warning } from '@phosphor-icons/react/dist/ssr';
+import { WarningIcon } from '@phosphor-icons/react/dist/ssr';
 import { Button, type ButtonProps } from '@mantine/core';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { BaseModalContent } from '../../../base-modal-content';
@@ -38,7 +38,7 @@ export function DiscardModalContent({
 
   return (
     <BaseModalContent
-      icon={<Warning />}
+      icon={<WarningIcon />}
       title={t({
         pt: 'Descartar alterações',
         en: 'Discard changes',

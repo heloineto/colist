@@ -1,4 +1,4 @@
-import { Trash } from '@phosphor-icons/react/dist/ssr';
+import { TrashIcon } from '@phosphor-icons/react/dist/ssr';
 import { Button, type ButtonProps } from '@mantine/core';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { type Label, useLabel } from '../../../../hooks/use-label';
@@ -42,7 +42,7 @@ export function DeleteModalContent({
 
   return (
     <BaseModalContent
-      icon={<Trash />}
+      icon={<TrashIcon />}
       title={t({
         pt: `Apagar ${singular}`,
         en: `Delete ${singular}`,

@@ -1,6 +1,6 @@
 import type { AvatarProps } from '@mantine/core';
 import { getRadius, getSize } from '@mantine/core';
-import { Warning } from '@phosphor-icons/react/dist/ssr';
+import { WarningIcon } from '@phosphor-icons/react/dist/ssr';
 import classes from '../../avatar-input.module.css';
 
 export function AvatarError({
@@ -20,7 +20,7 @@ export function AvatarError({
       }}
       data-state="error"
     >
-      <Warning size="65%" />
+      <WarningIcon size="65%" />
     </div>
   );
 }

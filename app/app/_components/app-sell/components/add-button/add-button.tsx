@@ -1,6 +1,6 @@
 import type { ActionIconProps } from '@mantine/core';
 import { ActionIcon } from '@mantine/core';
-import { Plus } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentPropsWithoutRef } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { useTranslation } from '@/deprecated/packages/translations';
@@ -51,7 +51,7 @@ export function AddButton({ ...rest }: Props) {
         size="4.5rem"
         {...rest}
       >
-        <Plus size="2rem" />
+        <PlusIcon size="2rem" />
       </ActionIcon>
     </div>
   );

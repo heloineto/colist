@@ -1,6 +1,6 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { Affix, Button, Transition, FocusTrap } from '@mantine/core';
-import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
+import { MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch, type Control } from 'react-hook-form';
 import { TextInput } from '@/deprecated/packages/mantine-hook-form';
 import { useOptionsForm } from '@/app/app/_utils/options-form-context';
@@ -27,7 +27,7 @@ export function SearchAffix() {
               style={transitionStyles}
             >
               <TextInput
-                leftSection={<MagnifyingGlass size="1.125rem" />}
+                leftSection={<MagnifyingGlassIcon size="1.125rem" />}
                 className="grow"
                 type="search"
                 placeholder={t({ pt: 'Pesquisar', en: 'Search', es: 'Buscar' })}

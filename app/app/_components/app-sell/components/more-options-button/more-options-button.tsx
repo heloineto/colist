@@ -1,11 +1,11 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Drawer, NavLink, Tooltip } from '@mantine/core';
 import {
-  BugBeetle,
-  ChatCircle,
-  DotsThree,
-  NotePencil,
-  Trash,
+  BugBeetleIcon,
+  ChatCircleIcon,
+  DotsThreeIcon,
+  NotePencilIcon,
+  TrashIcon,
 } from '@phosphor-icons/react/dist/ssr';
 import { useUncontrolled } from '@mantine/hooks';
 import { useDeleteMutation } from '@supabase-cache-helpers/postgrest-react-query';
@@ -57,7 +57,7 @@ export function MoreOptionsButton({
         className="!px-md"
         component="button"
         type="button"
-        leftSection={<NotePencil size="1.125rem" />}
+        leftSection={<NotePencilIcon size="1.125rem" />}
         label={t({
           pt: 'Modificar lista',
           en: 'Modify list',
@@ -87,7 +87,7 @@ export function MoreOptionsButton({
         className="!px-md"
         component="button"
         type="button"
-        leftSection={<Trash size="1.125rem" />}
+        leftSection={<TrashIcon size="1.125rem" />}
         onClick={() => {
           if (!listId) {
             showNotification({
@@ -123,7 +123,7 @@ export function MoreOptionsButton({
         className="!px-md"
         component="button"
         type="button"
-        leftSection={<ChatCircle size="1.125rem" />}
+        leftSection={<ChatCircleIcon size="1.125rem" />}
         label={t({
           pt: 'Deixar feedback',
           en: 'Leave feedback',
@@ -135,7 +135,7 @@ export function MoreOptionsButton({
         className="!px-md"
         component="button"
         type="button"
-        leftSection={<BugBeetle size="1.125rem" />}
+        leftSection={<BugBeetleIcon size="1.125rem" />}
         label={t({
           pt: 'Reportar erro',
           en: 'Report error',
@@ -151,7 +151,7 @@ export function MoreOptionsButton({
       <NavLink
         label={label}
         component="button"
-        leftSection={<DotsThree size="1.25rem" weight="bold" />}
+        leftSection={<DotsThreeIcon size="1.25rem" weight="bold" />}
         opened={opened}
         onChange={handleChange}
       >
@@ -170,7 +170,7 @@ export function MoreOptionsButton({
           radius="md"
           onClick={() => handleChange(!_opened)}
         >
-          <DotsThree size="1.375rem" weight="bold" />
+          <DotsThreeIcon size="1.375rem" weight="bold" />
         </ActionIcon>
       </Tooltip>
       <Drawer

@@ -1,5 +1,5 @@
 import { Select } from '@mantine/core';
-import { Translate } from '@phosphor-icons/react/dist/ssr';
+import { TranslateIcon } from '@phosphor-icons/react/dist/ssr';
 import type { SupportedLanguage } from '@/deprecated/packages/translations';
 import { useTranslation } from '@/deprecated/packages/translations';
 
@@ -24,7 +24,7 @@ export function LanguageSelect() {
       leftSectionWidth={29}
       leftSectionProps={{ className: '!justify-start' }}
       leftSection={
-        <Translate
+        <TranslateIcon
           size="1.125rem"
           className="text-gray-6 dark:text-dark-0"
           weight="bold"

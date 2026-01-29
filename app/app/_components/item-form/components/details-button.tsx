@@ -1,6 +1,6 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip } from '@mantine/core';
-import { ListPlus } from '@phosphor-icons/react/dist/ssr';
+import { ListPlusIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
 import { useItemForm } from '@/app/app/_utils/item-form-context';
 
@@ -40,7 +40,7 @@ export function DetailsButton({ onClick }: Props) {
           }
         }}
       >
-        <ListPlus size="1.25rem" />
+        <ListPlusIcon size="1.25rem" />
       </ActionIcon>
     </Tooltip>
   );

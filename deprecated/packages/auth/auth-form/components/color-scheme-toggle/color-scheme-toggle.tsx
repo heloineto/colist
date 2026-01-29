@@ -1,6 +1,6 @@
 import { Anchor, useMantineColorScheme } from '@mantine/core';
 import { useTranslation } from '@/deprecated/packages/translations';
-import { MoonStars, Sun } from '@phosphor-icons/react/dist/ssr';
+import { MoonStarsIcon, SunIcon } from '@phosphor-icons/react/dist/ssr';
 import classes from './color-scheme-toggle.module.css';
 
 export function ColorSchemeToggle() {
@@ -14,8 +14,8 @@ export function ColorSchemeToggle() {
       type="button"
       onClick={toggleColorScheme}
     >
-      <Sun className={classes.darkHidden} weight="bold" />
-      <MoonStars className={classes.lightHidden} weight="bold" />
+      <SunIcon className={classes.darkHidden} weight="bold" />
+      <MoonStarsIcon className={classes.lightHidden} weight="bold" />
       <span className={classes.darkHidden}>
         {t({ pt: 'Modo claro', en: 'Light mode', es: 'Modo claro' })}
       </span>

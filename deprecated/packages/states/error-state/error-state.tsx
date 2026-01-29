@@ -1,7 +1,7 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import type { AlertProps } from '@mantine/core';
 import { Alert, Button, Group } from '@mantine/core';
-import { Warning } from '@phosphor-icons/react/dist/ssr';
+import { WarningIcon } from '@phosphor-icons/react/dist/ssr';
 import type { ReactNode } from 'react';
 
 export interface ErrorStateQuery {
@@ -40,7 +40,7 @@ export function ErrorState({
   return (
     <Alert
       color="red"
-      icon={icon ?? <Warning size="2.75rem" weight="bold" />}
+      icon={icon ?? <WarningIcon size="2.75rem" weight="bold" />}
       title={title}
       variant="light"
       {...rest}

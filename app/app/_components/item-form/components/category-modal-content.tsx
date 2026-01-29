@@ -1,7 +1,7 @@
 import { useQuery } from '@supabase-cache-helpers/postgrest-react-query';
 import { ErrorState } from '@/deprecated/packages/states';
 import { useTranslation } from '@/deprecated/packages/translations';
-import { Tag } from '@phosphor-icons/react/dist/ssr';
+import { TagIcon } from '@phosphor-icons/react/dist/ssr';
 import { Divider, ScrollAreaAutosize, TextInput } from '@mantine/core';
 import { useRef, useState } from 'react';
 import { useDebouncedValue } from '@mantine/hooks';
@@ -53,7 +53,7 @@ export function CategoryModalContent({ disclosure }: Props) {
     <div className="flex flex-col">
       <ModalHeader
         className="p-md"
-        icon={<Tag />}
+        icon={<TagIcon />}
         title={t({ pt: 'Categorias', en: 'Categories', es: 'Categorías' })}
         description={t({
           pt: 'Selecione uma categoria para o item',

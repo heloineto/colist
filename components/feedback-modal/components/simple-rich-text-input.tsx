@@ -5,11 +5,11 @@ import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import {
-  TextB,
-  TextItalic,
-  TextStrikethrough,
-  TextTSlash,
-  TextUnderline,
+  TextBIcon,
+  TextItalicIcon,
+  TextStrikethroughIcon,
+  TextTSlashIcon,
+  TextUnderlineIcon,
 } from '@phosphor-icons/react/dist/ssr';
 import type { ScrollAreaAutosizeProps } from '@mantine/core';
 import { ScrollArea } from '@mantine/core';
@@ -17,23 +17,25 @@ import type { ForwardedRef } from 'react';
 import { forwardRef } from 'react';
 
 function BoldIcon() {
-  return <TextB size="1rem" />;
+  return <TextBIcon size="1rem" />;
 }
 function ItalicIcon() {
-  return <TextItalic size="1rem" />;
+  return <TextItalicIcon size="1rem" />;
 }
 function UnderlineIcon() {
-  return <TextUnderline size="1rem" />;
+  return <TextUnderlineIcon size="1rem" />;
 }
 function StrikethroughIcon() {
-  return <TextStrikethrough size="1rem" />;
+  return <TextStrikethroughIcon size="1rem" />;
 }
 function ClearFormattingIcon() {
-  return <TextTSlash size="1rem" />;
+  return <TextTSlashIcon size="1rem" />;
 }
 
-export interface SimpleRichTextInputProps
-  extends Omit<RichTextEditorProps, 'editor' | 'children'> {
+export interface SimpleRichTextInputProps extends Omit<
+  RichTextEditorProps,
+  'editor' | 'children'
+> {
   scrollAreaProps?: ScrollAreaAutosizeProps;
   value?: Content;
   onChange?: (content: Content) => void;
@@ -76,7 +78,7 @@ export const SimpleRichTextInput = forwardRef(function SimpleRichTextInput(
       </RichTextEditor.Toolbar>
       <div className="relative grow">
         <ScrollArea
-          className="!absolute left-0 top-0 size-full cursor-text"
+          className="!absolute top-0 left-0 size-full cursor-text"
           type="auto"
           onClick={() => editor?.commands.focus()}
           {...scrollAreaProps}

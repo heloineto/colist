@@ -1,5 +1,5 @@
 import { Anchor, Button } from '@mantine/core';
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import { ArrowRightIcon } from '@phosphor-icons/react/dist/ssr';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { EmailInput as OriginalEmailInput } from '../email-input';
@@ -69,7 +69,7 @@ export function ResetPasswordForm({ onClickSignUp }: ResetPasswordFormProps) {
                 es: 'Volver a la página de login',
               })}
             </span>
-            <ArrowRight size="0.875rem" weight="bold" />
+            <ArrowRightIcon size="0.875rem" weight="bold" />
           </Anchor>
         </div>
       </form>

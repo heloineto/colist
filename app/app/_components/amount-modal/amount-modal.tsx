@@ -1,7 +1,7 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import type { NumberInputHandlers, NumberInputProps } from '@mantine/core';
 import { ActionIcon, Divider, Modal, NumberInput } from '@mantine/core';
-import { Hash, Minus, Plus } from '@phosphor-icons/react/dist/ssr';
+import { HashIcon, MinusIcon, PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import type { ForwardedRef } from 'react';
 import { forwardRef, useRef } from 'react';
 import { ModalHeader } from '@/components/modal-header';
@@ -27,7 +27,7 @@ export const AmountModal = forwardRef(function AmountModal(
     >
       <ModalHeader
         className="p-md"
-        icon={<Hash />}
+        icon={<HashIcon />}
         title={t({ pt: 'Quantidade', en: 'Quantity', es: 'Cantidad' })}
         description={t({
           pt: 'Selecione a quantidade desejada',
@@ -43,7 +43,7 @@ export const AmountModal = forwardRef(function AmountModal(
           variant="default"
           onClick={() => handlersRef.current?.decrement()}
         >
-          <Minus size="1.25rem" />
+          <MinusIcon size="1.25rem" />
         </ActionIcon>
         <NumberInput
           ref={ref}
@@ -62,7 +62,7 @@ export const AmountModal = forwardRef(function AmountModal(
           variant="default"
           onClick={() => handlersRef.current?.increment()}
         >
-          <Plus size="1.25rem" />
+          <PlusIcon size="1.25rem" />
         </ActionIcon>
       </div>
     </Modal>

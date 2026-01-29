@@ -4,7 +4,7 @@ import {
 } from '@supabase-cache-helpers/postgrest-react-query';
 import { QueryBoundary } from '@/deprecated/packages/states';
 import { useTranslation } from '@/deprecated/packages/translations';
-import { Plus, Tag, Trash } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon, TagIcon, TrashIcon } from '@phosphor-icons/react/dist/ssr';
 import { ActionIcon, Button, Highlight, Radio, Skeleton } from '@mantine/core';
 import type { Disclosure } from '@/deprecated/packages/mantine';
 import type { RefObject } from 'react';
@@ -86,7 +86,7 @@ export function CategoryRadioGroup({
             }
             withEmptyState
             emptyProps={{
-              icon: <Tag />,
+              icon: <TagIcon />,
               size: 'sm',
               hasFilters: !!debouncedSearch,
               title: !debouncedSearch
@@ -115,7 +115,7 @@ export function CategoryRadioGroup({
                 <Button
                   variant="light"
                   onClick={() => inputRef.current?.focus()}
-                  leftSection={<Plus size="1rem" />}
+                  leftSection={<PlusIcon size="1rem" />}
                 >
                   {t({
                     pt: 'Adicionar categoria',
@@ -182,7 +182,7 @@ export function CategoryRadioGroup({
                         });
                       }}
                     >
-                      <Trash size="1rem" />
+                      <TrashIcon size="1rem" />
                     </ActionIcon>
                   </div>
                 ))}

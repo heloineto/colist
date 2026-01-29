@@ -4,7 +4,7 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
-import { MoonStars, Sun } from '@phosphor-icons/react/dist/ssr';
+import { MoonStarsIcon, SunIcon } from '@phosphor-icons/react/dist/ssr';
 
 export function ColorThemeToggle() {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ export function ColorThemeToggle() {
         {
           label: (
             <div className="gap-xs flex items-center justify-center">
-              <MoonStars
+              <MoonStarsIcon
                 className="text-blue-8 dark:text-blue-3"
                 size="1.125rem"
                 weight="bold"
@@ -34,7 +34,7 @@ export function ColorThemeToggle() {
         {
           label: (
             <div className="gap-xs flex items-center justify-center">
-              <Sun
+              <SunIcon
                 className="text-yellow-8 dark:text-yellow-4"
                 size="1.125rem"
                 weight="bold"

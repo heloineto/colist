@@ -1,6 +1,6 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip, NavLink } from '@mantine/core';
-import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
+import { MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
 import { useOptionsForm } from '@/app/app/_utils/options-form-context';
 
@@ -24,7 +24,7 @@ export function SearchButton({ mode = 'footer' }: Props) {
         <NavLink
           label={label}
           component="button"
-          leftSection={<MagnifyingGlass size="1.25rem" />}
+          leftSection={<MagnifyingGlassIcon size="1.25rem" />}
           onClick={() => optionsForm.setValue('searchOpened', !searchOpened)}
           active={searchOpened}
         />
@@ -38,7 +38,7 @@ export function SearchButton({ mode = 'footer' }: Props) {
             radius="md"
             onClick={() => optionsForm.setValue('searchOpened', !searchOpened)}
           >
-            <MagnifyingGlass size="1.375rem" />
+            <MagnifyingGlassIcon size="1.375rem" />
           </ActionIcon>
         </Tooltip>
       )}

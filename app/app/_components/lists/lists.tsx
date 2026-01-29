@@ -1,7 +1,7 @@
 'use client';
 
 import { EmptyState } from '@/deprecated/packages/states';
-import { Plus, ShoppingCart } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon, ShoppingCartIcon } from '@phosphor-icons/react/dist/ssr';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { Button } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -35,7 +35,7 @@ export function Lists() {
   if (listsQuery.data?.length === 0) {
     return (
       <EmptyState
-        icon={<ShoppingCart />}
+        icon={<ShoppingCartIcon />}
         title={t({
           pt: 'Nenhuma lista criada',
           en: 'No list created',
@@ -49,7 +49,7 @@ export function Lists() {
         button={
           <Button
             size="sm"
-            leftSection={<Plus size="1rem" weight="bold" />}
+            leftSection={<PlusIcon size="1rem" weight="bold" />}
             onClick={listForm.disclosure.open}
             variant="light"
           >
@@ -67,7 +67,7 @@ export function Lists() {
   if (!listId) {
     return (
       <EmptyState
-        icon={<ShoppingCart />}
+        icon={<ShoppingCartIcon />}
         title={t({
           pt: 'Nenhuma lista selecionada',
           en: 'No list selected',

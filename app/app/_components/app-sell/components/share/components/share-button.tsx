@@ -1,7 +1,7 @@
 import { useTranslation } from '@/deprecated/packages/translations';
 import type { ButtonProps } from '@mantine/core';
 import { Button } from '@mantine/core';
-import { ShareNetwork } from '@phosphor-icons/react/dist/ssr';
+import { ShareNetworkIcon } from '@phosphor-icons/react/dist/ssr';
 import {
   type ForwardedRef,
   type ComponentPropsWithoutRef,
@@ -23,7 +23,7 @@ export const ShareButton = forwardRef(function ShareButton(
     <Button
       size="xs"
       variant="light"
-      leftSection={<ShareNetwork size="1rem" />}
+      leftSection={<ShareNetworkIcon size="1rem" />}
       ref={ref}
       {...rest}
     >

@@ -1,5 +1,5 @@
 import type { MantineSize } from '@mantine/core';
-import { Cube } from '@phosphor-icons/react/dist/ssr';
+import { CubeIcon } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentProps, ReactNode } from 'react';
 import { useTranslation } from '@/deprecated/packages/translations';
 import classes from './empty-state.module.css';
@@ -62,7 +62,7 @@ export function EmptyState({
       data-size={size}
       {...rest}
     >
-      <div className={classes.iconWrapper}>{icon ?? <Cube />}</div>
+      <div className={classes.iconWrapper}>{icon ?? <CubeIcon />}</div>
       <div className={classes.content}>
         <div className={classes.textWrapper}>
           <h3 className={classes.title}>{_title}</h3>

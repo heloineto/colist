@@ -2,16 +2,16 @@ import { useDisclosure } from '@/deprecated/packages/mantine';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip } from '@mantine/core';
 import {
-  Hash,
-  NumberCircleOne,
-  NumberCircleTwo,
-  NumberCircleThree,
-  NumberCircleFour,
-  NumberCircleFive,
-  NumberCircleSix,
-  NumberCircleSeven,
-  NumberCircleEight,
-  NumberCircleNine,
+  HashIcon,
+  NumberCircleOneIcon,
+  NumberCircleTwoIcon,
+  NumberCircleThreeIcon,
+  NumberCircleFourIcon,
+  NumberCircleFiveIcon,
+  NumberCircleSixIcon,
+  NumberCircleSevenIcon,
+  NumberCircleEightIcon,
+  NumberCircleNineIcon,
 } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
 import { withController } from '@/deprecated/packages/mantine-hook-form';
@@ -21,15 +21,15 @@ import { AmountModal as OriginalAmountModal } from '@/app/app/_components/amount
 const AmountModal = withController(OriginalAmountModal);
 
 const numberToCircleIcon = {
-  1: NumberCircleOne,
-  2: NumberCircleTwo,
-  3: NumberCircleThree,
-  4: NumberCircleFour,
-  5: NumberCircleFive,
-  6: NumberCircleSix,
-  7: NumberCircleSeven,
-  8: NumberCircleEight,
-  9: NumberCircleNine,
+  1: NumberCircleOneIcon,
+  2: NumberCircleTwoIcon,
+  3: NumberCircleThreeIcon,
+  4: NumberCircleFourIcon,
+  5: NumberCircleFiveIcon,
+  6: NumberCircleSixIcon,
+  7: NumberCircleSevenIcon,
+  8: NumberCircleEightIcon,
+  9: NumberCircleNineIcon,
 };
 
 export function AmountButton() {
@@ -45,7 +45,7 @@ export function AmountButton() {
   const Icon =
     amount in numberToCircleIcon
       ? numberToCircleIcon[amount as keyof typeof numberToCircleIcon]
-      : Hash;
+      : HashIcon;
 
   return (
     <>

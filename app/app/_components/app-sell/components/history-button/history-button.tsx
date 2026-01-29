@@ -1,7 +1,7 @@
 import { useDisclosure } from '@/deprecated/packages/mantine';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Drawer, Modal, Tooltip, NavLink } from '@mantine/core';
-import { ClockCounterClockwise } from '@phosphor-icons/react/dist/ssr';
+import { ClockCounterClockwiseIcon } from '@phosphor-icons/react/dist/ssr';
 import { EmptyState } from '@/deprecated/packages/states';
 
 interface Props {
@@ -16,7 +16,7 @@ export function HistoryButton({ mode }: Props) {
 
   const content = (
     <EmptyState
-      icon={<ClockCounterClockwise />}
+      icon={<ClockCounterClockwiseIcon />}
       title={t({
         pt: 'Histórico vazio',
         en: 'Empty history',
@@ -36,7 +36,7 @@ export function HistoryButton({ mode }: Props) {
         <NavLink
           label={label}
           component="button"
-          leftSection={<ClockCounterClockwise size="1.25rem" />}
+          leftSection={<ClockCounterClockwiseIcon size="1.25rem" />}
           onClick={disclosure.toggle}
         />
         <Drawer
@@ -61,7 +61,7 @@ export function HistoryButton({ mode }: Props) {
           radius="md"
           onClick={disclosure.toggle}
         >
-          <ClockCounterClockwise size="1.375rem" />
+          <ClockCounterClockwiseIcon size="1.375rem" />
         </ActionIcon>
       </Tooltip>
       <Modal

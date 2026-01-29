@@ -1,6 +1,6 @@
 import { ScrollArea, Skeleton, Tabs, TabsList, TabsTab } from '@mantine/core';
 import { useTranslation } from '@/deprecated/packages/translations';
-import { Plus } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import { QueryBoundary } from '@/deprecated/packages/states';
 import { useEffect } from 'react';
 import { LIST_TABS_HEIGHT } from '../../../utils/constants';
@@ -78,7 +78,7 @@ export function ListTabs() {
           <TabsTab
             h={40}
             value="new"
-            leftSection={<Plus size="0.75rem" weight="bold" />}
+            leftSection={<PlusIcon size="0.75rem" weight="bold" />}
             onClick={() => {
               listForm.reset(listForm.initialValues);
               listForm.disclosure.open();

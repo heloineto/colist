@@ -1,4 +1,4 @@
-import { Check, X } from '@phosphor-icons/react/dist/ssr';
+import { CheckIcon, XIcon } from '@phosphor-icons/react/dist/ssr';
 import classes from '../password-strength.module.css';
 
 export interface PasswordRequirementProps {
@@ -13,9 +13,9 @@ export function PasswordRequirement({
   return (
     <div className={classes.requirement} data-valid={valid}>
       {valid ? (
-        <Check size="0.9rem" weight="bold" />
+        <CheckIcon size="0.9rem" weight="bold" />
       ) : (
-        <X size="0.9rem" weight="bold" />
+        <XIcon size="0.9rem" weight="bold" />
       )}
       <div>{label}</div>
     </div>

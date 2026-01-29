@@ -1,7 +1,7 @@
 import type { TFunction } from '@/deprecated/packages/translations';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { SegmentedControl, type SegmentedControlProps } from '@mantine/core';
-import { BugBeetle, ChatCircle } from '@phosphor-icons/react/dist/ssr';
+import { BugBeetleIcon, ChatCircleIcon } from '@phosphor-icons/react/dist/ssr';
 import type { CSSProperties, ReactNode } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import { useUncontrolled } from '@mantine/hooks';
@@ -17,7 +17,7 @@ const getFeedbackTabs = (t: TFunction) => {
       value: 'feedback',
       label: (
         <div className="flex items-center justify-center gap-1">
-          <ChatCircle size="1rem" weight="bold" />
+          <ChatCircleIcon size="1rem" weight="bold" />
           {t({
             pt: 'Deixar feedback',
             en: 'Leave feedback',
@@ -30,7 +30,7 @@ const getFeedbackTabs = (t: TFunction) => {
       value: 'error',
       label: (
         <div className="flex items-center justify-center gap-1">
-          <BugBeetle size="1rem" weight="bold" />
+          <BugBeetleIcon size="1rem" weight="bold" />
           {t({ pt: 'Reportar erro', en: 'Report error', es: 'Reportar error' })}
         </div>
       ),

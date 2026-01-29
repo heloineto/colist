@@ -1,7 +1,7 @@
 import { useDisclosure } from '@/deprecated/packages/mantine';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Modal, Tooltip } from '@mantine/core';
-import { Tag } from '@phosphor-icons/react/dist/ssr';
+import { TagIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
 import { useQuery } from '@supabase-cache-helpers/postgrest-react-query';
 import { CategoryModalContent } from './category-modal-content';
@@ -56,7 +56,7 @@ export function CategoryButton() {
           color="gray"
           onClick={disclosure.open}
         >
-          <Tag size="1.25rem" />
+          <TagIcon size="1.25rem" />
           {categoryQuery.data?.[0] ? (
             <p className="text-dimmed ml-1.5 max-w-28 truncate text-sm">
               {categoryQuery.data[0].name}

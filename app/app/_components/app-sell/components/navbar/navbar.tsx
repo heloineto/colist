@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@mantine/core';
-import { Plus } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import { useTranslation } from '@/deprecated/packages/translations';
 import { showNotification } from '@mantine/notifications';
 import { CollapsibleNavbar } from '@/deprecated/packages/mantine';
@@ -73,7 +73,7 @@ export function Navbar() {
         <Button
           className={classes.addButton}
           radius="xl"
-          leftSection={<Plus size="1.5rem" weight="bold" />}
+          leftSection={<PlusIcon size="1.5rem" weight="bold" />}
           onClick={() => {
             if (!listId) {
               showNotification({
