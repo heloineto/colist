@@ -15,12 +15,15 @@ import { ModalsProvider } from '@mantine/modals';
 import {
   createQueryClient,
   DeleteContextModal,
-  theme as defaultTheme,
 } from '@information-systems/mantine';
 import {
+  Checkbox,
   createTheme,
+  HoverCard,
   MantineProvider,
   mergeThemeOverrides,
+  Modal,
+  Tooltip,
 } from '@mantine/core';
 import { useCookie } from '@/hooks/use-cookie';
 import { PrimaryColorProvider } from '@/contexts/primary-color-context';
@@ -46,6 +49,23 @@ interface Props {
   language: SupportedLanguage;
   primaryColor: string;
 }
+
+export const defaultTheme = createTheme({
+  fontFamily: geistSans.style.fontFamily,
+  fontFamilyMonospace: geistMono.style.fontFamily,
+  defaultRadius: 'md',
+  components: {
+    Modal: Modal.extend({
+      defaultProps: { centered: true },
+      styles: { title: { fontWeight: 700 } },
+    }),
+    Tooltip: Tooltip.extend({ defaultProps: { withArrow: true } }),
+    HoverCard: HoverCard.extend({ defaultProps: { withArrow: true } }),
+    Checkbox: Checkbox.extend({
+      defaultProps: { radius: '0.375rem' },
+    }),
+  },
+});
 
 export function Providers({
   children,
@@ -82,14 +102,12 @@ export function Providers({
     [language]
   );
 
-  const theme = useMemo(
-    () =>
-      mergeThemeOverrides(
-        defaultTheme,
-        createTheme({ primaryColor, primaryShade: 8 })
-      ),
-    [primaryColor]
-  );
+  const theme = useMemo(() => {
+    return mergeThemeOverrides(
+      defaultTheme,
+      createTheme({ primaryColor, primaryShade: 8 })
+    );
+  }, [primaryColor]);
 
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
