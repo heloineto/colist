@@ -65,12 +65,11 @@ export function PasswordStrength({ name }: PasswordStrengthProps) {
 
           return (
             <Progress
+              key={index}
               className={classes.progress}
               styles={{ section: { transitionDuration: '0ms' } }}
               value={filled ? 100 : 0}
               color={color}
-              // eslint-disable-next-line react/no-array-index-key --- This is fine, since the array is static
-              key={index}
               size={4}
             />
           );

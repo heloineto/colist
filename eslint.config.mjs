@@ -22,6 +22,7 @@ const eslintConfig = defineConfig([
   {
     files: ['{app,components,lib,packages}/**/*.{ts,tsx}'],
     rules: {
+      'react/no-array-index-key': 'error',
       '@next/next/no-img-element': 'off',
       'no-console': ['error', { allow: ['warn', 'error'] }],
     },
