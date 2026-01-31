@@ -14,7 +14,7 @@ import { ArrowsDownUpIcon, ShapesIcon } from '@phosphor-icons/react/dist/ssr';
 import { useUncontrolled } from '@mantine/hooks';
 import { useMemo } from 'react';
 import { withController } from '@/deprecated/packages/mantine-hook-form';
-import { useOptionsForm } from '@/app/app/_utils/options-form-context';
+import { useOptionsForm } from '@/app/app/utils/options-form-context';
 
 const SelectList = withController(OriginalSelectList);
 

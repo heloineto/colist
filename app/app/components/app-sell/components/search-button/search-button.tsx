@@ -2,7 +2,7 @@ import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip, NavLink } from '@mantine/core';
 import { MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
-import { useOptionsForm } from '@/app/app/_utils/options-form-context';
+import { useOptionsForm } from '@/app/app/utils/options-form-context';
 
 interface Props {
   mode?: 'nav' | 'footer';

@@ -4,8 +4,8 @@ import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import type { ComponentPropsWithoutRef } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { useTranslation } from '@/deprecated/packages/translations';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
-import { useListContext } from '@/app/app/_utils/list-context';
+import { useItemForm } from '@/app/app/utils/item-form-context';
+import { useListContext } from '@/app/app/utils/list-context';
 
 interface Props
   extends

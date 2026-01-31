@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from '@/deprecated/packages/translations';
 import clsx from 'clsx';
 import { useWatch } from 'react-hook-form';
-import { useOptionsForm } from '../../_utils/options-form-context';
+import { useOptionsForm } from '../../utils/options-form-context';
 import { NormalItems } from './components/normal-items';
 import { splitItems } from './utils/split-items';
 import { ItemsProvider } from './utils/items-context';

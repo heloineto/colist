@@ -6,7 +6,7 @@ import { useUpdateMutation } from '@supabase-cache-helpers/postgrest-react-query
 import { useMediaQuery } from '@mantine/hooks';
 import { useWatch } from 'react-hook-form';
 import { TextInput } from '@/deprecated/packages/mantine-hook-form';
-import { useListForm } from '../../_utils/list-form-context';
+import { useListForm } from '../../utils/list-form-context';
 import { useCreateListMutation } from './utils/use-create-list-mutation';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { LISTS_COLUMNS, LISTS_TABLE } from '@/deprecated/utils/queries/lists';

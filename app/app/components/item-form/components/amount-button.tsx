@@ -15,8 +15,8 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
 import { withController } from '@/deprecated/packages/mantine-hook-form';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
-import { AmountModal as OriginalAmountModal } from '@/app/app/_components/amount-modal';
+import { useItemForm } from '@/app/app/utils/item-form-context';
+import { AmountModal as OriginalAmountModal } from '@/app/app/components/amount-modal';
 
 const AmountModal = withController(OriginalAmountModal);
 

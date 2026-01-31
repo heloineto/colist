@@ -2,7 +2,7 @@ import { useTranslation } from '@/deprecated/packages/translations';
 import { ActionIcon, Tooltip } from '@mantine/core';
 import { ListPlusIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
+import { useItemForm } from '@/app/app/utils/item-form-context';
 
 interface Props {
   onClick: () => void;

@@ -5,7 +5,7 @@ import { useWatch } from 'react-hook-form';
 import { openDeleteModal } from '@/deprecated/packages/mantine';
 import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/deprecated/utils/queries/items';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
+import { useItemForm } from '@/app/app/utils/item-form-context';
 
 export function DeleteItemButton() {
   const itemForm = useItemForm();

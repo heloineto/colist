@@ -3,7 +3,7 @@ import { Affix, Button, Transition, FocusTrap } from '@mantine/core';
 import { MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch, type Control } from 'react-hook-form';
 import { TextInput } from '@/deprecated/packages/mantine-hook-form';
-import { useOptionsForm } from '@/app/app/_utils/options-form-context';
+import { useOptionsForm } from '@/app/app/utils/options-form-context';
 
 export function SearchAffix() {
   const { t } = useTranslation();

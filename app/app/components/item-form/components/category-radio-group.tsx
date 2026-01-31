@@ -16,7 +16,7 @@ import {
   CATEGORIES_TABLE,
   type Category,
 } from '@/deprecated/utils/queries/categories';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
+import { useItemForm } from '@/app/app/utils/item-form-context';
 import { random } from '@/deprecated/utils/other/random';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 

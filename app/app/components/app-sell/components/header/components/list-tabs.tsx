@@ -5,8 +5,8 @@ import { QueryBoundary } from '@/deprecated/packages/states';
 import { useEffect } from 'react';
 import { LIST_TABS_HEIGHT } from '../../../utils/constants';
 import { UncheckedItemsIndicator } from './unchecked-items-indicator';
-import { useListForm } from '@/app/app/_utils/list-form-context';
-import { useListContext } from '@/app/app/_utils/list-context';
+import { useListForm } from '@/app/app/utils/list-form-context';
+import { useListContext } from '@/app/app/utils/list-context';
 
 export function ListTabs() {
   const { t } = useTranslation();

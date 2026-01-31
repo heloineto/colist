@@ -5,22 +5,22 @@ import cookies from 'js-cookie';
 import { useWatch } from 'react-hook-form';
 import { useSessionQuery, useUserQuery } from '@/deprecated/packages/mantine';
 import { useQuery } from '@supabase-cache-helpers/postgrest-react-query';
-import type { OptionsFieldValues } from './_utils/options-form-context';
+import type { OptionsFieldValues } from './utils/options-form-context';
 import {
   OptionsFormProvider,
   optionsInitialValues,
   useOptionsForm,
   useOptionsFormProvider,
-} from './_utils/options-form-context';
+} from './utils/options-form-context';
 import {
   ListFormProvider,
   useListFormProvider,
-} from './_utils/list-form-context';
+} from './utils/list-form-context';
 import {
   ItemFormProvider,
   useItemFormProvider,
-} from './_utils/item-form-context';
-import { ListProvider } from './_utils/list-context';
+} from './utils/item-form-context';
+import { ListProvider } from './utils/list-context';
 import { AuthProvider } from '@/app/contexts/auth-context';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import {

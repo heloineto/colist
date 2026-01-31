@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { cookies } from 'next/headers';
 import { Providers } from './providers';
-import type { OptionsFieldValues } from './_utils/options-form-context';
+import type { OptionsFieldValues } from './utils/options-form-context';
 import { deserializeJSON } from '@/deprecated/hooks/use-cookie/utils/deserialize-json';
 
 interface Props {

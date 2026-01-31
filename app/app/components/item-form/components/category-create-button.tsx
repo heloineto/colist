@@ -4,13 +4,13 @@ import { useInsertMutation } from '@supabase-cache-helpers/postgrest-react-query
 import { PlusIcon } from '@phosphor-icons/react/dist/ssr';
 import { showNotification } from '@mantine/notifications';
 import type { Disclosure } from '@/deprecated/packages/mantine';
-import { useListContext } from '@/app/app/_utils/list-context';
+import { useListContext } from '@/app/app/utils/list-context';
 import {
   CATEGORIES_COLUMNS,
   CATEGORIES_TABLE,
 } from '@/deprecated/utils/queries/categories';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
+import { useItemForm } from '@/app/app/utils/item-form-context';
 
 interface Props {
   search: string;

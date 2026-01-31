@@ -1,6 +1,6 @@
-import { AppSell } from './_components/app-sell/app-sell';
-import { ListForm } from './_components/list-form';
-import { Lists } from './_components/lists';
+import { AppSell } from './components/app-sell/app-sell';
+import { ListForm } from './components/list-form';
+import { Lists } from './components/lists';
 
 export default function Page() {
   return (

@@ -5,7 +5,7 @@ import { TagIcon } from '@phosphor-icons/react/dist/ssr';
 import { useWatch } from 'react-hook-form';
 import { useQuery } from '@supabase-cache-helpers/postgrest-react-query';
 import { CategoryModalContent } from './category-modal-content';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
+import { useItemForm } from '@/app/app/utils/item-form-context';
 import {
   CATEGORIES_COLUMNS,
   CATEGORIES_TABLE,

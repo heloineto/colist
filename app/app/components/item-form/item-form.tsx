@@ -12,8 +12,8 @@ import { DeleteItemButton } from './components/delete-item-button';
 import { DetailsButton } from './components/details-button';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import { ITEMS_COLUMNS, ITEMS_TABLE } from '@/deprecated/utils/queries/items';
-import { useItemForm } from '@/app/app/_utils/item-form-context';
-import { useListContext } from '@/app/app/_utils/list-context';
+import { useItemForm } from '@/app/app/utils/item-form-context';
+import { useListContext } from '@/app/app/utils/list-context';
 
 export function ItemForm() {
   const { t } = useTranslation();

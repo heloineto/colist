@@ -9,7 +9,7 @@ import { useMemberForm } from '../contexts/member-form-context';
 import { ProfileModalContent } from './profile-modal-content';
 import type { Member as MemberType } from '@/deprecated/utils/queries/members';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
-import { useListContext } from '@/app/app/_utils/list-context';
+import { useListContext } from '@/app/app/utils/list-context';
 
 interface Props {
   members: MemberType[];

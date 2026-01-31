@@ -7,8 +7,8 @@ import { Button } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { CSSProperties } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
-import { useListContext } from '../../_utils/list-context';
-import { useListForm } from '../../_utils/list-form-context';
+import { useListContext } from '../../utils/list-context';
+import { useListForm } from '../../utils/list-form-context';
 import { List } from '../list';
 
 export function Lists() {

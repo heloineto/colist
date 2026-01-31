@@ -14,7 +14,7 @@ import {
   MemberFormProvider,
   useMemberFormProvider,
 } from './contexts/member-form-context';
-import { useListContext } from '@/app/app/_utils/list-context';
+import { useListContext } from '@/app/app/utils/list-context';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
 import type { Member } from '@/deprecated/utils/queries/members';
 import {

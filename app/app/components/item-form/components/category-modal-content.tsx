@@ -13,7 +13,7 @@ import {
   CATEGORIES_TABLE,
 } from '@/deprecated/utils/queries/categories';
 import { supabase } from '@/deprecated/utils/supabase/create-browser-client';
-import { useListContext } from '@/app/app/_utils/list-context';
+import { useListContext } from '@/app/app/utils/list-context';
 import { ModalHeader } from '@/components/modal-header';
 
 interface Props {
