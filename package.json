@@ -92,6 +92,7 @@
       "plpgsql",
       "pooler",
       "postgrest",
+      "posthog",
       "precache",
       "rgba",
       "serwist",

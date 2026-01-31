@@ -1,12 +1,24 @@
-import { signOut } from '@/deprecated/packages/supabase/sign-out';
 import { useTranslation } from '@/deprecated/packages/translations';
+import { LOGIN_ROUTE } from '@/lib/constants';
+import { createClient } from '@/lib/supabase/client';
 import { Loader, NavLink } from '@mantine/core';
 import { SignOutIcon } from '@phosphor-icons/react/dist/ssr';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export function SignOutButton() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const supabase = createClient();
+
+  const onSignOut = async () => {
+    await supabase.auth.signOut();
+    // TODO: Add posthog and then uncomment the line below
+    // posthog.reset(true);
+    router.push(LOGIN_ROUTE);
+  };
 
   return (
     <NavLink
@@ -28,9 +40,9 @@ export function SignOutButton() {
         label: 'text-gray-9 dark:text-dark-0 !text-md',
       }}
       active
-      onClick={async () => {
+      onClick={() => {
         setLoading(true);
-        await signOut();
+        onSignOut();
         setTimeout(() => setLoading(false), 1000);
       }}
     />
