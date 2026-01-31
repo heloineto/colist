@@ -22,7 +22,7 @@ const SimpleRichTextInput = withController(OriginalSimpleRichTextInput);
 function getSchema(t: TFunction) {
   return z.object({
     rating: z.number({
-      message: t({
+      error: t({
         pt: 'Por favor, dê uma nota',
         en: 'Please, give a rating',
         es: 'Por favor, da una nota',

@@ -1,6 +1,6 @@
 import { Progress } from '@mantine/core';
 import { useWatch } from 'react-hook-form';
-import { string, ZodIssueCode } from 'zod';
+import { z } from 'zod';
 import {
   type TFunction,
   useTranslation,
@@ -10,11 +10,12 @@ import classes from './password-strength.module.css';
 import { requirements } from './utils/requirements';
 
 export function getStrongPasswordSchema(t: TFunction) {
-  return string().superRefine((v, ctx) => {
+  return z.string().superRefine((value, context) => {
     for (const requirement of requirements) {
-      if (!requirement.test(v)) {
-        ctx.addIssue({
-          code: ZodIssueCode.custom,
+      if (!requirement.test(value)) {
+        context.issues.push({
+          code: 'custom',
+          input: value,
           message: t(requirement.error),
         });
       }

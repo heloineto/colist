@@ -1,5 +1,5 @@
 import { createDisclosureDbFormContext } from '@/deprecated/packages/mantine';
-import { number, object, string } from 'zod';
+import { z } from 'zod';
 import type { TablesInsert } from '@/deprecated/utils/supabase/database-types';
 
 export const [useListFormProvider, useListForm, ListFormProvider] =
@@ -9,16 +9,15 @@ export const [useListFormProvider, useListForm, ListFormProvider] =
       name: '',
     },
     getSchema: (t) => {
-      return object({
-        id: number().nullable(),
-        name: string().min(
-          1,
-          t({
+      return z.object({
+        id: z.number().nullable(),
+        name: z.string().min(1, {
+          error: t({
             pt: 'Por favor, forneça um nome',
             en: 'Please provide a name',
             es: 'Por favor, proporcione un nombre',
-          })
-        ),
+          }),
+        }),
       });
     },
     toDatabase: (values) => {

@@ -50,7 +50,7 @@ If not, create a folder with the base name. this folder will house most of the p
 
 ### Determining the shape of the data
 
-The user should have provided context on what the data is that we are building. Think about the data schema and how it wil be store by supabase's postgresSQL database, and how it will be handled by the form
+The user should have provided context on what the data is that we are building. Think about the data schema and how it wil be store by supabase's PostgresSQL database, and how it will be handled by the form
 
 #### Creating the table in the database
 
@@ -118,7 +118,7 @@ Example:
 ```ts
 import { Imposto, ImpostoInsert } from '@/lib/queries/imposto-query';
 import dayjs from 'dayjs';
-import z from 'zod';
+import { z } from 'zod';
 
 // Create a default values constant named, in capitalized case `<NAME>_DEFAULT_VALUES`
 // Be explicit about the types, since it will be used to create the `<Name>FormValues` later

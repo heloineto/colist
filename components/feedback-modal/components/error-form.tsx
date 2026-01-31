@@ -27,7 +27,7 @@ function getSchema(t: TFunction) {
     error: z.unknown(),
     allowCommunication: z.boolean(),
     message: z.unknown().refine((value) => value !== null, {
-      message: t({
+      error: t({
         pt: 'Por favor, descreva o erro',
         en: 'Please, describe the error',
         es: 'Por favor, describe el error',

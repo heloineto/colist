@@ -1,4 +1,4 @@
-import { boolean, number, object, string } from 'zod';
+import { z } from 'zod';
 import { createDisclosureDbFormContext } from '@/deprecated/packages/mantine';
 import type { TablesInsert } from '@/deprecated/utils/supabase/database-types';
 
@@ -14,21 +14,20 @@ export const [useItemFormProvider, useItemForm, ItemFormProvider] =
       categoryId: null as number | null,
     },
     getSchema: (t) => {
-      return object({
-        id: number().nullable(),
-        name: string().min(
-          1,
-          t({
+      return z.object({
+        id: z.number().nullable(),
+        name: z.string().min(1, {
+          error: t({
             pt: 'Por favor, forneça um nome',
             en: 'Please provide a name',
             es: 'Por favor, proporcione un nombre',
-          })
-        ),
-        detailsOpened: boolean(),
-        details: string(),
-        amount: number().int().min(1),
-        listId: number().int(),
-        categoryId: number().int().nullable(),
+          }),
+        }),
+        detailsOpened: z.boolean(),
+        details: z.string(),
+        amount: z.number().int().min(1),
+        listId: z.number().int(),
+        categoryId: z.number().int().nullable(),
       });
     },
     toDatabase: (values) => {
