@@ -3,7 +3,7 @@ import { LOGIN_ROUTE } from '@/lib/constants';
 import { createClient } from '@/lib/supabase/client';
 import { Loader, NavLink } from '@mantine/core';
 import { SignOutIcon } from '@phosphor-icons/react/dist/ssr';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export function SignOutButton() {

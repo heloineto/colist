@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ColorSchemeScript } from '@mantine/core';
+import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import type { Metadata, Viewport } from 'next';
 import type { SupportedLanguage } from '@/deprecated/packages/translations';
 import { cookies } from 'next/headers';
@@ -80,9 +80,9 @@ export default async function RootLayout({ children }: Props) {
   const primaryColor = (await cookies()).get('primary-color')?.value ?? 'green';
 
   return (
-    <html lang={language}>
+    <html lang={language} {...mantineHtmlProps}>
       <head>
-        <ColorSchemeScript defaultColorScheme="auto" />
+        <ColorSchemeScript />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
