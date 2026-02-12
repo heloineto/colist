@@ -8,7 +8,7 @@ export function LanguageSelect() {
 
   return (
     <Select
-      className="px-md hover:bg-gray-1 hover:dark:bg-dark-8 pt-0.5"
+      className="px-md hover:dark:bg-dark-800 pt-0.5 hover:bg-gray-100"
       value={language}
       onChange={(value) =>
         setLanguage((value as SupportedLanguage | null) ?? 'pt')
@@ -26,7 +26,7 @@ export function LanguageSelect() {
       leftSection={
         <TranslateIcon
           size="1.125rem"
-          className="text-gray-6 dark:text-dark-0"
+          className="dark:text-dark-50 text-gray-600"
           weight="bold"
         />
       }

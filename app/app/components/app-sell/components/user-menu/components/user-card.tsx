@@ -37,7 +37,7 @@ export function UserCard() {
 
   return (
     <div className="p-md flex grow justify-between">
-      <div className="mr-xs gap-xs dark:text-dark-0 flex grow items-center text-black">
+      <div className="mr-xs gap-xs dark:text-dark-50 flex grow items-center text-black">
         <QueryBoundary
           query={profileQuery}
           errorProps={{

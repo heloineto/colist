@@ -23,7 +23,7 @@ export function SearchAffix() {
         {(transitionStyles) => (
           <FocusTrap active={searchOpened}>
             <div
-              className="gap-xs px-xs dark:bg-dark-7 flex h-14 items-center bg-white"
+              className="gap-xs px-xs dark:bg-dark-700 flex h-14 items-center bg-white"
               style={transitionStyles}
             >
               <TextInput

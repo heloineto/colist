@@ -29,15 +29,15 @@ export function SignOutButton() {
         ) : (
           <SignOutIcon
             size="1.125rem"
-            className="text-gray-6 dark:text-dark-0"
+            className="dark:text-dark-50 text-gray-600"
             weight="bold"
           />
         )
       }
       variant="subtle"
       classNames={{
-        root: 'bg-gray-0 dark:bg-dark-7 data-[active]:hover:bg-gray-1 dark:data-[active]:hover:bg-dark-8 !px-md',
-        label: 'text-gray-9 dark:text-dark-0 !text-md',
+        root: 'bg-gray-50 dark:bg-dark-700 data-[active]:hover:bg-gray-100 dark:data-[active]:hover:bg-dark-800 !px-md',
+        label: 'text-gray-900 dark:text-dark-50 !text-md',
       }}
       active
       onClick={() => {

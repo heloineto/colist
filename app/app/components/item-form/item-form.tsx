@@ -70,7 +70,7 @@ export function ItemForm() {
         <Textarea
           classNames={{
             root: detailsOpened ? '-mt-2' : 'hidden',
-            input: 'dark:!text-dark-1 !text-gray-8',
+            input: 'dark:!text-dark-100 !text-gray-800',
           }}
           ref={detailsRef}
           variant="unstyled"

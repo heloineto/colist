@@ -14,7 +14,7 @@ export function Footer({ className, ...rest }: Props) {
   return (
     <div
       className={clsx(
-        'gap-xs bg-gray-1 px-lg py-xs dark:bg-dark-6 relative flex justify-between',
+        'gap-xs px-lg py-xs dark:bg-dark-600 relative flex justify-between bg-gray-100',
         className
       )}
       style={{ height: FOOTER_HEIGHT }}

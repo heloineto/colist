@@ -34,7 +34,7 @@ export function Navbar() {
 
   return (
     <CollapsibleNavbar
-      className="justify-between border-r-2!"
+      className="justify-between border-r-200!"
       expanded={expanded}
       onChange={setExpanded}
       onMouseEnter={() => {

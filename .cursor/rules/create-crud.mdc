@@ -259,10 +259,10 @@ export function Imposto() {
       <div className="container min-h-dvh flex flex-col pt-5 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center pb-5">
           <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold text-gray-9 dark:text-dark-0 leading-none">
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-dark-50 leading-none">
               Impostos extras
             </h1>
-            <p className="mt-2 text-sm text-gray-7 dark:text-dark-2 leading-none">
+            <p className="mt-2 text-sm text-gray-700 dark:text-dark-200 leading-none">
               Aqui você pode adicionar impostos extras que não foram obtidos da
               fonte de dados
             </p>

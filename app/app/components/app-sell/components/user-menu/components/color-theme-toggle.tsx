@@ -22,7 +22,7 @@ export function ColorThemeToggle() {
           label: (
             <div className="gap-xs flex items-center justify-center">
               <MoonStarsIcon
-                className="text-blue-8 dark:text-blue-3"
+                className="text-blue-800 dark:text-blue-300"
                 size="1.125rem"
                 weight="bold"
               />
@@ -35,7 +35,7 @@ export function ColorThemeToggle() {
           label: (
             <div className="gap-xs flex items-center justify-center">
               <SunIcon
-                className="text-yellow-8 dark:text-yellow-4"
+                className="text-yellow-800 dark:text-yellow-400"
                 size="1.125rem"
                 weight="bold"
               />

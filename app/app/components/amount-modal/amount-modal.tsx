@@ -38,7 +38,7 @@ export const AmountModal = forwardRef(function AmountModal(
       <Divider mb="md" />
       <div className="px-md pb-md flex justify-center">
         <ActionIcon
-          className="!rounded-r-none !border-r-0"
+          className="!rounded-r-none !border-r-50"
           size={50}
           variant="default"
           onClick={() => handlersRef.current?.decrement()}
@@ -57,7 +57,7 @@ export const AmountModal = forwardRef(function AmountModal(
           {...rest}
         />
         <ActionIcon
-          className="!rounded-l-none !border-l-0"
+          className="!rounded-l-none !border-l-50"
           size={50}
           variant="default"
           onClick={() => handlersRef.current?.increment()}

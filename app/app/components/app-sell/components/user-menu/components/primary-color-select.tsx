@@ -6,7 +6,7 @@ export function PrimaryColorSelect() {
 
   return (
     <ColorSelect
-      className="px-md hover:bg-gray-1 hover:dark:bg-dark-8 pt-0.5"
+      className="px-md hover:dark:bg-dark-800 pt-0.5 hover:bg-gray-100"
       value={primaryColor}
       onChange={(value) => setPrimaryColor(value ?? 'blue')}
       allowDeselect={false}

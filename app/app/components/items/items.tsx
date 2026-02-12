@@ -70,10 +70,10 @@ export function Items({ items }: Props) {
         <AccordionItem
           value="checked"
           className={clsx(
-            '!border-b-0',
+            '!border-b-50',
             uncheckedItems.length === 0
               ? ''
-              : 'mt-xs border-gray-3 dark:border-dark-4 border-0 border-t border-solid'
+              : 'mt-xs dark:border-dark-400 border-0 border-t border-solid border-gray-300'
           )}
         >
           <AccordionControl
