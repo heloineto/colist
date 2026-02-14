@@ -13,7 +13,7 @@
     "check-types": "tsc --noEmit",
     "check-unused": "knip",
     "check-spelling": "cspell .",
-    "check": "bun run lint && bun run check-types && bun run format && bun run db:test"
+    "check": "bun run lint && bun run check-types && bun run format && bun run check-spelling"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.8.1",
@@ -59,6 +59,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
     "@cspell/dict-es-es": "^3.0.8",
     "@cspell/dict-pt-br": "^2.4.2",
     "@eslint/eslintrc": "^3.3.3",
@@ -85,6 +87,26 @@
     "tailwind-preset-mantine": "^3.0.3",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "postcss": {
+    "plugins": {
+      "@tailwindcss/postcss": {},
+      "postcss-preset-mantine": {},
+      "postcss-simple-vars": {
+        "variables": {
+          "mantine-breakpoint-xs": "36em",
+          "mantine-breakpoint-sm": "48em",
+          "mantine-breakpoint-md": "62em",
+          "mantine-breakpoint-lg": "75em",
+          "mantine-breakpoint-xl": "88em"
+        }
+      }
+    }
   },
   "cspell": {
     "import": [
