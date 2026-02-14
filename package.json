@@ -13,7 +13,8 @@
     "check-types": "tsc --noEmit",
     "check-unused": "knip",
     "check-spelling": "cspell .",
-    "check": "bun run lint && bun run check-types && bun run format && bun run check-spelling"
+    "check": "bun run lint && bun run check-types && bun run format && bun run check-spelling",
+    "prepare": "husky"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.8.1",
@@ -75,6 +76,7 @@
     "cspell": "^9.6.4",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.6",
+    "husky": "^9.1.7",
     "knip": "^5.83.1",
     "postcss": "^8.5.6",
     "postcss-load-config": "^6.0.1",
