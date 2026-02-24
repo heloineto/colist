@@ -1,8 +1,9 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
+import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,6 +26,29 @@ const eslintConfig = defineConfig([
       'react/no-array-index-key': 'error',
       '@next/next/no-img-element': 'off',
       'no-console': ['error', { allow: ['warn', 'error'] }],
+    },
+  },
+  {
+    plugins: {
+      'better-tailwindcss': eslintPluginBetterTailwindcss,
+    },
+    settings: {
+      'better-tailwindcss': {
+        entryPoint: resolve(__dirname, 'app/globals.css'),
+      },
+    },
+    rules: {
+      'better-tailwindcss/enforce-canonical-classes': 'error',
+      'better-tailwindcss/enforce-consistent-variable-syntax': 'error',
+      'better-tailwindcss/no-deprecated-classes': 'error',
+      'better-tailwindcss/no-duplicate-classes': 'error',
+      'better-tailwindcss/no-unnecessary-whitespace': 'error',
+      'better-tailwindcss/enforce-consistent-important-position': 'error',
+      'better-tailwindcss/no-conflicting-classes': 'error',
+      'better-tailwindcss/no-unknown-classes': [
+        'error',
+        { ignore: ['mantine-focus-auto'] },
+      ],
     },
   },
   {
