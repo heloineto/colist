@@ -1,7 +1,7 @@
 ---
 title: Research auth without Supabase
 labels: [wayfinder:research]
-status: open
+status: closed
 assignee: claude
 blocked-by: []
 ---
@@ -19,3 +19,15 @@ Surface as of 2026:
 - Email sending options on AWS for verification/reset.
 
 Findings → `.wayfinder/research/auth-without-supabase.md`.
+
+## Resolution
+
+Full findings: [`.wayfinder/research/auth-without-supabase.md`](../research/auth-without-supabase.md).
+
+- The shortlist collapsed to **better-auth** (v1.6, 2026): tables in our own Postgres, email+password + reset built in, official Expo plugin (SecureStore), cookie + bearer/JWT session modes, documented NestJS integration, organization plugin. Lucia is deprecated (Mar 2025); the Auth.js team joined better-auth (Sep 2025) and recommends it for new projects.
+- **Cognito**: free at colist scale but worst DX and cannot import password hashes (forced resets) — effectively ruled out.
+- **Hand-rolled NestJS JWT**: ~1 week, viable via vav's TokenValidator port, but undifferentiated security code — fallback only.
+- **Email**: SES, $0 at this volume; sandbox exit takes 1–3 days, request early. Resend free tier as fallback.
+- **User migration**: Supabase bcrypt hashes export via pg_dump; better-auth supports custom bcrypt verify — users keep passwords.
+
+Research lean: better-auth self-hosted inside the API + SES. Final call belongs to the Auth architecture decision ticket.

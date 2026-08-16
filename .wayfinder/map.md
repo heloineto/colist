@@ -24,6 +24,10 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 
 <!-- one line per closed ticket -->
 
+- [Research mobile platform landscape (Expo/RN vs PWA)](tickets/002-research-mobile-platform-landscape.md) — Expo SDK 57 + bun/turbo monorepo officially supported, but Mantine doesn't port (NativeWind replaces); PWA modernization ~2–4 wks vs Expo rewrite ~6–10 wks; lean: modern PWA + Android TWA, stay Expo-ready.
+- [Research auth without Supabase](tickets/003-research-auth-without-supabase.md) — shortlist collapsed to better-auth (Lucia dead, Auth.js merged into it); Cognito can't import password hashes; SES for email; Supabase bcrypt hashes are portable.
+- [Research realtime + offline sync options](tickets/004-research-realtime-offline-sync.md) — sync engines are overkill for 7 tables; TanStack Query persistence + mutation queue is the first-party offline path; SSE/WS through Caddy is zero-config; lean: no sync engine, Electric as future upgrade path.
+
 ## Not yet specified
 
 - Implementation phasing: monorepo scaffold, API build-out, client build-out, feature-parity checklist, cutover order — can't slice until platform/API/DB decisions land.
