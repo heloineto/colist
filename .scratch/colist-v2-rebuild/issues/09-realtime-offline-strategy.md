@@ -1,10 +1,8 @@
----
-title: Realtime and offline strategy
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: [004-research-realtime-offline-sync, 005-mobile-platform-decision]
----
+# Realtime and offline strategy
+
+Type: grilling
+Status: open
+Blocked by: 04, 05
 
 ## Question
 

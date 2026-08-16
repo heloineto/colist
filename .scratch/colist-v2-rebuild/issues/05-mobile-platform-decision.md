@@ -1,10 +1,8 @@
----
-title: Mobile platform decision
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: [002-research-mobile-platform-landscape, 004-research-realtime-offline-sync]
----
+# Mobile platform decision
+
+Type: grilling
+Status: open
+Blocked by: 02, 04
 
 ## Question
 

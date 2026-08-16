@@ -1,10 +1,7 @@
----
-title: Database hosting decision
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: []
----
+# Database hosting decision
+
+Type: grilling
+Status: open
 
 ## Question
 

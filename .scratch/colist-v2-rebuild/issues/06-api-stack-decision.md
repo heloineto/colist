@@ -1,10 +1,7 @@
----
-title: API stack decision
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: []
----
+# API stack decision
+
+Type: grilling
+Status: open
 
 ## Question
 

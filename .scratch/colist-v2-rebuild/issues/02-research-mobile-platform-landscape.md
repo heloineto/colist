@@ -1,10 +1,7 @@
----
-title: Research mobile platform landscape (Expo/RN vs PWA)
-labels: [wayfinder:research]
-status: closed
-assignee: claude
-blocked-by: []
----
+# Research mobile platform landscape (Expo/RN vs PWA)
+
+Type: research
+Status: resolved
 
 ## Question
 
@@ -17,11 +14,11 @@ Colist is used primarily on phones; today it's a Next.js PWA with no offline wri
 - "Both" option: Expo + react-native-web, or Expo app + thin Next.js web — real-world cost.
 - Rough effort comparison for a small CRUD app like colist.
 
-Findings → `.wayfinder/research/mobile-platform-landscape.md`.
+Findings → `../research/mobile-platform-landscape.md`.
 
-## Resolution
+## Answer
 
-Full findings: [`.wayfinder/research/mobile-platform-landscape.md`](../research/mobile-platform-landscape.md).
+Full findings: [`../research/mobile-platform-landscape.md`](../research/mobile-platform-landscape.md).
 
 - **Expo 2026**: SDK 57 (RN 0.86 / React 19.2), New Architecture default, expo-router mature (though it forked React Navigation in SDK 56 — some churn risk). EAS free tier ≈30 builds/mo, OTA to 1,000 MAU; OTA JS updates are store-compliant.
 - **Monorepo**: bun + turborepo officially supported by Expo (metro-config auto-detects workspaces; EAS picks bun from the lockfile). Gotchas: `trustedDependencies`, pin react/RN at root.

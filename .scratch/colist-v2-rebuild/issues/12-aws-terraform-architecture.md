@@ -1,10 +1,8 @@
----
-title: AWS and Terraform architecture
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: [005-mobile-platform-decision, 006-api-stack-decision, 007-database-hosting-decision]
----
+# AWS and Terraform architecture
+
+Type: grilling
+Status: open
+Blocked by: 05, 06, 07
 
 ## Question
 

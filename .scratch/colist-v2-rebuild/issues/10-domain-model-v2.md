@@ -1,10 +1,7 @@
----
-title: Domain model v2
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: []
----
+# Domain model v2
+
+Type: grilling
+Status: open
 
 ## Question
 

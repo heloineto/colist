@@ -1,10 +1,8 @@
----
-title: Production data migration and cutover
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: [007-database-hosting-decision, 010-domain-model-v2]
----
+# Production data migration and cutover
+
+Type: grilling
+Status: open
+Blocked by: 07, 10
 
 ## Question
 

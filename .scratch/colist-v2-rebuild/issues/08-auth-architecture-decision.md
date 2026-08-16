@@ -1,10 +1,8 @@
----
-title: Auth architecture decision
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: [003-research-auth-without-supabase, 006-api-stack-decision]
----
+# Auth architecture decision
+
+Type: grilling
+Status: open
+Blocked by: 03, 06
 
 ## Question
 

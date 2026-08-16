@@ -1,10 +1,7 @@
----
-title: Tooling and conventions port
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: []
----
+# Tooling and conventions port
+
+Type: grilling
+Status: open
 
 ## Question
 

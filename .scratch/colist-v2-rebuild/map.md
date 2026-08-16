@@ -1,11 +1,6 @@
----
-title: Colist v2 Rebuild
-labels: [wayfinder:map]
----
-
 # Colist v2 Rebuild — Wayfinder Map
 
-Tracker: local markdown. Tickets live in `.wayfinder/tickets/NNN-slug.md`; a ticket is claimed when `assignee` is set, closed when `status: closed`. `blocked-by` lists ticket file slugs; frontier = open + unassigned + all blockers closed. Research findings land in `.wayfinder/research/`.
+Effort: `colist-v2-rebuild`. Tracker conventions: `docs/agents/issue-tracker.md` (local markdown — tickets in `issues/NN-<slug>.md`, `Type:`/`Status:`/`Blocked by:` lines; frontier = open + unblocked + unclaimed). Research findings live in `research/`.
 
 ## Destination
 
@@ -17,16 +12,14 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 - Colist today: Next.js PWA shopping-list app (pt-BR default, en/es), Supabase for auth/db/realtime/storage, deployed by Vercel git integration. Alpha, mid-internal-migration (`deprecated/` still powers most of the app).
 - **Never commit to `main`** — Vercel auto-deploys it. Work on `dev` / feature branches.
 - Skills for tickets: `/grilling` + `/domain-modeling` (grilling tickets), `/prototype`, `/research`.
-- User must run `/setup-matt-pocock-skills` themselves (model-blocked) — see the setup ticket.
 - User stack affinity (from both repos): bun, turbo, Mantine + Tailwind 4, TanStack Query, zod 4, react-hook-form, Phosphor icons, conventional commits.
 
 ## Decisions so far
 
-<!-- one line per closed ticket -->
-
-- [Research mobile platform landscape (Expo/RN vs PWA)](tickets/002-research-mobile-platform-landscape.md) — Expo SDK 57 + bun/turbo monorepo officially supported, but Mantine doesn't port (NativeWind replaces); PWA modernization ~2–4 wks vs Expo rewrite ~6–10 wks; lean: modern PWA + Android TWA, stay Expo-ready.
-- [Research auth without Supabase](tickets/003-research-auth-without-supabase.md) — shortlist collapsed to better-auth (Lucia dead, Auth.js merged into it); Cognito can't import password hashes; SES for email; Supabase bcrypt hashes are portable.
-- [Research realtime + offline sync options](tickets/004-research-realtime-offline-sync.md) — sync engines are overkill for 7 tables; TanStack Query persistence + mutation queue is the first-party offline path; SSE/WS through Caddy is zero-config; lean: no sync engine, Electric as future upgrade path.
+- [Run /setup-matt-pocock-skills](issues/01-run-setup-matt-pocock-skills.md) — setup complete: local markdown tracker in `.scratch/<effort>/`, default triage labels, single-context domain docs; this effort migrated from the interim `.wayfinder/` layout.
+- [Research mobile platform landscape (Expo/RN vs PWA)](issues/02-research-mobile-platform-landscape.md) — Expo SDK 57 + bun/turbo monorepo officially supported, but Mantine doesn't port (NativeWind replaces); PWA modernization ~2–4 wks vs Expo rewrite ~6–10 wks; lean: modern PWA + Android TWA, stay Expo-ready.
+- [Research auth without Supabase](issues/03-research-auth-without-supabase.md) — shortlist collapsed to better-auth (Lucia dead, Auth.js merged into it); Cognito can't import password hashes; SES for email; Supabase bcrypt hashes are portable.
+- [Research realtime + offline sync options](issues/04-research-realtime-offline-sync.md) — sync engines are overkill for 7 tables; TanStack Query persistence + mutation queue is the first-party offline path; SSE/WS through Caddy is zero-config; lean: no sync engine, Electric as future upgrade path.
 
 ## Not yet specified
 

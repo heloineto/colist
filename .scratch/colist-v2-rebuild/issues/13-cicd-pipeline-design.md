@@ -1,10 +1,8 @@
----
-title: CI/CD pipeline design
-labels: [wayfinder:grilling]
-status: open
-assignee:
-blocked-by: [005-mobile-platform-decision, 012-aws-terraform-architecture]
----
+# CI/CD pipeline design
+
+Type: grilling
+Status: open
+Blocked by: 05, 12
 
 ## Question
 
