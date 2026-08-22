@@ -21,14 +21,13 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 - [Research auth without Supabase](issues/03-research-auth-without-supabase.md) — shortlist collapsed to better-auth (Lucia dead, Auth.js merged into it); Cognito can't import password hashes; SES for email; Supabase bcrypt hashes are portable.
 - [Research realtime + offline sync options](issues/04-research-realtime-offline-sync.md) — sync engines are overkill for 7 tables; TanStack Query persistence + mutation queue is the first-party offline path; SSE/WS through Caddy is zero-config; lean: no sync engine, Electric as future upgrade path.
 - [Mobile platform decision](issues/05-mobile-platform-decision.md) — web PWA locked: Vite + TanStack Router SPA (Mantine + Tailwind 4 stay), static files via Caddy, monorepo kept Expo-ready; no push notifications ever; native app is a future effort with its own map.
+- [API stack decision](issues/06-api-stack-decision.md) — vav wholesale: NestJS 11 + Express 5, lint-enforced hexagonal contexts, nestjs-zod + OpenAPI → orval, pino; avatars via S3 presigned PUT (TUS dropped); query-param DSL skipped; ORM was TypeORM, superseded by Drizzle during ticket 07; NestJS auth course + coarse-invalidation realtime notes routed to tickets 08/09.
+- [Database hosting decision](issues/07-database-hosting-decision.md) — RDS db.t4g.micro single-AZ us-east-2 (Terraform-provisioned, credits cover initially); RDS automated backups/PITR 7-day; **no staging env** (local dev + prod only, diverges from vav CI/CD); ORM switched to **Drizzle**, migrations via on-boot `migrate()`; current Vercel+Supabase deploy frozen until cutover.
 
 ## Not yet specified
 
-- Implementation phasing: monorepo scaffold, API build-out, client build-out, feature-parity checklist, cutover order — can't slice until platform/API/DB decisions land.
-- Observability: PostHog (planned in old code, never installed), Sentry, structured logging — after API stack decision.
 - Fate of feedback/error-report features (Tiptap editor, `errors`/`feedbacks` tables) — after domain model v2.
 - Landing page for colist.com.br (middleware has a stub for one that never existed).
-- Seed + test strategy for the new API (vav has fishery/faker + e2e-against-real-PG worth copying).
 
 ## Out of scope
 
