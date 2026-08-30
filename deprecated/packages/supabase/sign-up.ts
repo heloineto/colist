@@ -7,7 +7,7 @@ import { translate } from './translate';
 
 const DEFAULT_URL = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : 'http://localhost:3000';
+  : 'http://localhost:5000';
 
 export async function signUp({
   email,

@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "supabase": {
-      "url": "http://localhost:1001/mcp?features=docs%2Cdatabase%2Cdevelopment"
+      "url": "http://localhost:5001/mcp?features=docs%2Cdatabase%2Cdevelopment"
     },
     "ag-mcp": {
       "command": "npx",
