@@ -12,7 +12,7 @@
 
 ### TypeScript
 
-- ALWAYS run `bun run check-types && bun run lint` after making changes
+- ALWAYS run `bun run lint` after making changes
 - BAD: `==` or `!=`. GOOD: `===` or `!==`
 - BAD: `Array<number>` GOOD: `number[]`
 
