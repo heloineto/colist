@@ -2,7 +2,7 @@
 
 Status: done
 Source: [Implementation phasing § P4b](../colist-v2-rebuild/issues/18-implementation-phasing.md) + tickets [09 realtime/offline](../colist-v2-rebuild/issues/09-realtime-offline-strategy.md) (points 5–8), [16 observability](../colist-v2-rebuild/issues/16-observability-stack.md) (client-crash part); data layer per the [P4a spec](../colist-v2-p4a-web/spec.md) § 1.
-Branch: `feat/p4b-offline` off `feat/p4a-web` (PR `--base feat/p4a-web`; stack #2 ← #1 ← #4 ← #5 ← #6).
+Branch: `feat/p4b-offline` (PR #7 → `feat/p4a-web`; stack #2 ← #1 ← #4 ← #5 ← #6 ← #7).
 Base facts (from P4a): orval fetch client in `src/shared/api/generated` (mutation keys `['itemsCreate']` etc., variables `{ listId, itemId?, data? }`), global toast caches + `meta { silent, success }` in `src/shared/api/query-client.ts`, SSE blanket-invalidate on `onopen` in `use-list-events.ts`, items already send `clientId` UUIDs, `VITE_APP_VERSION` build-arg wired (Dockerfile + `vite-env.d.ts`), vite-plugin-pwa `generateSW` + `registerType: 'autoUpdate'` already precaching the SPA.
 
 ## Scope

@@ -46,6 +46,9 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 
 - [P3 — Data migration pipeline](../colist-v2-p3-migration/spec.md) — **done 2026-08-30** (`feat/p3-migration`, PR #5 stacked on PR #4): wizard `scripts/migrate-legacy.sh` (Supabase pooler URI → `\copy` CSV export → public-bucket avatar download → TRUNCATE-and-load via `scripts/migrate-legacy/{legacy,transform,verify}.sql` → optional S3 sync → sign-in smoke); credential accounts carry `issuer='local:credential'` + bcrypt hash, `user.image` = S3 public URL, tester seeds dropped, `setval` on every identity. Fixed on the way: P2 API couldn't boot in dev (`z.date()` unrepresentable in the OpenAPI doc). Rehearsed on the real dump (47 users, 896 items), sign-in with the migrated bcrypt password works; local DB = dev dataset. Next: P4a.
 
+
+- [P4b — Web client, offline & crash capture](../colist-v2-p4b-offline/spec.md) — **done 2026-08-30** (`feat/p4b-offline`, PR #7 stacked on P4a's PR #6): persisted query cache (IDB via `persistQueryClient`) + SW app shell, paused-mutation queue for item/category ops with optimistic item patches (survives reload; 404 on a queued op drops silently per LWW), all other mutations fail fast with an offline toast, crash capture → `POST /errors` (dedup, cap 10, offline dropped). Fixed en route: better-auth `getSession()` throws offline (both route gates crashed — `safeSession()` treats network failure as "keep cached UI"); SW no longer intercepts `/api/*` navigations (Google OAuth redirect). Verified airplane-mode via Playwright against the built SW; queue flushed into Postgres. Next: P5.
+
 ## Not yet specified
 
 - `activities` retention/pruning — when scale makes it real.
