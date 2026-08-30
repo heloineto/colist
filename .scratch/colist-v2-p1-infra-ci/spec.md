@@ -36,3 +36,7 @@ Running production apply / SSM seeding / Vercel disconnect (P5). API code (P2). 
 - `iac.yml` plan green on the PR (needs bootstrap applied + `AWS_ACCOUNT_ID` var — plan role only).
 - Bootstrap applied by hand via the wizard; wizard stops at the P1 marker.
 - `test.yml` gating PRs.
+
+## Comments
+
+- 2026-08-30: code done in `c8db0d1` on `feat/p1-infra-ci` (PR #1, stacked on P0's PR #2 → `dev`; retarget to `dev` once #2 merges so `iac.yml`/`test.yml` trigger). `bun run lint:iac` + turbo lint + `bun run test` green (root `lint:spell` only fails on the untracked `scripts/migrate-*.sh`, not part of this branch). **Pending by hand**: `bash scripts/setup-aws-prod.sh` (SSO session already valid) → creates `colist-tfstate`, applies bootstrap, sets `AWS_ACCOUNT_ID` + `main` protection, then stops. Plan job goes green after that.
