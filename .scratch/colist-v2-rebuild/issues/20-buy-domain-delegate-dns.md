@@ -1,7 +1,7 @@
 # Delegate colist.heloineto.com to Route 53
 
 Type: task
-Status: claimed
+Status: resolved
 
 ## Question
 
@@ -19,8 +19,8 @@ Resolution records: hosted zone id, whether it's Terraform-managed or pending im
 
 - 2026-08-29: HITL wizard `scripts/setup-dns-delegation.sh` written (5 stages: AWS creds → zone via CLI, idempotent → GoDaddy NS → `dig` verify → Google console). Zone id + NS servers land in `.scratch/colist-v2-rebuild/route53.env` for the ticket 12 `terraform import`. Run it, then fill the `## Answer`.
 
-## Answer (fill after running the wizard)
+## Answer
 
-- Hosted zone id: `<ROUTE53_ZONE_ID from route53.env>` — **pending `terraform import`** in [AWS and Terraform architecture](12-aws-terraform-architecture.md).
+- Hosted zone id: `Z0692102Z0YEGOX1LW1O` (NS in `route53.env`) — **pending `terraform import`** in [AWS and Terraform architecture](12-aws-terraform-architecture.md).
 - GoDaddy: `colist` NS → 4 Route 53 servers; apex untouched.
 - Google console: prod origin/redirect on `colist-web` + `heloineto.com` authorized domain — done.

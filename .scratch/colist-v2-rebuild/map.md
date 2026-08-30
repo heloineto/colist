@@ -33,6 +33,7 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 
 - [API test and seed strategy](issues/17-api-test-seed-strategy.md) — vav harness trimmed: **own-your-data isolation** (no truncate, no sequential project), sign-in helper = real better-auth HTTP sign-up returning a cookie'd supertest agent, fishery factories build **DTOs**, e2e per endpoint with a member/owner/non-member matrix, throttling + SSE specs boot their own app, **no dev seeds** (local dev uses the prod dump from ticket 11), seed-bundle machinery dropped, globalSetup runs Drizzle `migrate()` once.
 - [Google OAuth credentials](issues/19-google-oauth-credentials.md) — HITL wizard `scripts/setup-google-oauth.sh`; creds live in `apps/api/.env.development.local` (gitignored) + password manager, never CI/tests; prod storage → ticket 12 (comment left); prod origin/redirect + authorized domain deferred to ticket 20; consent screen stays in Testing (Gmail as test user) until cutover.
+- [Delegate colist.heloineto.com to Route 53](issues/20-buy-domain-delegate-dns.md) — done 2026-08-29 via `scripts/setup-dns-delegation.sh`: hosted zone `Z0692102Z0YEGOX1LW1O` (hand-created, **pending `terraform import`** in ticket 12; NS in `route53.env`), GoDaddy `colist` NS delegated (apex untouched), Google `colist-web` prod origin/redirect + `heloineto.com` authorized domain set.
 
 ## Not yet specified
 
