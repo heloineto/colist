@@ -1,4 +1,4 @@
-import { Anchor, Button, PasswordInput, Popover, TextInput } from '@mantine/core';
+import { Anchor, Button, Collapse, PasswordInput, Popover, TextInput } from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
@@ -43,10 +43,10 @@ export function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
         {...form.getInputProps('email')}
       />
       <Popover
-        opened={popoverOpened}
-        position={isWide ? 'right' : 'bottom'}
+        opened={isWide && popoverOpened}
+        position="right"
         width="target"
-        offset={isWide ? 8 : 4}
+        offset={8}
         transitionProps={{ transition: 'pop' }}
       >
         <Popover.Target>
@@ -66,6 +66,9 @@ export function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
           <PasswordStrength value={form.values.password} />
         </Popover.Dropdown>
       </Popover>
+      <Collapse expanded={!isWide && popoverOpened}>
+        <PasswordStrength value={form.values.password} />
+      </Collapse>
       <Button type="submit" fullWidth mt="md" loading={loading}>
         {t('auth.signUp.submit')}
       </Button>

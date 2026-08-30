@@ -30,7 +30,7 @@ export function AuthPage() {
           style={{ height: height ? height + 50 : undefined }}
         >
           <div
-            className="flex transition-transform duration-500 ease-in-out"
+            className="flex items-start transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(${panel === 'sign-in' ? 0 : -100}%)` }}
           >
             <div className="w-full shrink-0 p-[25px]" ref={signIn.ref}>

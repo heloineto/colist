@@ -19,7 +19,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <MantineAppShell.Header withBorder={false}>
         <Header />
       </MantineAppShell.Header>
-      <MantineAppShell.Navbar className="relative" withBorder={false}>
+      <MantineAppShell.Navbar withBorder={false}>
         <Navbar />
       </MantineAppShell.Navbar>
       <MantineAppShell.Main className="flex">
