@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ActivitiesDtoOutputItemAction = typeof ActivitiesDtoOutputItemAction[keyof typeof ActivitiesDtoOutputItemAction];
-
+export type ActivitiesDtoOutputItemAction =
+  (typeof ActivitiesDtoOutputItemAction)[keyof typeof ActivitiesDtoOutputItemAction];
 
 export const ActivitiesDtoOutputItemAction = {
   listrenamed: 'list.renamed',

@@ -9,16 +9,16 @@ import type { ListDtoOutputRole } from './listDtoOutputRole';
 
 export interface ListDtoOutput {
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   id: number;
   name: string;
   role: ListDtoOutputRole;
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   uncheckedCount: number;
   createdAt: string;
   updatedAt: string;

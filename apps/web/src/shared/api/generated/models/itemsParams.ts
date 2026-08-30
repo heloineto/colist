@@ -10,12 +10,12 @@ import type { ItemsOrder } from './itemsOrder';
 import type { ItemsSort } from './itemsSort';
 
 export type ItemsParams = {
-/**
- * @minLength 1
- * @maxLength 200
- */
-search?: string;
-sort?: ItemsSort;
-order?: ItemsOrder;
-checked?: ItemsChecked;
+  /**
+   * @minLength 1
+   * @maxLength 200
+   */
+  search?: string;
+  sort?: ItemsSort;
+  order?: ItemsOrder;
+  checked?: ItemsChecked;
 };

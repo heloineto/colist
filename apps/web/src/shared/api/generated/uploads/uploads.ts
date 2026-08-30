@@ -5,118 +5,123 @@
  * Shared shopping lists
  * OpenAPI spec version: 1.0
  */
-import {
-  useMutation
-} from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import type {
   MutationFunction,
   QueryClient,
   UseMutationOptions,
-  UseMutationResult
+  UseMutationResult,
 } from '@tanstack/react-query';
 
-import type {
-  PresignUploadDto,
-  PresignedUploadDtoOutput
-} from '../models';
+import type { PresignUploadDto, PresignedUploadDtoOutput } from '../models';
 
 import { fetcher } from '../../fetcher';
-import type { ErrorType , BodyType } from '../../fetcher';
-
+import type { ErrorType, BodyType } from '../../fetcher';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-
-export type uploadsPresignResponse201 = {
-  data: PresignedUploadDtoOutput
-  status: 201
-}
-
-export type uploadsPresignResponseSuccess = (uploadsPresignResponse201) & {
-  headers: Headers;
-};
-;
-
-export type uploadsPresignResponse = (uploadsPresignResponseSuccess)
-
 export const getUploadsPresignUrl = () => {
-
-
-
-
-  return `/api/uploads/presign`
-}
+  return `/api/uploads/presign`;
+};
 
 /**
  * Avatars are public-read under `avatars/`; attachments are private.
  * @summary Presign an S3 PUT
  */
-export const uploadsPresign = async (presignUploadDto: PresignUploadDto, options?: Parameters<typeof fetcher>[1]): Promise<uploadsPresignResponse> => {
-
-    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+export const uploadsPresign = async (
+  presignUploadDto: PresignUploadDto,
+  options?: Parameters<typeof fetcher>[1]
+): Promise<PresignedUploadDtoOutput> => {
+  const getHeaders = (
+    h?: NonNullable<RequestInit['headers']>
+  ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
     if (Array.isArray(h)) return Object.fromEntries(h);
     return h;
   };
-return fetcher<uploadsPresignResponse>(getUploadsPresignUrl(),
-  {
+  return fetcher<PresignedUploadDtoOutput>(getUploadsPresignUrl(), {
     ...options,
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
-    body: JSON.stringify(presignUploadDto)
-  }
-);}
-
-
-
-
+    headers: {
+      'Content-Type': 'application/json',
+      ...getHeaders(options?.headers),
+    },
+    body: JSON.stringify(presignUploadDto),
+  });
+};
 
 export const getUploadsPresignMutationKey = () => ['uploadsPresign'] as const;
 
-export const getUploadsPresignMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadsPresign>>, TError,UploadsPresignMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
-): UseMutationOptions<Awaited<ReturnType<typeof uploadsPresign>>, TError,UploadsPresignMutationVariables, TContext> => {
+export const getUploadsPresignMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof uploadsPresign>>,
+    TError,
+    UploadsPresignMutationVariables,
+    TContext
+  >;
+  request?: SecondParameter<typeof fetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof uploadsPresign>>,
+  TError,
+  UploadsPresignMutationVariables,
+  TContext
+> => {
+  const mutationKey = getUploadsPresignMutationKey();
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-const mutationKey = getUploadsPresignMutationKey();
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof uploadsPresign>>,
+    UploadsPresignMutationVariables
+  > = (props) => {
+    const { data } = props ?? {};
 
+    return uploadsPresign(data, requestOptions);
+  };
 
+  return { mutationFn, ...mutationOptions };
+};
 
+export type UploadsPresignMutationResult = NonNullable<
+  Awaited<ReturnType<typeof uploadsPresign>>
+>;
+export type UploadsPresignMutationBody = BodyType<PresignUploadDto>;
+export type UploadsPresignMutationError = ErrorType<unknown>;
+export type UploadsPresignMutationVariables = {
+  data: BodyType<PresignUploadDto>;
+};
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof uploadsPresign>>, UploadsPresignMutationVariables> = (props) => {
-          const {data} = props ?? {};
-
-          return  uploadsPresign(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UploadsPresignMutationResult = NonNullable<Awaited<ReturnType<typeof uploadsPresign>>>
-    export type UploadsPresignMutationBody = BodyType<PresignUploadDto>
-    export type UploadsPresignMutationError = ErrorType<unknown>
-    export type UploadsPresignMutationVariables = {data: BodyType<PresignUploadDto>}
-
-    /**
+/**
  * @summary Presign an S3 PUT
  */
-export const useUploadsPresign = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadsPresign>>, TError,UploadsPresignMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof uploadsPresign>>,
-        TError,
-        UploadsPresignMutationVariables,
-        TContext
-      > => {
-      return useMutation(getUploadsPresignMutationOptions(options), queryClient);
-    }
+export const useUploadsPresign = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof uploadsPresign>>,
+      TError,
+      UploadsPresignMutationVariables,
+      TContext
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof uploadsPresign>>,
+  TError,
+  UploadsPresignMutationVariables,
+  TContext
+> => {
+  return useMutation(getUploadsPresignMutationOptions(options), queryClient);
+};

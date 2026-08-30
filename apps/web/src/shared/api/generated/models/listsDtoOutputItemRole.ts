@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ListsDtoOutputItemRole = typeof ListsDtoOutputItemRole[keyof typeof ListsDtoOutputItemRole];
-
+export type ListsDtoOutputItemRole =
+  (typeof ListsDtoOutputItemRole)[keyof typeof ListsDtoOutputItemRole];
 
 export const ListsDtoOutputItemRole = {
   owner: 'owner',

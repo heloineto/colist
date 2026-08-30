@@ -9,16 +9,16 @@ import type { CreateErrorReportDtoError } from './createErrorReportDtoError';
 
 export interface CreateErrorReportDto {
   /**
-     * @minLength 1
-     * @maxLength 5000
-     */
+   * @minLength 1
+   * @maxLength 5000
+   */
   message?: string;
   error?: CreateErrorReportDtoError;
   allowCommunication?: boolean;
   /**
-     * @maxItems 5
-     * @items.minLength 1
-     * @items.maxLength 512
-     */
+   * @maxItems 5
+   * @items.minLength 1
+   * @items.maxLength 512
+   */
   files?: string[];
 }

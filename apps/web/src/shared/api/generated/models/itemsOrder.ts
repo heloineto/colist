@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ItemsOrder = typeof ItemsOrder[keyof typeof ItemsOrder];
-
+export type ItemsOrder = (typeof ItemsOrder)[keyof typeof ItemsOrder];
 
 export const ItemsOrder = {
   asc: 'asc',

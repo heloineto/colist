@@ -5,9 +5,7 @@
  * Shared shopping lists
  * OpenAPI spec version: 1.0
  */
-import {
-  useQuery
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -18,23 +16,20 @@ import type {
   QueryKey,
   UndefinedInitialDataOptions,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
-import type {
-  ActivitiesDtoOutput,
-  ActivitiesParams
-} from '../models';
+import type { ActivitiesDtoOutput, ActivitiesParams } from '../models';
 
 import { fetcher } from '../../fetcher';
 import type { ErrorType } from '../../fetcher';
 
-
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-
-const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K
+): T & { queryKey: K } => {
   const result = { queryKey } as T & { queryKey: K };
   for (const key of Object.keys(query)) {
     // The explicit queryKey always wins, matching the previous
@@ -49,143 +44,193 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type activitiesResponse200 = {
-  data: ActivitiesDtoOutput
-  status: 200
-}
-
-export type activitiesResponseSuccess = (activitiesResponse200) & {
-  headers: Headers;
-};
-;
-
-export type activitiesResponse = (activitiesResponseSuccess)
-
-export const getActivitiesUrl = (listId: number,
-    params?: ActivitiesParams,) => {
+export const getActivitiesUrl = (listId: number, params?: ActivitiesParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : String(value))
+      normalizedParams.append(key, value === null ? 'null' : String(value));
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/lists/${listId}/activities?${stringifiedParams}` : `/api/lists/${listId}/activities`
-}
+  return stringifiedParams.length > 0
+    ? `/api/lists/${listId}/activities?${stringifiedParams}`
+    : `/api/lists/${listId}/activities`;
+};
 
 /**
  * Newest first; pass `before=<id>` to page.
  * @summary List history
  */
-export const activities = async (listId: number,
-    params?: ActivitiesParams, options?: Parameters<typeof fetcher>[1]): Promise<activitiesResponse> => {
-
-  return fetcher<activitiesResponse>(getActivitiesUrl(listId,params),
-  {
+export const activities = async (
+  listId: number,
+  params?: ActivitiesParams,
+  options?: Parameters<typeof fetcher>[1]
+): Promise<ActivitiesDtoOutput> => {
+  return fetcher<ActivitiesDtoOutput>(getActivitiesUrl(listId, params), {
     ...options,
-    method: 'GET'
+    method: 'GET',
+  });
+};
 
-
-  }
-);}
-
-
-
-
-
-export const getActivitiesQueryKey = (listId: number,
-    params?: ActivitiesParams,) => {
-    return [
-    `/api/lists/${listId}/activities`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getActivitiesQueryOptions = <TData = Awaited<ReturnType<typeof activities>>, TError = ErrorType<unknown>>(listId: number,
-    params?: ActivitiesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
+export const getActivitiesQueryKey = (
+  listId: number,
+  params?: ActivitiesParams
 ) => {
+  return [
+    `/api/lists/${listId}/activities`,
+    ...(params ? [params] : []),
+  ] as const;
+};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+export const getActivitiesQueryOptions = <
+  TData = Awaited<ReturnType<typeof activities>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  params?: ActivitiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  }
+) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getActivitiesQueryKey(listId,params);
+  const queryKey =
+    queryOptions?.queryKey ?? getActivitiesQueryKey(listId, params);
 
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof activities>>> = ({
+    signal,
+  }) => activities(listId, params, { signal, ...requestOptions });
 
+  return {
+    queryKey,
+    queryFn,
+    enabled: listId !== null && listId !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof activities>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof activities>>> = ({ signal }) => activities(listId,params, { signal, ...requestOptions });
+export type ActivitiesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof activities>>
+>;
+export type ActivitiesQueryError = ErrorType<unknown>;
 
-
-
-
-
-   return  { queryKey, queryFn, enabled: listId !== null && listId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ActivitiesQueryResult = NonNullable<Awaited<ReturnType<typeof activities>>>
-export type ActivitiesQueryError = ErrorType<unknown>
-
-
-export function useActivities<TData = Awaited<ReturnType<typeof activities>>, TError = ErrorType<unknown>>(
- listId: number,
-    params: undefined |  ActivitiesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>> & Pick<
+export function useActivities<
+  TData = Awaited<ReturnType<typeof activities>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  params: undefined | ActivitiesParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>
+    > &
+      Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof activities>>,
           TError,
           Awaited<ReturnType<typeof activities>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useActivities<TData = Awaited<ReturnType<typeof activities>>, TError = ErrorType<unknown>>(
- listId: number,
-    params?: ActivitiesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>> & Pick<
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useActivities<
+  TData = Awaited<ReturnType<typeof activities>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  params?: ActivitiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>
+    > &
+      Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof activities>>,
           TError,
           Awaited<ReturnType<typeof activities>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useActivities<TData = Awaited<ReturnType<typeof activities>>, TError = ErrorType<unknown>>(
- listId: number,
-    params?: ActivitiesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useActivities<
+  TData = Awaited<ReturnType<typeof activities>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  params?: ActivitiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary List history
  */
 
-export function useActivities<TData = Awaited<ReturnType<typeof activities>>, TError = ErrorType<unknown>>(
- listId: number,
-    params?: ActivitiesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+export function useActivities<
+  TData = Awaited<ReturnType<typeof activities>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  params?: ActivitiesParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof activities>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getActivitiesQueryOptions(listId, params, options);
 
-  const queryOptions = getActivitiesQueryOptions(listId,params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
-
 
 /**
  * @summary List history
  */
 export const invalidateActivities = async (
- queryClient: QueryClient, listId: number,
-    params?: ActivitiesParams, options?: InvalidateOptions
-  ): Promise<QueryClient> => {
-
-  await queryClient.invalidateQueries({ queryKey: getActivitiesQueryKey(listId,params) }, options);
+  queryClient: QueryClient,
+  listId: number,
+  params?: ActivitiesParams,
+  options?: InvalidateOptions
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    { queryKey: getActivitiesQueryKey(listId, params) },
+    options
+  );
 
   return queryClient;
-}
-
-
-
-
+};

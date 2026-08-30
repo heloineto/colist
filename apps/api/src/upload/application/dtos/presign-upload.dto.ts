@@ -1,4 +1,4 @@
-import { createZodDto } from 'nestjs-zod';
+import { createDto } from '@/common/application/dtos/zod-dto';
 import { z } from 'zod';
 
 export const UPLOAD_KINDS = ['avatar', 'attachment'] as const;
@@ -8,7 +8,7 @@ export const PresignUploadSchema = z.strictObject({
   contentType: z.enum(['image/jpeg', 'image/png', 'image/webp', 'image/gif']),
 });
 
-export class PresignUploadDto extends createZodDto(PresignUploadSchema) {}
+export class PresignUploadDto extends createDto(PresignUploadSchema) {}
 
 export const PresignedUploadSchema = z.strictObject({
   /** PUT the file here with the same Content-Type, within 5 minutes. */

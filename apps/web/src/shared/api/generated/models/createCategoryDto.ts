@@ -8,8 +8,8 @@
 
 export interface CreateCategoryDto {
   /**
-     * @minLength 1
-     * @maxLength 100
-     */
+   * @minLength 1
+   * @maxLength 100
+   */
   name: string;
 }

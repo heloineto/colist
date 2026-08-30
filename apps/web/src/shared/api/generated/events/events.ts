@@ -5,9 +5,7 @@
  * Shared shopping lists
  * OpenAPI spec version: 1.0
  */
-import {
-  useQuery
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -18,18 +16,18 @@ import type {
   QueryKey,
   UndefinedInitialDataOptions,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
 import { fetcher } from '../../fetcher';
 import type { ErrorType } from '../../fetcher';
 
-
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-
-const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K
+): T & { queryKey: K } => {
   const result = { queryKey } as T & { queryKey: K };
   for (const key of Object.keys(query)) {
     // The explicit queryKey always wins, matching the previous
@@ -44,127 +42,151 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type eventsResponse200 = {
-  data: void
-  status: 200
-}
-
-export type eventsResponseSuccess = (eventsResponse200) & {
-  headers: Headers;
-};
-;
-
-export type eventsResponse = (eventsResponseSuccess)
-
 export const getEventsUrl = () => {
-
-
-
-
-  return `/api/events`
-}
+  return `/api/events`;
+};
 
 /**
  * Emits `list.changed` with `{ listId }` for every list the user belongs to; clients refetch. Stateless — re-fetch everything on (re)connect.
  * @summary Per-user change stream (SSE)
  */
-export const events = async ( options?: Parameters<typeof fetcher>[1]): Promise<eventsResponse> => {
-
-  return fetcher<eventsResponse>(getEventsUrl(),
-  {
+export const events = async (
+  options?: Parameters<typeof fetcher>[1]
+): Promise<void> => {
+  return fetcher<void>(getEventsUrl(), {
     ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
+    method: 'GET',
+  });
+};
 
 export const getEventsQueryKey = () => {
-    return [
-    `/api/events`
-    ] as const;
-    }
+  return [`/api/events`] as const;
+};
 
+export const getEventsQueryOptions = <
+  TData = Awaited<ReturnType<typeof events>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>
+  >;
+  request?: SecondParameter<typeof fetcher>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-export const getEventsQueryOptions = <TData = Awaited<ReturnType<typeof events>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
-) => {
+  const queryKey = queryOptions?.queryKey ?? getEventsQueryKey();
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof events>>> = ({
+    signal,
+  }) => events({ signal, ...requestOptions });
 
-  const queryKey =  queryOptions?.queryKey ?? getEventsQueryKey();
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof events>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
 
+export type EventsQueryResult = NonNullable<Awaited<ReturnType<typeof events>>>;
+export type EventsQueryError = ErrorType<unknown>;
 
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof events>>> = ({ signal }) => events({ signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type EventsQueryResult = NonNullable<Awaited<ReturnType<typeof events>>>
-export type EventsQueryError = ErrorType<unknown>
-
-
-export function useEvents<TData = Awaited<ReturnType<typeof events>>, TError = ErrorType<unknown>>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>> & Pick<
+export function useEvents<
+  TData = Awaited<ReturnType<typeof events>>,
+  TError = ErrorType<unknown>,
+>(
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>
+    > &
+      Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof events>>,
           TError,
           Awaited<ReturnType<typeof events>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useEvents<TData = Awaited<ReturnType<typeof events>>, TError = ErrorType<unknown>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>> & Pick<
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useEvents<
+  TData = Awaited<ReturnType<typeof events>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>
+    > &
+      Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof events>>,
           TError,
           Awaited<ReturnType<typeof events>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useEvents<TData = Awaited<ReturnType<typeof events>>, TError = ErrorType<unknown>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useEvents<
+  TData = Awaited<ReturnType<typeof events>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Per-user change stream (SSE)
  */
 
-export function useEvents<TData = Awaited<ReturnType<typeof events>>, TError = ErrorType<unknown>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+export function useEvents<
+  TData = Awaited<ReturnType<typeof events>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof events>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getEventsQueryOptions(options);
 
-  const queryOptions = getEventsQueryOptions(options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
-
 
 /**
  * @summary Per-user change stream (SSE)
  */
 export const invalidateEvents = async (
- queryClient: QueryClient,  options?: InvalidateOptions
-  ): Promise<QueryClient> => {
-
-  await queryClient.invalidateQueries({ queryKey: getEventsQueryKey() }, options);
+  queryClient: QueryClient,
+  options?: InvalidateOptions
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    { queryKey: getEventsQueryKey() },
+    options
+  );
 
   return queryClient;
-}
-
-
-
-
+};

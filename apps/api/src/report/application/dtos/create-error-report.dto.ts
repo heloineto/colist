@@ -1,4 +1,4 @@
-import { createZodDto } from 'nestjs-zod';
+import { createDto } from '@/common/application/dtos/zod-dto';
 import { z } from 'zod';
 
 /** Locked crash-capture shape; the client ships codes + stack, never rendered i18n text. */
@@ -24,6 +24,6 @@ export const CreateErrorReportSchema = z
     'Send a message or a captured error'
   );
 
-export class CreateErrorReportDto extends createZodDto(
+export class CreateErrorReportDto extends createDto(
   CreateErrorReportSchema
 ) {}

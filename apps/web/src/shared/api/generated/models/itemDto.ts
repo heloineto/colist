@@ -8,25 +8,25 @@
 
 export interface ItemDto {
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   id: number;
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   listId: number;
   categoryId: number | null;
   clientId: string | null;
   name: string;
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   amount: number;
   checked: boolean;
-  details: string[];
+  details: string | null;
   createdAt: string;
   updatedAt: string;
 }

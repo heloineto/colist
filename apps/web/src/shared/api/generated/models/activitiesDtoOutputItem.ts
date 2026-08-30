@@ -9,14 +9,14 @@ import type { ActivitiesDtoOutputItemAction } from './activitiesDtoOutputItemAct
 
 export type ActivitiesDtoOutputItem = {
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   id: number;
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   listId: number;
   actorId: string | null;
   actorName: string;

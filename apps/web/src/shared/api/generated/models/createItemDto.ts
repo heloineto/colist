@@ -10,14 +10,14 @@ export interface CreateItemDto {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   clientId?: string;
   /**
-     * @minLength 1
-     * @maxLength 200
-     */
+   * @minLength 1
+   * @maxLength 200
+   */
   name: string;
   /**
-     * @minimum 0
-     * @maximum 1000000
-     */
+   * @minimum 0
+   * @maximum 1000000
+   */
   amount?: number;
   categoryId?: number | null;
   details?: string | null;

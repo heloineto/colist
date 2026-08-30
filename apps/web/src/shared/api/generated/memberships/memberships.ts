@@ -5,10 +5,7 @@
  * Shared shopping lists
  * OpenAPI spec version: 1.0
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -22,24 +19,24 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
 import type {
   AddMembershipDto,
   MemberDtoOutput,
-  MembersDtoOutput
+  MembersDtoOutput,
 } from '../models';
 
 import { fetcher } from '../../fetcher';
-import type { ErrorType , BodyType } from '../../fetcher';
-
+import type { ErrorType, BodyType } from '../../fetcher';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-
-const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K
+): T & { queryKey: K } => {
   const result = { queryKey } as T & { queryKey: K };
   for (const key of Object.keys(query)) {
     // The explicit queryKey always wins, matching the previous
@@ -54,305 +51,367 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type membershipsResponse200 = {
-  data: MembersDtoOutput
-  status: 200
-}
-
-export type membershipsResponseSuccess = (membershipsResponse200) & {
-  headers: Headers;
+export const getMembershipsUrl = (listId: number) => {
+  return `/api/lists/${listId}/memberships`;
 };
-;
-
-export type membershipsResponse = (membershipsResponseSuccess)
-
-export const getMembershipsUrl = (listId: number,) => {
-
-
-
-
-  return `/api/lists/${listId}/memberships`
-}
 
 /**
  * @summary Members of a list
  */
-export const memberships = async (listId: number, options?: Parameters<typeof fetcher>[1]): Promise<membershipsResponse> => {
-
-  return fetcher<membershipsResponse>(getMembershipsUrl(listId),
-  {
+export const memberships = async (
+  listId: number,
+  options?: Parameters<typeof fetcher>[1]
+): Promise<MembersDtoOutput> => {
+  return fetcher<MembersDtoOutput>(getMembershipsUrl(listId), {
     ...options,
-    method: 'GET'
+    method: 'GET',
+  });
+};
 
+export const getMembershipsQueryKey = (listId: number) => {
+  return [`/api/lists/${listId}/memberships`] as const;
+};
 
+export const getMembershipsQueryOptions = <
+  TData = Awaited<ReturnType<typeof memberships>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
   }
-);}
-
-
-
-
-
-export const getMembershipsQueryKey = (listId: number,) => {
-    return [
-    `/api/lists/${listId}/memberships`
-    ] as const;
-    }
-
-
-export const getMembershipsQueryOptions = <TData = Awaited<ReturnType<typeof memberships>>, TError = ErrorType<unknown>>(listId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getMembershipsQueryKey(listId);
 
-  const queryKey =  queryOptions?.queryKey ?? getMembershipsQueryKey(listId);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof memberships>>> = ({
+    signal,
+  }) => memberships(listId, { signal, ...requestOptions });
 
+  return {
+    queryKey,
+    queryFn,
+    enabled: listId !== null && listId !== undefined,
+    ...queryOptions,
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof memberships>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
 
+export type MembershipsQueryResult = NonNullable<
+  Awaited<ReturnType<typeof memberships>>
+>;
+export type MembershipsQueryError = ErrorType<unknown>;
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof memberships>>> = ({ signal }) => memberships(listId, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, enabled: listId !== null && listId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type MembershipsQueryResult = NonNullable<Awaited<ReturnType<typeof memberships>>>
-export type MembershipsQueryError = ErrorType<unknown>
-
-
-export function useMemberships<TData = Awaited<ReturnType<typeof memberships>>, TError = ErrorType<unknown>>(
- listId: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>> & Pick<
+export function useMemberships<
+  TData = Awaited<ReturnType<typeof memberships>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>
+    > &
+      Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof memberships>>,
           TError,
           Awaited<ReturnType<typeof memberships>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useMemberships<TData = Awaited<ReturnType<typeof memberships>>, TError = ErrorType<unknown>>(
- listId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>> & Pick<
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useMemberships<
+  TData = Awaited<ReturnType<typeof memberships>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>
+    > &
+      Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof memberships>>,
           TError,
           Awaited<ReturnType<typeof memberships>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useMemberships<TData = Awaited<ReturnType<typeof memberships>>, TError = ErrorType<unknown>>(
- listId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useMemberships<
+  TData = Awaited<ReturnType<typeof memberships>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Members of a list
  */
 
-export function useMemberships<TData = Awaited<ReturnType<typeof memberships>>, TError = ErrorType<unknown>>(
- listId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+export function useMemberships<
+  TData = Awaited<ReturnType<typeof memberships>>,
+  TError = ErrorType<unknown>,
+>(
+  listId: number,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof memberships>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getMembershipsQueryOptions(listId, options);
 
-  const queryOptions = getMembershipsQueryOptions(listId,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
-
 
 /**
  * @summary Members of a list
  */
 export const invalidateMemberships = async (
- queryClient: QueryClient, listId: number, options?: InvalidateOptions
-  ): Promise<QueryClient> => {
-
-  await queryClient.invalidateQueries({ queryKey: getMembershipsQueryKey(listId) }, options);
+  queryClient: QueryClient,
+  listId: number,
+  options?: InvalidateOptions
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    { queryKey: getMembershipsQueryKey(listId) },
+    options
+  );
 
   return queryClient;
-}
-
-
-
-
-export type membershipsAddResponse201 = {
-  data: MemberDtoOutput
-  status: 201
-}
-
-export type membershipsAddResponseSuccess = (membershipsAddResponse201) & {
-  headers: Headers;
 };
-;
 
-export type membershipsAddResponse = (membershipsAddResponseSuccess)
-
-export const getMembershipsAddUrl = (listId: number,) => {
-
-
-
-
-  return `/api/lists/${listId}/memberships`
-}
+export const getMembershipsAddUrl = (listId: number) => {
+  return `/api/lists/${listId}/memberships`;
+};
 
 /**
  * @summary Add a member by user id (owner)
  */
-export const membershipsAdd = async (listId: number,
-    addMembershipDto: AddMembershipDto, options?: Parameters<typeof fetcher>[1]): Promise<membershipsAddResponse> => {
-
-    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+export const membershipsAdd = async (
+  listId: number,
+  addMembershipDto: AddMembershipDto,
+  options?: Parameters<typeof fetcher>[1]
+): Promise<MemberDtoOutput> => {
+  const getHeaders = (
+    h?: NonNullable<RequestInit['headers']>
+  ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
     if (Array.isArray(h)) return Object.fromEntries(h);
     return h;
   };
-return fetcher<membershipsAddResponse>(getMembershipsAddUrl(listId),
-  {
+  return fetcher<MemberDtoOutput>(getMembershipsAddUrl(listId), {
     ...options,
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
-    body: JSON.stringify(addMembershipDto)
-  }
-);}
-
-
-
-
+    headers: {
+      'Content-Type': 'application/json',
+      ...getHeaders(options?.headers),
+    },
+    body: JSON.stringify(addMembershipDto),
+  });
+};
 
 export const getMembershipsAddMutationKey = () => ['membershipsAdd'] as const;
 
-export const getMembershipsAddMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof membershipsAdd>>, TError,MembershipsAddMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
-): UseMutationOptions<Awaited<ReturnType<typeof membershipsAdd>>, TError,MembershipsAddMutationVariables, TContext> => {
+export const getMembershipsAddMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof membershipsAdd>>,
+    TError,
+    MembershipsAddMutationVariables,
+    TContext
+  >;
+  request?: SecondParameter<typeof fetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof membershipsAdd>>,
+  TError,
+  MembershipsAddMutationVariables,
+  TContext
+> => {
+  const mutationKey = getMembershipsAddMutationKey();
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-const mutationKey = getMembershipsAddMutationKey();
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof membershipsAdd>>,
+    MembershipsAddMutationVariables
+  > = (props) => {
+    const { listId, data } = props ?? {};
 
+    return membershipsAdd(listId, data, requestOptions);
+  };
 
+  return { mutationFn, ...mutationOptions };
+};
 
+export type MembershipsAddMutationResult = NonNullable<
+  Awaited<ReturnType<typeof membershipsAdd>>
+>;
+export type MembershipsAddMutationBody = BodyType<AddMembershipDto>;
+export type MembershipsAddMutationError = ErrorType<unknown>;
+export type MembershipsAddMutationVariables = {
+  listId: number;
+  data: BodyType<AddMembershipDto>;
+};
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof membershipsAdd>>, MembershipsAddMutationVariables> = (props) => {
-          const {listId,data} = props ?? {};
-
-          return  membershipsAdd(listId,data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type MembershipsAddMutationResult = NonNullable<Awaited<ReturnType<typeof membershipsAdd>>>
-    export type MembershipsAddMutationBody = BodyType<AddMembershipDto>
-    export type MembershipsAddMutationError = ErrorType<unknown>
-    export type MembershipsAddMutationVariables = {listId: number;data: BodyType<AddMembershipDto>}
-
-    /**
+/**
  * @summary Add a member by user id (owner)
  */
-export const useMembershipsAdd = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof membershipsAdd>>, TError,MembershipsAddMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof membershipsAdd>>,
-        TError,
-        MembershipsAddMutationVariables,
-        TContext
-      > => {
-      return useMutation(getMembershipsAddMutationOptions(options), queryClient);
-    }
-    export type membershipsRemoveResponse204 = {
-  data: void
-  status: 204
-}
-
-export type membershipsRemoveResponseSuccess = (membershipsRemoveResponse204) & {
-  headers: Headers;
+export const useMembershipsAdd = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof membershipsAdd>>,
+      TError,
+      MembershipsAddMutationVariables,
+      TContext
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof membershipsAdd>>,
+  TError,
+  MembershipsAddMutationVariables,
+  TContext
+> => {
+  return useMutation(getMembershipsAddMutationOptions(options), queryClient);
 };
-;
-
-export type membershipsRemoveResponse = (membershipsRemoveResponseSuccess)
-
-export const getMembershipsRemoveUrl = (listId: number,
-    userId: string,) => {
-
-
-
-
-  return `/api/lists/${listId}/memberships/${userId}`
-}
+export const getMembershipsRemoveUrl = (listId: number, userId: string) => {
+  return `/api/lists/${listId}/memberships/${userId}`;
+};
 
 /**
  * @summary Remove a member (owner)
  */
-export const membershipsRemove = async (listId: number,
-    userId: string, options?: Parameters<typeof fetcher>[1]): Promise<membershipsRemoveResponse> => {
-
-  return fetcher<membershipsRemoveResponse>(getMembershipsRemoveUrl(listId,userId),
-  {
+export const membershipsRemove = async (
+  listId: number,
+  userId: string,
+  options?: Parameters<typeof fetcher>[1]
+): Promise<void> => {
+  return fetcher<void>(getMembershipsRemoveUrl(listId, userId), {
     ...options,
-    method: 'DELETE'
+    method: 'DELETE',
+  });
+};
 
+export const getMembershipsRemoveMutationKey = () =>
+  ['membershipsRemove'] as const;
 
-  }
-);}
+export const getMembershipsRemoveMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof membershipsRemove>>,
+    TError,
+    MembershipsRemoveMutationVariables,
+    TContext
+  >;
+  request?: SecondParameter<typeof fetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof membershipsRemove>>,
+  TError,
+  MembershipsRemoveMutationVariables,
+  TContext
+> => {
+  const mutationKey = getMembershipsRemoveMutationKey();
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof membershipsRemove>>,
+    MembershipsRemoveMutationVariables
+  > = (props) => {
+    const { listId, userId } = props ?? {};
 
+    return membershipsRemove(listId, userId, requestOptions);
+  };
 
+  return { mutationFn, ...mutationOptions };
+};
 
+export type MembershipsRemoveMutationResult = NonNullable<
+  Awaited<ReturnType<typeof membershipsRemove>>
+>;
 
-export const getMembershipsRemoveMutationKey = () => ['membershipsRemove'] as const;
+export type MembershipsRemoveMutationError = ErrorType<unknown>;
+export type MembershipsRemoveMutationVariables = {
+  listId: number;
+  userId: string;
+};
 
-export const getMembershipsRemoveMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof membershipsRemove>>, TError,MembershipsRemoveMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
-): UseMutationOptions<Awaited<ReturnType<typeof membershipsRemove>>, TError,MembershipsRemoveMutationVariables, TContext> => {
-
-const mutationKey = getMembershipsRemoveMutationKey();
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof membershipsRemove>>, MembershipsRemoveMutationVariables> = (props) => {
-          const {listId,userId} = props ?? {};
-
-          return  membershipsRemove(listId,userId,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type MembershipsRemoveMutationResult = NonNullable<Awaited<ReturnType<typeof membershipsRemove>>>
-
-    export type MembershipsRemoveMutationError = ErrorType<unknown>
-    export type MembershipsRemoveMutationVariables = {listId: number;userId: string}
-
-    /**
+/**
  * @summary Remove a member (owner)
  */
-export const useMembershipsRemove = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof membershipsRemove>>, TError,MembershipsRemoveMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof membershipsRemove>>,
-        TError,
-        MembershipsRemoveMutationVariables,
-        TContext
-      > => {
-      return useMutation(getMembershipsRemoveMutationOptions(options), queryClient);
-    }
+export const useMembershipsRemove = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof membershipsRemove>>,
+      TError,
+      MembershipsRemoveMutationVariables,
+      TContext
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof membershipsRemove>>,
+  TError,
+  MembershipsRemoveMutationVariables,
+  TContext
+> => {
+  return useMutation(getMembershipsRemoveMutationOptions(options), queryClient);
+};

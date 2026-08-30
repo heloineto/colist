@@ -8,14 +8,14 @@
 
 export type CategoriesDtoOutputItem = {
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   id: number;
   /**
-     * @minimum -9007199254740991
-     * @maximum 9007199254740991
-     */
+   * @minimum -9007199254740991
+   * @maximum 9007199254740991
+   */
   listId: number;
   name: string;
   createdAt: string;

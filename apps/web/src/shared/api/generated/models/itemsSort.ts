@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ItemsSort = typeof ItemsSort[keyof typeof ItemsSort];
-
+export type ItemsSort = (typeof ItemsSort)[keyof typeof ItemsSort];
 
 export const ItemsSort = {
   name: 'name',

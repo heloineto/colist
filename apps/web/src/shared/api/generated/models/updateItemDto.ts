@@ -8,14 +8,14 @@
 
 export interface UpdateItemDto {
   /**
-     * @minLength 1
-     * @maxLength 200
-     */
+   * @minLength 1
+   * @maxLength 200
+   */
   name?: string;
   /**
-     * @minimum 0
-     * @maximum 1000000
-     */
+   * @minimum 0
+   * @maximum 1000000
+   */
   amount?: number;
   categoryId?: number | null;
   details?: string | null;

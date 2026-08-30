@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type ItemsChecked = typeof ItemsChecked[keyof typeof ItemsChecked];
-
+export type ItemsChecked = (typeof ItemsChecked)[keyof typeof ItemsChecked];
 
 export const ItemsChecked = {
   true: 'true',

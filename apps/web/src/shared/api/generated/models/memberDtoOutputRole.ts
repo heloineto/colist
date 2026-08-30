@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type MemberDtoOutputRole = typeof MemberDtoOutputRole[keyof typeof MemberDtoOutputRole];
-
+export type MemberDtoOutputRole =
+  (typeof MemberDtoOutputRole)[keyof typeof MemberDtoOutputRole];
 
 export const MemberDtoOutputRole = {
   owner: 'owner',

@@ -5,9 +5,7 @@
  * Shared shopping lists
  * OpenAPI spec version: 1.0
  */
-import {
-  useQuery
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -18,23 +16,20 @@ import type {
   QueryKey,
   UndefinedInitialDataOptions,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
-import type {
-  UserPreviewDtoOutput,
-  UsersLookupParams
-} from '../models';
+import type { UserPreviewDtoOutput, UsersLookupParams } from '../models';
 
 import { fetcher } from '../../fetcher';
 import type { ErrorType } from '../../fetcher';
 
-
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-
-const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K
+): T & { queryKey: K } => {
   const result = { queryKey } as T & { queryKey: K };
   for (const key of Object.keys(query)) {
     // The explicit queryKey always wins, matching the previous
@@ -49,134 +44,174 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type usersLookupResponse200 = {
-  data: UserPreviewDtoOutput
-  status: 200
-}
-
-export type usersLookupResponseSuccess = (usersLookupResponse200) & {
-  headers: Headers;
-};
-;
-
-export type usersLookupResponse = (usersLookupResponseSuccess)
-
-export const getUsersLookupUrl = (params: UsersLookupParams,) => {
+export const getUsersLookupUrl = (params: UsersLookupParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : String(value))
+      normalizedParams.append(key, value === null ? 'null' : String(value));
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/users/lookup?${stringifiedParams}` : `/api/users/lookup`
-}
+  return stringifiedParams.length > 0
+    ? `/api/users/lookup?${stringifiedParams}`
+    : `/api/users/lookup`;
+};
 
 /**
  * Preview shown before adding someone to a list.
  * @summary Find a user by email
  */
-export const usersLookup = async (params: UsersLookupParams, options?: Parameters<typeof fetcher>[1]): Promise<usersLookupResponse> => {
-
-  return fetcher<usersLookupResponse>(getUsersLookupUrl(params),
-  {
+export const usersLookup = async (
+  params: UsersLookupParams,
+  options?: Parameters<typeof fetcher>[1]
+): Promise<UserPreviewDtoOutput> => {
+  return fetcher<UserPreviewDtoOutput>(getUsersLookupUrl(params), {
     ...options,
-    method: 'GET'
+    method: 'GET',
+  });
+};
 
+export const getUsersLookupQueryKey = (params?: UsersLookupParams) => {
+  return [`/api/users/lookup`, ...(params ? [params] : [])] as const;
+};
 
+export const getUsersLookupQueryOptions = <
+  TData = Awaited<ReturnType<typeof usersLookup>>,
+  TError = ErrorType<unknown>,
+>(
+  params: UsersLookupParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
   }
-);}
-
-
-
-
-
-export const getUsersLookupQueryKey = (params?: UsersLookupParams,) => {
-    return [
-    `/api/users/lookup`, ...(params ? [params] : [])
-    ] as const;
-    }
-
-
-export const getUsersLookupQueryOptions = <TData = Awaited<ReturnType<typeof usersLookup>>, TError = ErrorType<unknown>>(params: UsersLookupParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
 ) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryKey = queryOptions?.queryKey ?? getUsersLookupQueryKey(params);
 
-  const queryKey =  queryOptions?.queryKey ?? getUsersLookupQueryKey(params);
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof usersLookup>>> = ({
+    signal,
+  }) => usersLookup(params, { signal, ...requestOptions });
 
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof usersLookup>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
 
+export type UsersLookupQueryResult = NonNullable<
+  Awaited<ReturnType<typeof usersLookup>>
+>;
+export type UsersLookupQueryError = ErrorType<unknown>;
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof usersLookup>>> = ({ signal }) => usersLookup(params, { signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type UsersLookupQueryResult = NonNullable<Awaited<ReturnType<typeof usersLookup>>>
-export type UsersLookupQueryError = ErrorType<unknown>
-
-
-export function useUsersLookup<TData = Awaited<ReturnType<typeof usersLookup>>, TError = ErrorType<unknown>>(
- params: UsersLookupParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>> & Pick<
+export function useUsersLookup<
+  TData = Awaited<ReturnType<typeof usersLookup>>,
+  TError = ErrorType<unknown>,
+>(
+  params: UsersLookupParams,
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>
+    > &
+      Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof usersLookup>>,
           TError,
           Awaited<ReturnType<typeof usersLookup>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUsersLookup<TData = Awaited<ReturnType<typeof usersLookup>>, TError = ErrorType<unknown>>(
- params: UsersLookupParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>> & Pick<
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useUsersLookup<
+  TData = Awaited<ReturnType<typeof usersLookup>>,
+  TError = ErrorType<unknown>,
+>(
+  params: UsersLookupParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>
+    > &
+      Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof usersLookup>>,
           TError,
           Awaited<ReturnType<typeof usersLookup>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUsersLookup<TData = Awaited<ReturnType<typeof usersLookup>>, TError = ErrorType<unknown>>(
- params: UsersLookupParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useUsersLookup<
+  TData = Awaited<ReturnType<typeof usersLookup>>,
+  TError = ErrorType<unknown>,
+>(
+  params: UsersLookupParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Find a user by email
  */
 
-export function useUsersLookup<TData = Awaited<ReturnType<typeof usersLookup>>, TError = ErrorType<unknown>>(
- params: UsersLookupParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+export function useUsersLookup<
+  TData = Awaited<ReturnType<typeof usersLookup>>,
+  TError = ErrorType<unknown>,
+>(
+  params: UsersLookupParams,
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof usersLookup>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getUsersLookupQueryOptions(params, options);
 
-  const queryOptions = getUsersLookupQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
-
 
 /**
  * @summary Find a user by email
  */
 export const invalidateUsersLookup = async (
- queryClient: QueryClient, params: UsersLookupParams, options?: InvalidateOptions
-  ): Promise<QueryClient> => {
-
-  await queryClient.invalidateQueries({ queryKey: getUsersLookupQueryKey(params) }, options);
+  queryClient: QueryClient,
+  params: UsersLookupParams,
+  options?: InvalidateOptions
+): Promise<QueryClient> => {
+  await queryClient.invalidateQueries(
+    { queryKey: getUsersLookupQueryKey(params) },
+    options
+  );
 
   return queryClient;
-}
-
-
-
-
+};

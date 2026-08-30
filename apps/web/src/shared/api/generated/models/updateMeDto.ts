@@ -8,9 +8,9 @@
 
 export interface UpdateMeDto {
   /**
-     * @minLength 1
-     * @maxLength 100
-     */
+   * @minLength 1
+   * @maxLength 100
+   */
   name?: string;
   image?: string | null;
 }

@@ -5,10 +5,7 @@
  * Shared shopping lists
  * OpenAPI spec version: 1.0
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -22,23 +19,20 @@ import type {
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from '@tanstack/react-query';
 
-import type {
-  MeDtoOutput,
-  UpdateMeDto
-} from '../models';
+import type { MeDtoOutput, UpdateMeDto } from '../models';
 
 import { fetcher } from '../../fetcher';
-import type { ErrorType , BodyType } from '../../fetcher';
-
+import type { ErrorType, BodyType } from '../../fetcher';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-
-const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKey: K } => {
+const withQueryKey = <T extends object, K>(
+  query: T,
+  queryKey: K
+): T & { queryKey: K } => {
   const result = { queryKey } as T & { queryKey: K };
   for (const key of Object.keys(query)) {
     // The explicit queryKey always wins, matching the previous
@@ -53,217 +47,246 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export type meResponse200 = {
-  data: MeDtoOutput
-  status: 200
-}
-
-export type meResponseSuccess = (meResponse200) & {
-  headers: Headers;
-};
-;
-
-export type meResponse = (meResponseSuccess)
-
 export const getMeUrl = () => {
-
-
-
-
-  return `/api/me`
-}
+  return `/api/me`;
+};
 
 /**
  * @summary Current user
  */
-export const me = async ( options?: Parameters<typeof fetcher>[1]): Promise<meResponse> => {
-
-  return fetcher<meResponse>(getMeUrl(),
-  {
+export const me = async (
+  options?: Parameters<typeof fetcher>[1]
+): Promise<MeDtoOutput> => {
+  return fetcher<MeDtoOutput>(getMeUrl(), {
     ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
+    method: 'GET',
+  });
+};
 
 export const getMeQueryKey = () => {
-    return [
-    `/api/me`
-    ] as const;
-    }
+  return [`/api/me`] as const;
+};
 
+export const getMeQueryOptions = <
+  TData = Awaited<ReturnType<typeof me>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>
+  >;
+  request?: SecondParameter<typeof fetcher>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-export const getMeQueryOptions = <TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
-) => {
+  const queryKey = queryOptions?.queryKey ?? getMeQueryKey();
 
-const {query: queryOptions, request: requestOptions} = options ?? {};
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof me>>> = ({ signal }) =>
+    me({ signal, ...requestOptions });
 
-  const queryKey =  queryOptions?.queryKey ?? getMeQueryKey();
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof me>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
+};
 
+export type MeQueryResult = NonNullable<Awaited<ReturnType<typeof me>>>;
+export type MeQueryError = ErrorType<unknown>;
 
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof me>>> = ({ signal }) => me({ signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type MeQueryResult = NonNullable<Awaited<ReturnType<typeof me>>>
-export type MeQueryError = ErrorType<unknown>
-
-
-export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<unknown>>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>> & Pick<
+export function useMe<
+  TData = Awaited<ReturnType<typeof me>>,
+  TError = ErrorType<unknown>,
+>(
+  options: {
+    query: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>
+    > &
+      Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof me>>,
           TError,
           Awaited<ReturnType<typeof me>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<unknown>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>> & Pick<
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): DefinedUseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useMe<
+  TData = Awaited<ReturnType<typeof me>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>
+    > &
+      Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof me>>,
           TError,
           Awaited<ReturnType<typeof me>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<unknown>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+        >,
+        'initialData'
+      >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
+export function useMe<
+  TData = Awaited<ReturnType<typeof me>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+};
 /**
  * @summary Current user
  */
 
-export function useMe<TData = Awaited<ReturnType<typeof me>>, TError = ErrorType<unknown>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+export function useMe<
+  TData = Awaited<ReturnType<typeof me>>,
+  TError = ErrorType<unknown>,
+>(
+  options?: {
+    query?: Partial<
+      UseQueryOptions<Awaited<ReturnType<typeof me>>, TError, TData>
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseQueryResult<TData, TError> & {
+  queryKey: DataTag<QueryKey, TData, TError>;
+} {
+  const queryOptions = getMeQueryOptions(options);
 
-  const queryOptions = getMeQueryOptions(options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   return withQueryKey(query, queryOptions.queryKey);
 }
-
 
 /**
  * @summary Current user
  */
 export const invalidateMe = async (
- queryClient: QueryClient,  options?: InvalidateOptions
-  ): Promise<QueryClient> => {
-
+  queryClient: QueryClient,
+  options?: InvalidateOptions
+): Promise<QueryClient> => {
   await queryClient.invalidateQueries({ queryKey: getMeQueryKey() }, options);
 
   return queryClient;
-}
-
-
-
-
-export type meUpdateResponse200 = {
-  data: MeDtoOutput
-  status: 200
-}
-
-export type meUpdateResponseSuccess = (meUpdateResponse200) & {
-  headers: Headers;
 };
-;
-
-export type meUpdateResponse = (meUpdateResponseSuccess)
 
 export const getMeUpdateUrl = () => {
-
-
-
-
-  return `/api/me`
-}
+  return `/api/me`;
+};
 
 /**
  * @summary Update name or avatar
  */
-export const meUpdate = async (updateMeDto: UpdateMeDto, options?: Parameters<typeof fetcher>[1]): Promise<meUpdateResponse> => {
-
-    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+export const meUpdate = async (
+  updateMeDto: UpdateMeDto,
+  options?: Parameters<typeof fetcher>[1]
+): Promise<MeDtoOutput> => {
+  const getHeaders = (
+    h?: NonNullable<RequestInit['headers']>
+  ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
     if (Array.isArray(h)) return Object.fromEntries(h);
     return h;
   };
-return fetcher<meUpdateResponse>(getMeUpdateUrl(),
-  {
+  return fetcher<MeDtoOutput>(getMeUpdateUrl(), {
     ...options,
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
-    body: JSON.stringify(updateMeDto)
-  }
-);}
-
-
-
-
+    headers: {
+      'Content-Type': 'application/json',
+      ...getHeaders(options?.headers),
+    },
+    body: JSON.stringify(updateMeDto),
+  });
+};
 
 export const getMeUpdateMutationKey = () => ['meUpdate'] as const;
 
-export const getMeUpdateMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meUpdate>>, TError,MeUpdateMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
-): UseMutationOptions<Awaited<ReturnType<typeof meUpdate>>, TError,MeUpdateMutationVariables, TContext> => {
+export const getMeUpdateMutationOptions = <
+  TError = ErrorType<unknown>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof meUpdate>>,
+    TError,
+    MeUpdateMutationVariables,
+    TContext
+  >;
+  request?: SecondParameter<typeof fetcher>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof meUpdate>>,
+  TError,
+  MeUpdateMutationVariables,
+  TContext
+> => {
+  const mutationKey = getMeUpdateMutationKey();
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      'mutationKey' in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
 
-const mutationKey = getMeUpdateMutationKey();
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof meUpdate>>,
+    MeUpdateMutationVariables
+  > = (props) => {
+    const { data } = props ?? {};
 
+    return meUpdate(data, requestOptions);
+  };
 
+  return { mutationFn, ...mutationOptions };
+};
 
+export type MeUpdateMutationResult = NonNullable<
+  Awaited<ReturnType<typeof meUpdate>>
+>;
+export type MeUpdateMutationBody = BodyType<UpdateMeDto>;
+export type MeUpdateMutationError = ErrorType<unknown>;
+export type MeUpdateMutationVariables = { data: BodyType<UpdateMeDto> };
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof meUpdate>>, MeUpdateMutationVariables> = (props) => {
-          const {data} = props ?? {};
-
-          return  meUpdate(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type MeUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof meUpdate>>>
-    export type MeUpdateMutationBody = BodyType<UpdateMeDto>
-    export type MeUpdateMutationError = ErrorType<unknown>
-    export type MeUpdateMutationVariables = {data: BodyType<UpdateMeDto>}
-
-    /**
+/**
  * @summary Update name or avatar
  */
-export const useMeUpdate = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof meUpdate>>, TError,MeUpdateMutationVariables, TContext>, request?: SecondParameter<typeof fetcher>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof meUpdate>>,
-        TError,
-        MeUpdateMutationVariables,
-        TContext
-      > => {
-      return useMutation(getMeUpdateMutationOptions(options), queryClient);
-    }
+export const useMeUpdate = <TError = ErrorType<unknown>, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof meUpdate>>,
+      TError,
+      MeUpdateMutationVariables,
+      TContext
+    >;
+    request?: SecondParameter<typeof fetcher>;
+  },
+  queryClient?: QueryClient
+): UseMutationResult<
+  Awaited<ReturnType<typeof meUpdate>>,
+  TError,
+  MeUpdateMutationVariables,
+  TContext
+> => {
+  return useMutation(getMeUpdateMutationOptions(options), queryClient);
+};

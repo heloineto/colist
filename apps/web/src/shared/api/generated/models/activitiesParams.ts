@@ -7,14 +7,14 @@
  */
 
 export type ActivitiesParams = {
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @maximum 9007199254740991
- * @exclusiveMinimum 0
- */
-before?: number;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+  /**
+   * @maximum 9007199254740991
+   * @exclusiveMinimum 0
+   */
+  before?: number;
 };

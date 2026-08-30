@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PresignUploadDtoContentType = typeof PresignUploadDtoContentType[keyof typeof PresignUploadDtoContentType];
-
+export type PresignUploadDtoContentType =
+  (typeof PresignUploadDtoContentType)[keyof typeof PresignUploadDtoContentType];
 
 export const PresignUploadDtoContentType = {
   'image/jpeg': 'image/jpeg',

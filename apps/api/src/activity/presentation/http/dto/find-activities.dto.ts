@@ -1,4 +1,4 @@
-import { createZodDto } from 'nestjs-zod';
+import { createDto } from '@/common/application/dtos/zod-dto';
 import { z } from 'zod';
 import { ActivitySchema } from '@/activity/domain/activity';
 
@@ -7,8 +7,8 @@ export const FindActivitiesQuerySchema = z.strictObject({
   before: z.coerce.number().int().positive().optional(),
 });
 
-export class FindActivitiesQueryDto extends createZodDto(
+export class FindActivitiesQueryDto extends createDto(
   FindActivitiesQuerySchema
 ) {}
 
-export class ActivitiesDto extends createZodDto(z.array(ActivitySchema)) {}
+export class ActivitiesDto extends createDto(z.array(ActivitySchema)) {}

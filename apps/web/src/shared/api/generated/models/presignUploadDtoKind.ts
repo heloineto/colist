@@ -6,8 +6,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type PresignUploadDtoKind = typeof PresignUploadDtoKind[keyof typeof PresignUploadDtoKind];
-
+export type PresignUploadDtoKind =
+  (typeof PresignUploadDtoKind)[keyof typeof PresignUploadDtoKind];
 
 export const PresignUploadDtoKind = {
   avatar: 'avatar',
