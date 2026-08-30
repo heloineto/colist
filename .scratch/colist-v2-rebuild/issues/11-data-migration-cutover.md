@@ -33,3 +33,4 @@ Grilled 2026-08-29, two rounds.
 ## Comments
 
 - 2026-08-29: domain decision superseded — no purchase; prod host is `colist.heloineto.com` (subdomain NS-delegated to Route 53). See [Delegate colist.heloineto.com to Route 53](20-buy-domain-delegate-dns.md). `colist.com.br` deferred to go-public (map Out of scope).
+- 2026-08-30 (from [AWS and Terraform architecture](12-aws-terraform-architecture.md)): prod RDS is **private** — the cutover load targets `localhost:5432` through `scripts/db-tunnel.sh` (SSM port-forward via the EC2 box), not a public endpoint. Avatars upload to `s3://colist-production-uploads/avatars/`.

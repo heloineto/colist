@@ -19,3 +19,4 @@ Colist deltas:
 ## Comments
 
 - 2026-08-29 (from [API test and seed strategy](17-api-test-seed-strategy.md)): CI test job = vav `test.yml` shape (`test:unit` then `test:e2e --filter=api`); e2e needs docker on the runner for `docker-compose.test.yml`, no seed step, migrations via Drizzle `migrate()` in globalSetup.
+- 2026-08-30 (from [AWS and Terraform architecture](12-aws-terraform-architecture.md)): locked upstream — `dev` = tests only; merge to `main` = build **both** `colist-api` + `colist-web` images (always both, no path filters) → push (`colist-ecr-push`, `main` only) → `deploy-ecs.sh <cluster> <service> <family> <api-image> <web-image>` → `iac.yml` apply (`colist-tf-apply-production`, `main` only); PRs plan with `colist-tf-plan`. `promote-api.yml` dropped. Vercel fate still yours.
