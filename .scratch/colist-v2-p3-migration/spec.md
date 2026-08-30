@@ -45,7 +45,7 @@ Prod run (P5 step 3 — same wizard, different target), avatar renaming/re-keyin
 - Wizard run end to end against the real dump into local docker Postgres; `verify.sql` passes.
 - Sign in locally with real password → own lists returned (`user.image` carries the final S3 URL; renders once P5 uploads).
 - `bun run lint && bun run test` green (root `lint:spell` on untracked `scripts/migrate-*.sh` ignored).
-- PR `feat/p3-migration` → `feat/p2-api` stacked on #4.
+- PR #5 `feat/p3-migration` → `feat/p2-api`, stacked on #4.
 
 ## Comments
 
