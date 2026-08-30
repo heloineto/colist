@@ -1,11 +1,8 @@
-data "tls_certificate" "github" {
-  url = "https://${local.oidc_provider}/.well-known/openid-configuration"
-}
-
-resource "aws_iam_openid_connect_provider" "github" {
-  url             = "https://${local.oidc_provider}"
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = [data.tls_certificate.github.certificates[0].sha1_fingerprint]
+# Account-wide, one per URL: created (and owned) by voto-a-voto's bootstrap in
+# the same account. Referenced here, never declared, so neither stack can
+# destroy it from under the other.
+data "aws_iam_openid_connect_provider" "github" {
+  url = "https://${local.oidc_provider}"
 }
 
 data "aws_iam_policy_document" "trust" {
@@ -17,7 +14,7 @@ data "aws_iam_policy_document" "trust" {
 
     principals {
       type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.github.arn]
+      identifiers = [data.aws_iam_openid_connect_provider.github.arn]
     }
 
     condition {

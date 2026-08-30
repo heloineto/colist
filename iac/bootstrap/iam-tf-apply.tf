@@ -101,7 +101,7 @@ data "aws_iam_policy_document" "tf_apply" {
     sid       = "DenyOidcProviderMutation"
     effect    = "Deny"
     actions   = ["iam:*OpenIDConnectProvider*"]
-    resources = [aws_iam_openid_connect_provider.github.arn]
+    resources = [data.aws_iam_openid_connect_provider.github.arn]
   }
 
   statement {

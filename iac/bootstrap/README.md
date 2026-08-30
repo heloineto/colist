@@ -1,8 +1,9 @@
 # bootstrap
 
 The privileged foundation, applied **manually with local admin credentials** and
-**never by CI**. Owns the GitHub Actions OIDC provider and the three CI roles
-every later CI run federates against.
+**never by CI**. Owns the three CI roles every later CI run federates against; the GitHub
+Actions OIDC provider is account-wide and owned by voto-a-voto's bootstrap,
+so it is referenced (data source), not declared.
 
 ## Roles
 
