@@ -2,7 +2,7 @@
 
 Status: done
 Source: [Implementation phasing § P4a](../colist-v2-rebuild/issues/18-implementation-phasing.md) + tickets [05 mobile platform](../colist-v2-rebuild/issues/05-mobile-platform-decision.md), [15 i18n](../colist-v2-rebuild/issues/15-i18n-mechanism.md), [09 realtime (SSE part)](../colist-v2-rebuild/issues/09-realtime-offline-strategy.md), [16 observability (client part, minus crash capture)](../colist-v2-rebuild/issues/16-observability-stack.md); inventory [`research/feature-parity-checklist.md`](../colist-v2-rebuild/research/feature-parity-checklist.md); API handoff in the [P2 spec comment](../colist-v2-p2-api/spec.md).
-Branch: `feat/p4a-web` (off `feat/p3-migration`; PR #5 ← #4 ← #1 ← #2 ← `dev` unmerged — `--base feat/p3-migration`, retarget when the stack lands). `main` untouched.
+Branch: `feat/p4a-web` (PR #6 → `feat/p3-migration`; PR #5 ← #4 ← #1 ← #2 ← `dev` unmerged — `--base feat/p3-migration`, retarget when the stack lands). `main` untouched.
 Base: P0 `apps/web` skeleton (Vite 8 + TanStack Router file routes under `src/app/routes`, Mantine 9, Tailwind 4, i18next typed `pt` source, vite-plugin-pwa, FSD + steiger). API on `:5100` (`cd apps/api && bun run dev`), Vite proxies `/api`. Local DB = migrated real data; parity user `heloiabreuneto@gmail.com` (5 lists). Legacy UI reference = `main` branch (`git show main:<path>`), never checked out.
 
 ## Scope
