@@ -1,6 +1,6 @@
 # P1 — Infra & CI code
 
-Status: in progress
+Status: done
 Source: [Implementation phasing § P1](../colist-v2-rebuild/issues/18-implementation-phasing.md) + tickets [12](../colist-v2-rebuild/issues/12-aws-terraform-architecture.md), [13](../colist-v2-rebuild/issues/13-cicd-pipeline-design.md).
 Branch: `feat/p1-infra-ci` (off `feat/p0-scaffold`, P0 PR to `dev` still pending) → PR to `dev`. `main` untouched.
 Reference: `/home/heloi/programming/voto-a-voto/{iac,.github}` (read-only). Copy wholesale, edit the deltas.
@@ -40,3 +40,4 @@ Running production apply / SSM seeding / Vercel disconnect (P5). API code (P2). 
 ## Comments
 
 - 2026-08-30: code done in `c8db0d1` on `feat/p1-infra-ci` (PR #1, stacked on P0's PR #2 → `dev`; retarget to `dev` once #2 merges so `iac.yml`/`test.yml` trigger). `bun run lint:iac` + turbo lint + `bun run test` green (root `lint:spell` only fails on the untracked `scripts/migrate-*.sh`, not part of this branch). **Pending by hand**: `bash scripts/setup-aws-prod.sh` (SSO session already valid) → creates `colist-tfstate`, applies bootstrap, sets `AWS_ACCOUNT_ID` + `main` protection, then stops. Plan job goes green after that.
+- 2026-08-30: **done**. Wizard P1 sitting ran: `colist-tfstate` created, bootstrap applied (3 CI roles; the GitHub OIDC provider is account-wide and owned by vav's bootstrap → switched to a data source after a 409), `AWS_ACCOUNT_ID` var + `main` protection (`Lint`/`Test`) set, non-secret values in `.scratch/colist-v2-rebuild/aws-prod.env`. `iac.yml` plan runs once PR #1 targets `dev` (after #2 merges). Next: P2.
