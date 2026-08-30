@@ -12,6 +12,7 @@ import {
 import {
   ApiCookieAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -61,6 +62,7 @@ export class ListsController {
     return this.createList.execute(user.id, dto);
   }
 
+  @ApiParam({ name: 'listId', type: Number })
   @Get(':listId')
   @UseGuards(MembershipGuard)
   @ApiOperation({ summary: 'One list', operationId: 'listsFindOne' })
@@ -69,6 +71,7 @@ export class ListsController {
     return this.findList.execute(user.id, listId);
   }
 
+  @ApiParam({ name: 'listId', type: Number })
   @Patch(':listId')
   @UseGuards(MembershipGuard)
   @ApiOperation({ summary: 'Rename a list', operationId: 'listsRename' })
@@ -81,6 +84,7 @@ export class ListsController {
     return this.renameList.execute(user, listId, dto);
   }
 
+  @ApiParam({ name: 'listId', type: Number })
   @Delete(':listId')
   @ListRole('owner')
   @UseGuards(MembershipGuard)
@@ -94,6 +98,7 @@ export class ListsController {
     await this.deleteList.execute(listId);
   }
 
+  @ApiParam({ name: 'listId', type: Number })
   @Post(':listId/leave')
   @UseGuards(MembershipGuard)
   @HttpCode(HttpStatus.NO_CONTENT)

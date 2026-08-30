@@ -1,0 +1,16 @@
+# Legacy UI digest (from `main`, 2026-08-30)
+
+See agent digest captured during P4a — key facts kept here for re-reads:
+
+- Theme: `defaultRadius: 'md'`, Modal centered + bold title, Tooltip/HoverCard withArrow, Checkbox radius 0.375rem; `primaryShade: 8`, default primary `green`; `defaultColorScheme="auto"`.
+- Shell: header 6rem (upper bar 3rem grid-cols-3: Share | "Listas" | UserMenu; list tabs 3rem `Tabs` in `ScrollArea type="never"`, trailing "Nova lista" tab); navbar 52px hover-expand to 14rem (200ms); footer 3.75rem mobile `ActionIcon subtle size 2.25rem` Search/Sort/Feedback/More + notch AddButton (`radius 4.5rem size 4.5rem -mt-6`); main = ScrollArea `calc(100dvh - header - footer)`.
+- Lists slide: framer `AnimatePresence initial={false}`, `--direction` ±1 by tab index, `left: calc(dir*100%) → 0 → calc(dir*-100%)`.
+- Items: row `Checkbox radius xl size 1.75rem`, height 48 / 68 with details, `Highlight` name + dimmed details, amount `Badge light xl` → −/+ modal (min 1, saves on close). Enter/exit `height 0↔h, opacity`. Completed accordion `Completados (N)`, opens when no unchecked or search non-empty. Group by category: `Divider labelPosition left`, "Sem categoria" last. Search affix `Transition slide-down`, `FocusTrap`, 300 ms debounce. Skeleton 11 rows.
+- Item form: bottom Drawer `!rounded-t-lg h-fit`, unstyled `TextInput size lg` "Novo item", autosize Textarea details (toggle clears), toolbar Details/Amount(NumberCircleN)/Category | Remover/Adicionar|Salvar.
+- Categories modal: header Tag icon, search `radius xl` "Pesquisar ou adicionar categoria", inline `Adicionar "x"`, RadioGroup rows + red Trash, empty states.
+- Share: ≤1 member → `Button xs light` "Convidar"; else `AvatarGroup` max 4 (+N tooltip). Modal: email input `radius xl` + Plus submit, preview modal (100px avatar over `getColor(getInitials)` banner), member rows with RoleBadge (owner orange crown "Dono" / blue "Membro") + Menu "Remover membro".
+- `getColor`: `hash = (hash<<5)-hash+char |0` over name, `abs % 11` into `[blue,cyan,grape,green,indigo,lime,orange,pink,red,teal,violet]`; `getInitials` = first letters of first 2 words.
+- Feedback modal: SegmentedControl (ChatCircle "Deixar feedback" / BugBeetle "Reportar erro"), sliding 425px panel; `Rating size 2.5rem` labels Péssimo/Ruim/Regular/Bom/Excelente; error form: description + Checkbox "Permitir que os desenvolvedores entrem contato".
+- User menu modal: card (avatar xl, name, email, "Editar perfil" compact-xs) + ColorThemeToggle SegmentedControl (Tema escuro/claro) + LanguageSelect (Translate icon) + primary ColorSelect (red pink grape violet indigo blue cyan teal green lime yellow orange) + "Sair da conta" NavLink.
+- Auth: Paper 320 wide, sliding `translateX(-index * (100% + 50px))` 500ms between sign-in (index 1) / sign-up (index 2); inputs in fixed 5rem slots; password Popover (right on ≥62em) with 4 `Progress size 4` bars + requirements (≥8, número, minúscula, maiúscula), colors red/orange/yellow/teal; footer `© year Todos os direitos reservados.` • theme toggle • language Menu.
+- Toasts: mutation loading→success/error via `showNotification/updateNotification`; opt-out `meta`. v2: error-only + explicit success where legacy had one.

@@ -13,6 +13,7 @@ import {
 import {
   ApiCookieAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -31,6 +32,7 @@ import { MembershipGuard } from '@/list/presentation/http/guards/membership.guar
 @ApiCookieAuth()
 @ApiTags('Memberships')
 @UseGuards(MembershipGuard)
+@ApiParam({ name: 'listId', type: Number })
 @Controller('lists/:listId/memberships')
 export class MembershipsController {
   constructor(

@@ -1,13 +1,16 @@
-import '@mantine/core/styles.css';
 import '@/app/styles.css';
 import '@/shared/i18n';
-import { MantineProvider } from '@mantine/core';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Providers } from '@/app/providers';
 import { routeTree } from '@/app/route-tree.gen';
+import { installCrashCapture } from '@/shared/lib/crash-report';
+import { CrashScreen } from '@/shared/ui/crash-screen';
 
-const router = createRouter({ routeTree });
+installCrashCapture();
+
+const router = createRouter({ routeTree, defaultErrorComponent: CrashScreen });
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -20,8 +23,8 @@ if (!root) throw new Error('#root not found');
 
 createRoot(root).render(
   <StrictMode>
-    <MantineProvider>
+    <Providers>
       <RouterProvider router={router} />
-    </MantineProvider>
+    </Providers>
   </StrictMode>
 );

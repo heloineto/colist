@@ -9,3 +9,4 @@ mise.lock
 **/.terraform-lint
 .scratch
 apps/api/migrations/meta
+apps/web/src/app/route-tree.gen.ts
