@@ -257,7 +257,7 @@ pause
 stage "Avatars → s3://${AVATAR_BUCKET}/avatars/"
 say "user.image already points at ${AVATAR_BASE}/<userId>/<file>. The bucket exists only after the P5 apply."
 if confirm "Upload ${WORK_DIR}/avatars to S3 now (needs AWS_PROFILE)?"; then
-  aws s3 sync "$WORK_DIR/avatars" "s3://${AVATAR_BUCKET}/avatars/"
+  aws s3 sync "$WORK_DIR/avatars" "s3://${AVATAR_BUCKET}/avatars/" || SKIPPED+=("aws s3 sync ${WORK_DIR}/avatars s3://${AVATAR_BUCKET}/avatars/ (bucket missing until P5)")
 else
   SKIPPED+=("aws s3 sync ${WORK_DIR}/avatars s3://${AVATAR_BUCKET}/avatars/ (at P5)")
 fi
