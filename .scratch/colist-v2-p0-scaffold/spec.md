@@ -1,6 +1,6 @@
 # P0 — Monorepo scaffold
 
-Status: ready-for-agent
+Status: done
 Source: [Implementation phasing § P0](../colist-v2-rebuild/issues/18-implementation-phasing.md) + tickets [13](../colist-v2-rebuild/issues/13-cicd-pipeline-design.md), [14](../colist-v2-rebuild/issues/14-tooling-conventions-port.md), [15](../colist-v2-rebuild/issues/15-i18n-mechanism.md).
 Branch: `feat/p0-scaffold` → PR to `dev`. `main` untouched (frozen Next app; `legacy` tag + Vercel disconnect happen in P5).
 Reference: `/home/heloi/programming/voto-a-voto` (read-only). Copy wholesale, delete what fights.
@@ -48,3 +48,7 @@ iac/, `main.yml`, `iac.yml`, `dependabot.yml`, `deploy-ecs.sh`, wizard (P1). Aut
 - `bun install` clean, `bun run lint` + `bun run test` green at root (== "`bun run check`").
 - `docker build -f apps/api/Dockerfile .` and `docker build -f apps/web/Dockerfile .` succeed from repo root.
 - `bun run dev` serves web on :5000, api on :5100 with `/health` → `{status:'ok'}` against compose Postgres :5200.
+
+## Comments
+
+- 2026-08-30: done in `4d90b0b` on `feat/p0-scaffold` (PR to `dev` pending). `bun run lint && bun run test` green; both images build; `colist-api:local` smoke-tested against compose Postgres (`/health` ok). Gotchas: vav's `apps/api/.swcrc` is a dotfile — without it `nest build` SIGABRTs (`base_dir must be absolute`); release image must `COPY` `migrations/` and `DrizzleModule` resolves it from `process.cwd()`. `bun run check` doesn't exist under the script grammar — gate is `bun run lint && bun run test`. Skipped for later phases: `dependabot.yml` (P1), postcss-preset-mantine / tailwind-preset-mantine and zod/query/router eslint plugins (P4).
