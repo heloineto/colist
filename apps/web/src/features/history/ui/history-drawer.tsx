@@ -30,14 +30,15 @@ function Activities({ listId }: { listId: number }) {
   });
   const rows = query.data?.pages.flat();
 
-  if (!rows)
+  if (!rows) {
     return [1, 2, 3, 4, 5].map((row) => (
       <div key={row} className="flex items-center gap-3 py-2">
         <Skeleton circle h={32} w={32} />
         <Skeleton h={14} w={180 + (row % 3) * 30} />
       </div>
     ));
-  if (rows.length === 0)
+  }
+  if (rows.length === 0) {
     return (
       <EmptyState
         size="sm"
@@ -46,6 +47,7 @@ function Activities({ listId }: { listId: number }) {
         description={t('history.empty.description')}
       />
     );
+  }
 
   return (
     <div className="flex flex-col gap-1">

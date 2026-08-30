@@ -11,8 +11,9 @@ export function useSelectedList() {
 
   useEffect(() => {
     if (!lists) return;
-    if (listId !== null && !lists.some((list) => list.id === listId))
+    if (listId !== null && !lists.some((list) => list.id === listId)) {
       setListId(null);
+    }
     if (listId === null && lists[0]) setListId(lists[0].id);
   }, [lists, listId, setListId]);
 

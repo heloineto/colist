@@ -18,3 +18,13 @@ export function toAuthErrorCode(
 ): AuthErrorCode | null {
   return AUTH_ERROR_CODES.find((known) => known === code) ?? null;
 }
+
+/** `getSession`, flagging network failure so offline isn't read as signed-out. */
+export async function safeSession() {
+  try {
+    const { data } = await authClient.getSession();
+    return { data, offline: false };
+  } catch {
+    return { data: null, offline: true };
+  }
+}

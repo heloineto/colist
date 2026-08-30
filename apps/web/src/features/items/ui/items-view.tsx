@@ -103,8 +103,9 @@ export function ItemsView({ listId }: { listId: number }) {
     if (searchOpened && debouncedSearch) setAccordion('checked');
   }, [searchOpened, debouncedSearch]);
   useEffect(() => {
-    if (items && unchecked.length === 0 && checked.length > 0)
+    if (items && unchecked.length === 0 && checked.length > 0) {
       setAccordion('checked');
+    }
   }, [items, unchecked.length, checked.length]);
 
   if (itemsQuery.isError) {

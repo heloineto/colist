@@ -5,8 +5,12 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Providers } from '@/app/providers';
 import { routeTree } from '@/app/route-tree.gen';
+import { installCrashCapture } from '@/shared/lib/crash-report';
+import { CrashScreen } from '@/shared/ui/crash-screen';
 
-const router = createRouter({ routeTree });
+installCrashCapture();
+
+const router = createRouter({ routeTree, defaultErrorComponent: CrashScreen });
 
 declare module '@tanstack/react-router' {
   interface Register {

@@ -26,6 +26,10 @@ export const es: Translation = {
     loadMembers: 'Error al cargar los miembros',
     loadHistory: 'Error al cargar el historial',
     upload: 'No se pudo subir el archivo',
+    offline: 'Estás sin conexión',
+    crashTitle: 'Algo salió mal',
+    crashDescription: 'Ocurrió un error inesperado. Recarga para continuar.',
+    reload: 'Recargar',
   },
   auth: {
     appTitle: 'Lista de Compras',

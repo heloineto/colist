@@ -16,6 +16,8 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Never serve index.html for API navigations (Google OAuth redirect).
+      workbox: { navigateFallbackDenylist: [/^\/api\//] },
       includeAssets: [
         'favicon.ico',
         'apple-touch-icon.png',
