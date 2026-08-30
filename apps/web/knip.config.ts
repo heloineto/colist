@@ -2,7 +2,8 @@ import type { KnipConfig } from 'knip';
 
 const config: KnipConfig = {
   entry: ['steiger.config.mjs'],
-  ignoreBinaries: ['rimraf'],
+  ignore: ['src/shared/api/generated/**'],
+  ignoreBinaries: ['rimraf', 'prettier'],
   ignoreExportsUsedInFile: true,
 };
 

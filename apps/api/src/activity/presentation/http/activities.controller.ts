@@ -1,5 +1,10 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ZodResponse } from 'nestjs-zod';
 import { FindActivitiesUseCase } from '@/activity/application/use-cases/find-activities.use-case';
 import {
@@ -12,6 +17,7 @@ import { MembershipGuard } from '@/list/presentation/http/guards/membership.guar
 @ApiCookieAuth()
 @ApiTags('Activities')
 @UseGuards(MembershipGuard)
+@ApiParam({ name: 'listId', type: Number })
 @Controller('lists/:listId/activities')
 export class ActivitiesController {
   constructor(private readonly findActivities: FindActivitiesUseCase) {}

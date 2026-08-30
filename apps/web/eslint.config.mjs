@@ -19,6 +19,7 @@ const eslintConfig = defineConfig([
     'public/**',
     'reports/**',
     'src/app/route-tree.gen.ts',
+    'src/shared/api/generated/**',
   ]),
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked.map((config) => ({

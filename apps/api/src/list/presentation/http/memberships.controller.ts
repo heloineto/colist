@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiCookieAuth,
+  ApiParam,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -31,6 +32,7 @@ import { MembershipGuard } from '@/list/presentation/http/guards/membership.guar
 @ApiCookieAuth()
 @ApiTags('Memberships')
 @UseGuards(MembershipGuard)
+@ApiParam({ name: 'listId', type: Number })
 @Controller('lists/:listId/memberships')
 export class MembershipsController {
   constructor(
