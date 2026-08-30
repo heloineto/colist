@@ -49,3 +49,4 @@ Resolved 2026-08-30 by grilling. vav's iac ported wholesale, minus staging.
 **Toolchain**: terraform pinned in root `mise.toml`, `fix:iac` / `lint:iac` / `iac:bootstrap:*` scripts as vav (ticket 14).
 
 Rejected: staging dir (ticket 07); flat `iac/production` layout; web via NestJS `ServeStatic` or S3 website; Secrets Manager for app secrets; public RDS + IP allowlist (rotating home IP → stale allowlist); zone in bootstrap; presigned-GET avatars; LocalStack; path-filtered builds; `t4g.micro`.
+- 2026-08-30 (from [CI/CD pipeline design](13-cicd-pipeline-design.md)): wizard `scripts/setup-aws-prod.sh` gains a step right before "set `AWS_ACCOUNT_ID`": tag `main` as `legacy`, then Vercel **Settings → Git → Disconnect** (old deployment keeps serving; `main` becomes safe to merge into). CI apply moves into `main.yml` (`apply` job precedes `deploy`); `iac.yml` is PR plan only.
