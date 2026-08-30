@@ -15,3 +15,7 @@ Colist deltas:
 - Vercel fate: does the web deployment survive (landing? PWA?) and does main stay wired to it — or is Vercel retired?
 - ~~If Expo: EAS build/submit/update in CI~~ — moot, PWA locked (ticket 05).
 - ~~Migration step in deploy~~ — settled by ticket 07: Drizzle on-boot `migrate()`, no CI step.
+
+## Comments
+
+- 2026-08-29 (from [API test and seed strategy](17-api-test-seed-strategy.md)): CI test job = vav `test.yml` shape (`test:unit` then `test:e2e --filter=api`); e2e needs docker on the runner for `docker-compose.test.yml`, no seed step, migrations via Drizzle `migrate()` in globalSetup.

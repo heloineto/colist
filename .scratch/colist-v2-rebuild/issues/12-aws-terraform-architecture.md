@@ -2,7 +2,7 @@
 
 Type: grilling
 Status: open
-Blocked by: 05, 06, 07
+Blocked by: 05, 06, 07, 20
 
 ## Question
 
@@ -14,6 +14,10 @@ Colist deltas to decide:
 - One env or staging+production? (Alpha app, one user-developer — staging may be ceremony.)
 - Instance sizing (t4g.micro/small), same region?
 - DB resources per the hosting decision; where avatar S3 bucket lives.
-- Domain: colist.com.br DNS is where today (registro.br? Cloudflare?) — TLS via Caddy same as vav?
+- Domain: `colist.heloineto.com` — Route 53 hosted zone delegated from GoDaddy (ticket 20); TLS via Caddy same as vav. Single host, web + `/api/*`.
 - Naming prefix (`colist-` vs vav's `vav-`), state bucket name.
 - Write the runbook vav lost (SSM seeding, DNS record, bootstrap apply).
+
+## Comments
+
+- 2026-08-29 (from [Google OAuth credentials](19-google-oauth-credentials.md)): decide prod secret storage for `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (+ `BETTER_AUTH_SECRET`, DB URL) — SSM Parameter Store SecureString vs Secrets Manager, and how they reach the ECS task (vav `ecs` module `secrets` block?). Local side is done; only prod is open.
