@@ -234,6 +234,7 @@ export const independentModulesConfig = createIndependentModules({
         '{family_2}/test/**',
         '{family_3}/**',
         'src/*/domain/**',
+        'src/*/application/ports/**',
       ],
       errorMessage:
         'use-case spec files can only import from domain/, ports/, dtos/ and use-cases/.',

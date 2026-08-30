@@ -31,5 +31,5 @@ COPY --from=builder /app/apps/api/migrations ./apps/api/migrations
 
 WORKDIR /app/apps/api
 USER bun
-EXPOSE 3000/tcp
+EXPOSE 5100/tcp
 CMD ["bun", "run", "dist/src/main.js"]

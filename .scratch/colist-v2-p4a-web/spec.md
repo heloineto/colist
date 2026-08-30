@@ -1,0 +1,44 @@
+# P4a — Web client, online parity
+
+Status: done
+Source: [Implementation phasing § P4a](../colist-v2-rebuild/issues/18-implementation-phasing.md) + tickets [05 mobile platform](../colist-v2-rebuild/issues/05-mobile-platform-decision.md), [15 i18n](../colist-v2-rebuild/issues/15-i18n-mechanism.md), [09 realtime (SSE part)](../colist-v2-rebuild/issues/09-realtime-offline-strategy.md), [16 observability (client part, minus crash capture)](../colist-v2-rebuild/issues/16-observability-stack.md); inventory [`research/feature-parity-checklist.md`](../colist-v2-rebuild/research/feature-parity-checklist.md); API handoff in the [P2 spec comment](../colist-v2-p2-api/spec.md).
+Branch: `feat/p4a-web` (PR #6 → `feat/p3-migration`; PR #5 ← #4 ← #1 ← #2 ← `dev` unmerged — `--base feat/p3-migration`, retarget when the stack lands). `main` untouched.
+Base: P0 `apps/web` skeleton (Vite 8 + TanStack Router file routes under `src/app/routes`, Mantine 9, Tailwind 4, i18next typed `pt` source, vite-plugin-pwa, FSD + steiger). API on `:5100` (`cd apps/api && bun run dev`), Vite proxies `/api`. Local DB = migrated real data; parity user `heloiabreuneto@gmail.com` (5 lists). Legacy UI reference = `main` branch (`git show main:<path>`), never checked out.
+
+## Scope
+
+### 1. Data layer
+- **orval** (dev dep) `orval.config.ts`: input `http://localhost:5100/api/openapi/json` (committed snapshot `apps/web/openapi.json` so `gen` works without the API? — no: generate from the live API, commit the output; `bun run gen` documented in README). Output `src/shared/api/generated/` (gitignored? — no, committed; knip/eslint/steiger ignore it), `client: 'react-query'`, `httpClient: 'fetch'`, `mode: 'tags-split'`, mutator `src/shared/api/fetcher.ts` (`fetch` with `credentials: 'include'`, throws `ApiError { status, body }` on !ok, 204 → undefined). No axios.
+- **TanStack Query** `QueryClientProvider` in `app/providers.tsx`; `refetchOnWindowFocus`/`refetchOnReconnect` default on. Global `MutationCache.onError` → error toast (`t('errors.<code>')` fallback generic); `meta: { silent: true }` opts out. Global `QueryCache.onError` → error toast. Loading→success toast stack from legacy is **not** ported (checks/edits are silent today; the rest gets a success toast per mutation where the legacy showed one).
+- **Auth**: `better-auth/react` `createAuthClient({ baseURL: window.location.origin, basePath: '/api/auth' })`. `useSession` for the gate; `GET /me` for the profile card. Error `code` → `t('auth.errors.<code>')` with a generic fallback. Route guard in `__root` `beforeLoad`: unauth on `/app*` → `/auth`; auth on `/auth` → `/app`. `/` → `/app`.
+- **SSE**: `EventSource('/api/events')` mounted once under the auth gate; `list.changed` → `invalidateQueries` for that list's items/categories/members/activities + `lists`; on `open` (incl. reconnect) → `invalidateQueries()` blanket. Auto-reconnect is native.
+- **Persisted UI prefs** (localStorage via `useLocalStorage` from `@mantine/hooks`): selected list id, sort, order, group, color scheme (Mantine's own `localStorageColorSchemeManager`), primary color, language (i18next detector).
+
+### 2. Screens (FSD: `pages/`, `widgets/`, `features/`, `entities/`, `shared/`)
+- **/auth**: sliding sign-in ⇄ sign-up panels, email/password + name on sign-up, password-strength popover (Mantine `Popover` + `Progress`, legacy requirements), Google button (`authClient.signIn.social({ provider: 'google', callbackURL: '/app' })`), language picker, color-scheme toggle, copyright. Dropped: remember-me, reset, email confirmation.
+- **/app**: `AppShell` — header (logo, list tabs w/ unchecked badges + "Nova lista", members avatar group, user avatar → user menu), desktop hover-expanding navbar (add item, search, sort, group, history, feedback, more-options), mobile footer bar (same actions). List selection persisted; auto-select first / drop vanished; slide transition between lists; empty states (no lists / none selected).
+- **Lists**: create/rename (Drawer desktop / fullscreen Modal mobile; unsaved-changes discard confirm), delete (owner-only, confirm), leave (member; confirm; auto-promote is server-side).
+- **Members**: modal with avatar/name/email/role badge (crown), add by email → `GET /users/lookup` preview modal → confirm (`POST memberships`), duplicate/not-found toasts, remove w/ confirm (owner only, not self). Deterministic initials + color avatars (legacy algorithm).
+- **Items**: bottom `Drawer` form (name, details toggle, amount, category picker), tap row → edit, checkbox (silent), amount badge → −/+ modal (saves on close), delete w/ confirm, "Completados (N)" accordion with legacy auto-open rules, row enter/exit animation (Mantine `Transition`), search affix (slide-down, 300 ms debounce, `Highlight`), sort name/updatedAt × asc/desc (server params), group none/category (client-side, "Sem categoria" last), skeletons, error state, empty vs no-results states. New items carry `clientId: crypto.randomUUID()`.
+- **Categories**: searchable picker modal (alphabetical, server ICU), inline create from search text (auto-assign), rename, delete w/ confirm, none/no-match empty states.
+- **History**: drawer, `GET activities` (limit 50, "load more" via `before`), row = `t('activity.<action>', { actorName, targetName })` + `Intl.RelativeTimeFormat`.
+- **Feedback / error report**: modal, two sliding tabs, stars (1–5 w/ labels) + textarea; error form = description + contact consent; attachments = file input → `POST /uploads/presign { kind: 'attachment' }` → PUT → keys in `files`. (PUT fails locally until P5 — documented; UI must survive it with a toast.)
+- **Profile**: user menu modal (card, edit name + avatar file input → presign `avatar` → PUT → `PATCH /me { image: publicUrl }`, remove avatar → `image: null`), light/dark toggle, primary color select (legacy palette), language select, sign-out → `/auth`.
+- **Global**: `@mantine/notifications` (bottom-center on mobile), `@mantine/modals` confirm-delete, `QueryBoundary` (loading/error/empty).
+- **i18n**: every string in `shared/i18n/locales/{pt,en,es}.ts`, keys nested by slice; `activity` block `satisfies Record<ActivityAction, string>` (type imported from the generated models).
+
+### 3. Deps added
+`@tanstack/react-query`, `@tanstack/react-query-devtools` (dev), `@mantine/notifications`, `@mantine/modals`, `@mantine/form` (Mantine-native forms; rhf+zod skipped — 4 tiny forms), `@phosphor-icons/react`, `better-auth`, `orval` (dev), `zod` only if a schema is needed beyond Mantine validators (skip by default).
+
+### 4. Dropped (per ticket 18)
+"Alpha" badge/version label (keep `VITE_APP_VERSION` only in the error payload later), `/test`, NPS, Tiptap, Uppy/TUS, dayjs/`@mantine/dates`, email confirmation/reset, remember-me. Offline + crash capture → P4b. Drag reorder, presence, push: out.
+
+## Done
+- Every non-dropped line of the parity checklist ticked against the local P3 data as `heloiabreuneto@gmail.com` (manual pass + screenshots via `/prototype`-style dev server run).
+- `bun run lint && bun run test` green (root `lint:spell` trips only on untracked `scripts/migrate-*.sh`); `apps/web` image builds.
+- One vitest unit for the pure logic: group/sort helper + activity i18n key completeness.
+- PR `feat/p4a-web` → `feat/p3-migration`; map updated.
+
+## Comments
+
+- 2026-08-30: **done** on `feat/p4a-web`. orval client generated from the live spec into `src/shared/api/generated` (committed; `bun run gen` regenerates — needs the API on :5100), fetch mutator (`fetcher.ts`, cookies included, `ApiError`), no axios. Deviations from spec text: `@mantine/form` (not rhf), `tailwind-preset-mantine` + `motion` added (legacy stack), password-strength renders inline `Collapse` on mobile (popover overlapped the submit), success toasts only where legacy showed one (error toasts global via Mutation/QueryCache). API fixes made on the way: doc emits OpenAPI 3.1 (`setOpenAPIVersion`), `@ApiParam listId` on list-scoped controllers, `createDto` wrapper rewrites zod's `type: ['x','null']` to `anyOf` before @nestjs/swagger mangles it to `x[]` (drop when nestjs-zod >5.5 fixes it). Vite 8 needed `resolve.tsconfigPaths: true` (P0 gap). Verified against the migrated data with Playwright as a fresh sign-up (`p4a-tester@example.com`, memberships added by SQL — password of the migrated account unknown): sign-up flow, tabs + unchecked badges, items with details/amount/animations, completed accordion auto-open, search highlight, sort/group drawer, history (real activity, relative time), members modal w/ roles, feedback/error forms, profile edit, theme/language/primary-color, more-options, desktop hover navbar, SSE invalidation path. Screenshots in the session scratchpad. Not exercised manually: Google sign-in (external), real S3 PUT (bucket at P5), leave/delete list mutations (wired, e2e-covered server-side).
