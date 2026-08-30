@@ -79,13 +79,12 @@ export function ItemForm() {
     setDetailsOpened(Boolean(item?.details));
   }, [opened, item]);
 
-  const done = () => {
+  const settled = () => {
     if (listId !== null) invalidateList(listId);
-    close();
   };
-  const create = useItemsCreate({ mutation: { onSuccess: done } });
-  const update = useItemsUpdate({ mutation: { onSuccess: done } });
-  const remove = useItemsDelete({ mutation: { onSuccess: done } });
+  const create = useItemsCreate({ mutation: { onSettled: settled } });
+  const update = useItemsUpdate({ mutation: { onSettled: settled } });
+  const remove = useItemsDelete({ mutation: { onSettled: settled } });
 
   const submit = form.onSubmit((values) => {
     if (listId === null) return;
@@ -96,11 +95,13 @@ export function ItemForm() {
       details: values.details.trim() || null,
     };
     if (item) update.mutate({ listId, itemId: item.id, data });
-    else
+    else {
       create.mutate({
         listId,
         data: { ...data, clientId: crypto.randomUUID() },
       });
+    }
+    close();
   });
 
   const toggleDetails = () => {
@@ -114,7 +115,6 @@ export function ItemForm() {
   };
 
   const AmountIcon = NUMBER_ICONS[form.values.amount - 1] ?? HashIcon;
-  const pending = create.isPending || update.isPending;
 
   return (
     <Drawer
@@ -188,11 +188,13 @@ export function ItemForm() {
               <Button
                 color="red"
                 variant="light"
-                loading={remove.isPending}
                 onClick={() =>
                   confirmDelete(
                     t('items.deleteLabel', { name: item.name }),
-                    () => remove.mutate({ listId, itemId: item.id })
+                    () => {
+                      remove.mutate({ listId, itemId: item.id });
+                      close();
+                    }
                   )
                 }
               >
@@ -205,7 +207,6 @@ export function ItemForm() {
               className="-mr-2"
               px={item ? undefined : 'xs'}
               disabled={!form.values.name.trim()}
-              loading={pending}
             >
               {item ? t('common.save') : t('common.add')}
             </Button>

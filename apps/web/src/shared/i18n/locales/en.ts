@@ -26,6 +26,10 @@ export const en: Translation = {
     loadMembers: 'Failed to load members',
     loadHistory: 'Failed to load history',
     upload: 'File upload failed',
+    offline: "You're offline",
+    crashTitle: 'Something went wrong',
+    crashDescription: 'An unexpected error occurred. Reload to continue.',
+    reload: 'Reload',
   },
   auth: {
     appTitle: 'Shopping List',

@@ -24,6 +24,11 @@ export const pt = {
     loadMembers: 'Erro ao carregar membros',
     loadHistory: 'Erro ao carregar histórico',
     upload: 'Falha ao enviar o arquivo',
+    offline: 'Você está sem conexão',
+    crashTitle: 'Algo deu errado',
+    crashDescription:
+      'Um erro inesperado aconteceu. Recarregue a página para continuar.',
+    reload: 'Recarregar',
   },
   auth: {
     appTitle: 'Lista de Compras',

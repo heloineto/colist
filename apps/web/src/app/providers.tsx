@@ -9,11 +9,24 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
-import { QueryClientProvider } from '@tanstack/react-query';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { del, get, set } from 'idb-keyval';
 import type { ReactNode } from 'react';
-import { queryClient } from '@/shared/api/query-client';
+import { registerOfflineMutations } from '@/shared/api/offline';
+import { CACHE_MAX_AGE, queryClient } from '@/shared/api/query-client';
 import { usePrimaryColor } from '@/shared/lib/preferences';
+
+registerOfflineMutations(queryClient);
+
+const persister = createAsyncStoragePersister({
+  storage: {
+    getItem: (key: string) => get<string>(key),
+    setItem: (key: string, value: string) => set(key, value),
+    removeItem: (key: string) => del(key),
+  },
+});
 
 const baseTheme = createTheme({
   defaultRadius: 'md',
@@ -38,13 +51,26 @@ export function Providers({ children }: { children: ReactNode }) {
       theme={{ ...baseTheme, primaryColor }}
       defaultColorScheme="auto"
     >
-      <QueryClientProvider client={queryClient}>
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{
+          persister,
+          maxAge: CACHE_MAX_AGE,
+          buster: import.meta.env.VITE_APP_VERSION ?? 'dev',
+        }}
+        onSuccess={() => {
+          // reload-resume of the offline queue + blanket invalidate (ticket 09)
+          void queryClient
+            .resumePausedMutations()
+            .then(() => queryClient.invalidateQueries());
+        }}
+      >
         <ModalsProvider>
           <Notifications position={isDesktop ? undefined : 'bottom-center'} />
           {children}
         </ModalsProvider>
         <ReactQueryDevtools />
-      </QueryClientProvider>
+      </PersistQueryClientProvider>
     </MantineProvider>
   );
 }
