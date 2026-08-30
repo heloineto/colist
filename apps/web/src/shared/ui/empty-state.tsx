@@ -9,12 +9,23 @@ type Props = {
   size?: 'sm' | 'md';
 };
 
-export function EmptyState({ icon: IconComponent, title, description, action, size = 'md' }: Props) {
+export function EmptyState({
+  icon: IconComponent,
+  title,
+  description,
+  action,
+  size = 'md',
+}: Props) {
   return (
     <div className="flex grow flex-col items-center justify-center gap-2 p-6 text-center">
-      <IconComponent size={size === 'sm' ? '2.5rem' : '4rem'} className="text-dimmed" />
-      <p className={size === 'sm' ? 'font-semibold' : 'text-lg font-semibold'}>{title}</p>
-      {description && <p className="text-sm text-dimmed">{description}</p>}
+      <IconComponent
+        size={size === 'sm' ? '2.5rem' : '4rem'}
+        className="text-dimmed"
+      />
+      <p className={size === 'sm' ? 'font-semibold' : 'text-lg font-semibold'}>
+        {title}
+      </p>
+      {description && <p className="text-dimmed text-sm">{description}</p>}
       {action !== undefined && <div className="mt-2">{action}</div>}
     </div>
   );

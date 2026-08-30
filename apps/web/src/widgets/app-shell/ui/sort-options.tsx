@@ -34,14 +34,26 @@ export function SortOptions() {
       <p className="flex items-center gap-1 font-semibold">
         <ArrowsDownUpIcon size="1.125rem" weight="bold" /> {t('shell.sortBy')}
       </p>
-      <OptionGroup option="sort" values={['name', 'updatedAt']} label={(value) => t(`shell.sort.${value}`)} />
+      <OptionGroup
+        option="sort"
+        values={['name', 'updatedAt']}
+        label={(value) => t(`shell.sort.${value}`)}
+      />
       <Divider label={t('shell.direction')} labelPosition="left" />
-      <OptionGroup option="order" values={['asc', 'desc']} label={(value) => t(`shell.order.${value}`)} />
+      <OptionGroup
+        option="order"
+        values={['asc', 'desc']}
+        label={(value) => t(`shell.order.${value}`)}
+      />
       <Divider />
       <p className="mt-2 flex items-center gap-1 font-semibold">
         <ShapesIcon size="1.125rem" weight="bold" /> {t('shell.groupBy')}
       </p>
-      <OptionGroup option="groupBy" values={['none', 'category']} label={(value) => t(`shell.group.${value}`)} />
+      <OptionGroup
+        option="groupBy"
+        values={['none', 'category']}
+        label={(value) => t(`shell.group.${value}`)}
+      />
     </div>
   );
 }

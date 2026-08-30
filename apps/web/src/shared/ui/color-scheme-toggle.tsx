@@ -17,7 +17,11 @@ export function ColorSchemeToggle({ className }: { className?: string }) {
           value: 'light',
           label: (
             <span className="flex items-center justify-center gap-1">
-              <SunIcon size="1.125rem" weight="bold" className="text-yellow-800 dark:text-yellow-400" />
+              <SunIcon
+                size="1.125rem"
+                weight="bold"
+                className="text-yellow-800 dark:text-yellow-400"
+              />
               {t('profile.themeLight')}
             </span>
           ),
@@ -27,7 +31,11 @@ export function ColorSchemeToggle({ className }: { className?: string }) {
           value: 'dark',
           label: (
             <span className="flex items-center justify-center gap-1">
-              <MoonStarsIcon size="1.125rem" weight="bold" className="text-blue-800 dark:text-blue-300" />
+              <MoonStarsIcon
+                size="1.125rem"
+                weight="bold"
+                className="text-blue-800 dark:text-blue-300"
+              />
               {t('profile.themeDark')}
             </span>
           ),

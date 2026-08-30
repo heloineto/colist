@@ -1,12 +1,35 @@
 import { describe, expect, it } from 'vitest';
 import { groupByCategory, splitChecked } from '@/features/items/lib/group';
-import type { CategoriesDtoOutputItem, ItemsDtoOutputItem } from '@/shared/api/generated/models';
+import type {
+  CategoriesDtoOutputItem,
+  ItemsDtoOutputItem,
+} from '@/shared/api/generated/models';
 
-const stamp = { createdAt: '2026-01-01T00:00:00Z', updatedAt: '2026-01-01T00:00:00Z' };
-const item = (id: number, categoryId: number | null, checked = false): ItemsDtoOutputItem => ({
-  id, listId: 1, categoryId, clientId: null, name: `item ${id}`, amount: 1, checked, details: null, ...stamp,
+const stamp = {
+  createdAt: '2026-01-01T00:00:00Z',
+  updatedAt: '2026-01-01T00:00:00Z',
+};
+const item = (
+  id: number,
+  categoryId: number | null,
+  checked = false
+): ItemsDtoOutputItem => ({
+  id,
+  listId: 1,
+  categoryId,
+  clientId: null,
+  name: `item ${id}`,
+  amount: 1,
+  checked,
+  details: null,
+  ...stamp,
 });
-const category = (id: number, name: string): CategoriesDtoOutputItem => ({ id, listId: 1, name, ...stamp });
+const category = (id: number, name: string): CategoriesDtoOutputItem => ({
+  id,
+  listId: 1,
+  name,
+  ...stamp,
+});
 
 describe('groupByCategory', () => {
   it('sorts groups by name with the uncategorized bucket last and drops empty categories', () => {
@@ -15,7 +38,11 @@ describe('groupByCategory', () => {
       [category(10, 'Padaria'), category(20, 'Açougue'), category(30, 'Vazia')],
       'pt-BR'
     );
-    expect(groups.map((group) => group.name)).toEqual(['Açougue', 'Padaria', null]);
+    expect(groups.map((group) => group.name)).toEqual([
+      'Açougue',
+      'Padaria',
+      null,
+    ]);
     expect(groups[0]?.items.map((entry) => entry.id)).toEqual([2, 4]);
   });
 
@@ -27,7 +54,10 @@ describe('groupByCategory', () => {
 
 describe('splitChecked', () => {
   it('partitions by checked', () => {
-    const { checked, unchecked } = splitChecked([item(1, null, true), item(2, null)]);
+    const { checked, unchecked } = splitChecked([
+      item(1, null, true),
+      item(2, null),
+    ]);
     expect(checked.map((entry) => entry.id)).toEqual([1]);
     expect(unchecked.map((entry) => entry.id)).toEqual([2]);
   });

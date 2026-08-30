@@ -10,12 +10,21 @@ import { getMeQueryKey, useMeUpdate } from '@/shared/api/generated/me/me';
 import type { MeDtoOutput } from '@/shared/api/generated/models';
 import { IMAGE_TYPES, uploadFile } from '@/shared/api/upload';
 
-export function ProfileForm({ me, onDone }: { me: MeDtoOutput; onDone: () => void }) {
+export function ProfileForm({
+  me,
+  onDone,
+}: {
+  me: MeDtoOutput;
+  onDone: () => void;
+}) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [image, setImage] = useState<string | null>(me.image);
   const [uploading, setUploading] = useState(false);
-  const form = useForm({ initialValues: { name: me.name }, validate: { name: isNotEmpty(t('auth.validation.name')) } });
+  const form = useForm({
+    initialValues: { name: me.name },
+    validate: { name: isNotEmpty(t('auth.validation.name')) },
+  });
   const update = useMeUpdate({
     mutation: {
       meta: { success: t('profile.saved') },
@@ -41,23 +50,63 @@ export function ProfileForm({ me, onDone }: { me: MeDtoOutput; onDone: () => voi
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={form.onSubmit(({ name }) => update.mutate({ data: { name, image } }))}>
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={form.onSubmit(({ name }) =>
+        update.mutate({ data: { name, image } })
+      )}
+    >
       <div className="flex items-center gap-4">
-        <UserAvatar name={form.values.name} image={image} size={96} radius="md" />
+        <UserAvatar
+          name={form.values.name}
+          image={image}
+          size={96}
+          radius="md"
+        />
         <Menu shadow="md" withArrow>
-          <Menu.Target><Button variant="light" size="xs" loading={uploading}>{t('profile.avatar')}</Button></Menu.Target>
+          <Menu.Target>
+            <Button variant="light" size="xs" loading={uploading}>
+              {t('profile.avatar')}
+            </Button>
+          </Menu.Target>
           <Menu.Dropdown>
-            <FileButton accept={IMAGE_TYPES} onChange={(file) => void pick(file)}>
-              {(props) => <Menu.Item {...props} leftSection={<CameraIcon size="1rem" />}>{t('profile.changeAvatar')}</Menu.Item>}
+            <FileButton
+              accept={IMAGE_TYPES}
+              onChange={(file) => void pick(file)}
+            >
+              {(props) => (
+                <Menu.Item {...props} leftSection={<CameraIcon size="1rem" />}>
+                  {t('profile.changeAvatar')}
+                </Menu.Item>
+              )}
             </FileButton>
-            <Menu.Item color="red" disabled={image === null} leftSection={<TrashIcon size="1rem" />} onClick={() => setImage(null)}>{t('profile.removeAvatar')}</Menu.Item>
+            <Menu.Item
+              color="red"
+              disabled={image === null}
+              leftSection={<TrashIcon size="1rem" />}
+              onClick={() => setImage(null)}
+            >
+              {t('profile.removeAvatar')}
+            </Menu.Item>
           </Menu.Dropdown>
         </Menu>
       </div>
-      <TextInput label={t('profile.name')} placeholder={t('profile.noName')} {...form.getInputProps('name')} />
-      <div className="flex flex-col-reverse gap-2 xs:flex-row xs:justify-end">
-        <Button variant="default" className="xs:min-w-32" onClick={onDone}>{t('common.cancel')}</Button>
-        <Button type="submit" className="xs:min-w-32" loading={update.isPending}>{t('common.save')}</Button>
+      <TextInput
+        label={t('profile.name')}
+        placeholder={t('profile.noName')}
+        {...form.getInputProps('name')}
+      />
+      <div className="xs:flex-row xs:justify-end flex flex-col-reverse gap-2">
+        <Button variant="default" className="xs:min-w-32" onClick={onDone}>
+          {t('common.cancel')}
+        </Button>
+        <Button
+          type="submit"
+          className="xs:min-w-32"
+          loading={update.isPending}
+        >
+          {t('common.save')}
+        </Button>
       </div>
     </form>
   );

@@ -26,23 +26,40 @@ export function ListTabs() {
       h="3rem"
       value={listId === null ? null : String(listId)}
       onChange={(value) => {
-        if (value === NEW) { listForm.open(); return; }
+        if (value === NEW) {
+          listForm.open();
+          return;
+        }
         setListId(value === null ? null : Number(value));
       }}
     >
       <ScrollArea type="never" w="100vw">
         <Tabs.List className="mt-2 flex-nowrap!">
           {lists.map((list) => (
-            <Tabs.Tab key={list.id} value={String(list.id)} h={40} classNames={{ tabLabel: 'flex items-center gap-1' }}>
+            <Tabs.Tab
+              key={list.id}
+              value={String(list.id)}
+              h={40}
+              classNames={{ tabLabel: 'flex items-center gap-1' }}
+            >
               {list.name}
               {list.uncheckedCount > 0 && (
-                <Badge className="w-7! p-0!" variant="light" size="sm" color="gray">
+                <Badge
+                  className="w-7! p-0!"
+                  variant="light"
+                  size="sm"
+                  color="gray"
+                >
                   {list.uncheckedCount}
                 </Badge>
               )}
             </Tabs.Tab>
           ))}
-          <Tabs.Tab value={NEW} h={40} leftSection={<PlusIcon size="0.75rem" weight="bold" />}>
+          <Tabs.Tab
+            value={NEW}
+            h={40}
+            leftSection={<PlusIcon size="0.75rem" weight="bold" />}
+          >
             {t('shell.newList')}
           </Tabs.Tab>
         </Tabs.List>

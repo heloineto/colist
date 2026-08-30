@@ -20,7 +20,9 @@ export function AuthPage() {
       <div className="flex grow flex-col items-center justify-center gap-4 p-4">
         <header className="flex w-full max-w-80 items-center gap-3">
           <Avatar size="lg" radius="xs" src="/logo.svg" />
-          <h1 className="truncate text-xl font-semibold">{t('auth.appTitle')}</h1>
+          <h1 className="truncate text-xl font-semibold">
+            {t('auth.appTitle')}
+          </h1>
         </header>
         <Paper
           withBorder
@@ -31,7 +33,9 @@ export function AuthPage() {
         >
           <div
             className="flex items-start transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(${panel === 'sign-in' ? 0 : -100}%)` }}
+            style={{
+              transform: `translateX(${panel === 'sign-in' ? 0 : -100}%)`,
+            }}
           >
             <div className="w-full shrink-0 p-[25px]" ref={signIn.ref}>
               <SignInForm onSwitch={() => setPanel('sign-up')} />
@@ -46,4 +50,3 @@ export function AuthPage() {
     </main>
   );
 }
-

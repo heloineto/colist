@@ -22,7 +22,12 @@ export function Lists() {
         title={t('lists.empty.noLists.title')}
         description={t('lists.empty.noLists.description')}
         action={
-          <Button size="sm" variant="light" leftSection={<PlusIcon size="1rem" weight="bold" />} onClick={() => listForm.open()}>
+          <Button
+            size="sm"
+            variant="light"
+            leftSection={<PlusIcon size="1rem" weight="bold" />}
+            onClick={() => listForm.open()}
+          >
             {t('shell.newList')}
           </Button>
         }
@@ -30,7 +35,13 @@ export function Lists() {
     );
   }
   if (listId === null) {
-    return <EmptyState icon={ShoppingCartIcon} title={t('lists.empty.noneSelected.title')} description={t('lists.empty.noneSelected.description')} />;
+    return (
+      <EmptyState
+        icon={ShoppingCartIcon}
+        title={t('lists.empty.noneSelected.title')}
+        description={t('lists.empty.noneSelected.description')}
+      />
+    );
   }
 
   const index = lists.findIndex((list) => list.id === listId);
@@ -38,7 +49,10 @@ export function Lists() {
   previousIndex.current = index;
 
   return (
-    <div className="relative grow overflow-hidden" style={{ '--direction': direction } as React.CSSProperties}>
+    <div
+      className="relative grow overflow-hidden"
+      style={{ '--direction': direction } as React.CSSProperties}
+    >
       <AnimatePresence initial={false}>
         <motion.div
           key={listId}

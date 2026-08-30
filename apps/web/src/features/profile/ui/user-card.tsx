@@ -14,7 +14,10 @@ export function UserCard({ me }: { me: MeDtoOutput | undefined }) {
     return (
       <div className="flex items-center gap-3">
         <Skeleton circle h={56} w={56} />
-        <div className="flex flex-col gap-2"><Skeleton h={16} w={128} /><Skeleton h={12} w={160} /></div>
+        <div className="flex flex-col gap-2">
+          <Skeleton h={16} w={128} />
+          <Skeleton h={12} w={160} />
+        </div>
       </div>
     );
   }
@@ -23,9 +26,19 @@ export function UserCard({ me }: { me: MeDtoOutput | undefined }) {
     <div className="flex min-w-0 items-center gap-3">
       <UserAvatar name={me.name} image={me.image} size="xl" />
       <div className="min-w-0">
-        <p className="truncate text-lg/6 font-medium">{me.name || t('profile.noName')}</p>
-        <p className="truncate leading-6 text-dimmed">{me.email}</p>
-        <Button size="compact-xs" variant="subtle" radius="xl" px="0.375rem" className="uppercase" leftSection={<NotePencilIcon size="1rem" weight="bold" />} onClick={open}>
+        <p className="truncate text-lg/6 font-medium">
+          {me.name || t('profile.noName')}
+        </p>
+        <p className="text-dimmed truncate leading-6">{me.email}</p>
+        <Button
+          size="compact-xs"
+          variant="subtle"
+          radius="xl"
+          px="0.375rem"
+          className="uppercase"
+          leftSection={<NotePencilIcon size="1rem" weight="bold" />}
+          onClick={open}
+        >
           {t('profile.edit')}
         </Button>
       </div>

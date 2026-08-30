@@ -16,7 +16,9 @@ export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
   return (
     <form
       className="flex flex-col gap-3"
-      onSubmit={form.onSubmit((values) => void submit(() => authClient.signIn.email(values)))}
+      onSubmit={form.onSubmit(
+        (values) => void submit(() => authClient.signIn.email(values))
+      )}
     >
       <h2 className="text-lg font-semibold">{t('auth.signIn.title')}</h2>
       <TextInput

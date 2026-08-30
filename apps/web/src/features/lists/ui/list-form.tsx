@@ -5,7 +5,10 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { invalidateLists } from '@/entities/list';
 import { useListForm } from '@/features/lists/model/list-form-context';
-import { useListsCreate, useListsRename } from '@/shared/api/generated/lists/lists';
+import {
+  useListsCreate,
+  useListsRename,
+} from '@/shared/api/generated/lists/lists';
 import { useSelectedListId } from '@/shared/lib/preferences';
 import { confirmDiscard } from '@/shared/ui/confirm';
 
@@ -44,7 +47,10 @@ export function ListForm() {
   });
 
   const requestClose = () => {
-    if (!form.isDirty()) { close(); return; }
+    if (!form.isDirty()) {
+      close();
+      return;
+    }
     confirmDiscard(close);
   };
 
@@ -66,7 +72,11 @@ export function ListForm() {
         <Button variant="light" color="gray" onClick={requestClose}>
           {t('common.cancel')}
         </Button>
-        <Button variant="light" type="submit" loading={create.isPending || rename.isPending}>
+        <Button
+          variant="light"
+          type="submit"
+          loading={create.isPending || rename.isPending}
+        >
           {list ? t('common.save') : t('common.create')}
         </Button>
       </div>
@@ -77,7 +87,13 @@ export function ListForm() {
 
   if (isDesktop) {
     return (
-      <Drawer opened={opened} onClose={requestClose} position="right" title={title} transitionProps={transitionProps}>
+      <Drawer
+        opened={opened}
+        onClose={requestClose}
+        position="right"
+        title={title}
+        transitionProps={transitionProps}
+      >
         {body}
       </Drawer>
     );

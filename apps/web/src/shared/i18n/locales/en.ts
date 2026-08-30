@@ -185,8 +185,7 @@ export const en: Translation = {
     remove: {
       menu: 'Remove member',
       title: 'Remove from list',
-      message:
-        'Are you sure you want to remove "{{member}}" from "{{list}}"?',
+      message: 'Are you sure you want to remove "{{member}}" from "{{list}}"?',
       cancel: 'Keep member',
       confirm: 'Remove member',
     },
@@ -200,14 +199,19 @@ export const en: Translation = {
     subtitle:
       'Your feedback helps us improve the experience for everyone. Thanks for sharing!',
     message: 'Message',
-    ratings: { r1: 'Terrible', r2: 'Bad', r3: 'Okay', r4: 'Good', r5: 'Excellent' },
+    ratings: {
+      r1: 'Terrible',
+      r2: 'Bad',
+      r3: 'Okay',
+      r4: 'Good',
+      r5: 'Excellent',
+    },
     ratingRequired: 'Please pick a rating',
     attachments: 'Attachments',
     sent: 'Thanks for the feedback!',
     error: {
       title: 'Report a bug',
-      subtitle:
-        'Sorry for the inconvenience. Help us fix this by reporting it',
+      subtitle: 'Sorry for the inconvenience. Help us fix this by reporting it',
       description: 'Bug description',
       descriptionRequired: 'Please describe the bug',
       allowContact: 'Allow the developers to contact me',
@@ -257,7 +261,8 @@ export const en: Translation = {
     'item.unchecked': '{{actorName}} unchecked "{{targetName}}"',
     'item.deleted': '{{actorName}} removed "{{targetName}}"',
     'category.created': '{{actorName}} created the category "{{targetName}}"',
-    'category.updated': '{{actorName}} renamed the category to "{{targetName}}"',
+    'category.updated':
+      '{{actorName}} renamed the category to "{{targetName}}"',
     'category.deleted': '{{actorName}} deleted the category "{{targetName}}"',
     'member.added': '{{actorName}} added {{targetName}} to the list',
     'member.removed': '{{actorName}} removed {{targetName}} from the list',

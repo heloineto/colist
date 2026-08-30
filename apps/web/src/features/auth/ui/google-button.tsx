@@ -14,7 +14,10 @@ export function GoogleButton() {
         variant="default"
         leftSection={<GoogleLogoIcon size="1.125rem" weight="bold" />}
         onClick={() =>
-          void authClient.signIn.social({ provider: 'google', callbackURL: '/app' })
+          void authClient.signIn.social({
+            provider: 'google',
+            callbackURL: '/app',
+          })
         }
       >
         {t('auth.google')}

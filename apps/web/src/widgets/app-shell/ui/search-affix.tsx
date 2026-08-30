@@ -12,7 +12,10 @@ export function SearchAffix() {
       <Transition transition="slide-down" mounted={searchOpened}>
         {(styles) => (
           <FocusTrap active={searchOpened}>
-            <div className="flex h-14 items-center gap-2 bg-white px-2 dark:bg-dark-700" style={styles}>
+            <div
+              className="dark:bg-dark-700 flex h-14 items-center gap-2 bg-white px-2"
+              style={styles}
+            >
               <TextInput
                 className="grow"
                 type="search"

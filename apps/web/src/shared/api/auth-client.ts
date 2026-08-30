@@ -13,6 +13,8 @@ export const AUTH_ERROR_CODES = [
 ] as const;
 export type AuthErrorCode = (typeof AUTH_ERROR_CODES)[number];
 
-export function toAuthErrorCode(code: string | undefined): AuthErrorCode | null {
+export function toAuthErrorCode(
+  code: string | undefined
+): AuthErrorCode | null {
   return AUTH_ERROR_CODES.find((known) => known === code) ?? null;
 }

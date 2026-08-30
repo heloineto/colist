@@ -17,7 +17,8 @@
     "mise.lock",
     "**/.terraform",
     "**/.terraform-lint",
-    "migrations/meta"
+    "migrations/meta",
+    "apps/web/src/shared/api/generated/**"
   ],
   "words": [
     "actioned",
@@ -143,6 +144,7 @@
     "workos",
     "wslview",
     "YEGOX",
-    "zgyllhgyslhshfbfujfu"
+    "zgyllhgyslhshfbfujfu",
+    "reportándolo"
   ]
 }

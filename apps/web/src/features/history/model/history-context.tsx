@@ -6,7 +6,9 @@ const HistoryContext = createContext<HistoryApi | null>(null);
 
 export function HistoryProvider({ children }: { children: ReactNode }) {
   const [opened, { open, close }] = useDisclosure(false);
-  return <HistoryContext value={{ opened, open, close }}>{children}</HistoryContext>;
+  return (
+    <HistoryContext value={{ opened, open, close }}>{children}</HistoryContext>
+  );
 }
 
 export function useHistory() {

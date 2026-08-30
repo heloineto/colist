@@ -270,7 +270,8 @@ export const pt = {
     'item.unchecked': '{{actorName}} desmarcou "{{targetName}}"',
     'item.deleted': '{{actorName}} removeu "{{targetName}}"',
     'category.created': '{{actorName}} criou a categoria "{{targetName}}"',
-    'category.updated': '{{actorName}} renomeou a categoria para "{{targetName}}"',
+    'category.updated':
+      '{{actorName}} renomeou a categoria para "{{targetName}}"',
     'category.deleted': '{{actorName}} apagou a categoria "{{targetName}}"',
     'member.added': '{{actorName}} adicionou {{targetName}} à lista',
     'member.removed': '{{actorName}} removeu {{targetName}} da lista',

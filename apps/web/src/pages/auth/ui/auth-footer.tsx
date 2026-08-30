@@ -9,24 +9,36 @@ export function AuthFooter() {
   const dark = colorScheme === 'dark';
 
   return (
-    <footer className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 p-4 text-sm text-dimmed">
-      <span className="hidden xs:inline">
+    <footer className="text-dimmed flex flex-wrap items-center justify-center gap-x-3 gap-y-1 p-4 text-sm">
+      <span className="xs:inline hidden">
         © {new Date().getFullYear()} {t('auth.copyright')}
       </span>
-      <Anchor component="button" size="sm" className="flex items-center gap-1" onClick={toggleColorScheme}>
+      <Anchor
+        component="button"
+        size="sm"
+        className="flex items-center gap-1"
+        onClick={toggleColorScheme}
+      >
         {dark ? <SunIcon size="1rem" /> : <MoonIcon size="1rem" />}
         {dark ? t('auth.lightMode') : t('auth.darkMode')}
       </Anchor>
       <Menu trigger="hover" openDelay={100} closeDelay={400}>
         <Menu.Target>
-          <Anchor component="button" size="sm" className="flex items-center gap-1">
+          <Anchor
+            component="button"
+            size="sm"
+            className="flex items-center gap-1"
+          >
             <TranslateIcon size="1rem" />
             {t(`language.${i18n.resolvedLanguage as 'pt'}`)}
           </Anchor>
         </Menu.Target>
         <Menu.Dropdown>
           {SUPPORTED_LANGUAGES.map((language) => (
-            <Menu.Item key={language} onClick={() => void i18n.changeLanguage(language)}>
+            <Menu.Item
+              key={language}
+              onClick={() => void i18n.changeLanguage(language)}
+            >
               {t(`language.${language}`)}
             </Menu.Item>
           ))}

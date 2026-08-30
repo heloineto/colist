@@ -1,4 +1,11 @@
-import { Anchor, Button, Collapse, PasswordInput, Popover, TextInput } from '@mantine/core';
+import {
+  Anchor,
+  Button,
+  Collapse,
+  PasswordInput,
+  Popover,
+  TextInput,
+} from '@mantine/core';
 import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
@@ -19,14 +26,17 @@ export function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
     validate: {
       name: isNotEmpty(t('auth.validation.name')),
       email: isEmail(t('auth.validation.email')),
-      password: (value) => (isStrongPassword(value) ? null : t('auth.validation.password')),
+      password: (value) =>
+        isStrongPassword(value) ? null : t('auth.validation.password'),
     },
   });
 
   return (
     <form
       className="flex flex-col gap-3"
-      onSubmit={form.onSubmit((values) => void submit(() => authClient.signUp.email(values)))}
+      onSubmit={form.onSubmit(
+        (values) => void submit(() => authClient.signUp.email(values))
+      )}
     >
       <h2 className="text-lg font-semibold">{t('auth.signUp.title')}</h2>
       <TextInput

@@ -6,13 +6,18 @@ import { Navbar } from '@/widgets/app-shell/ui/navbar';
 
 const HEADER = '6rem';
 const FOOTER = '3.75rem';
-const MAIN = 'calc(100dvh - var(--app-shell-header-offset, 0px) - var(--app-shell-footer-offset, 0px))';
+const MAIN =
+  'calc(100dvh - var(--app-shell-header-offset, 0px) - var(--app-shell-footer-offset, 0px))';
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <MantineAppShell
       header={{ height: HEADER }}
-      navbar={{ width: 52, breakpoint: 'sm', collapsed: { desktop: false, mobile: true } }}
+      navbar={{
+        width: 52,
+        breakpoint: 'sm',
+        collapsed: { desktop: false, mobile: true },
+      }}
       footer={{ height: { base: FOOTER, sm: 0 } }}
       transitionDuration={0}
     >

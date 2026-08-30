@@ -10,7 +10,14 @@ type ConfirmOptions = {
   onConfirm: () => void;
 };
 
-export function confirm({ title, message, cancel, confirm: confirmLabel, color = 'red', onConfirm }: ConfirmOptions) {
+export function confirm({
+  title,
+  message,
+  cancel,
+  confirm: confirmLabel,
+  color = 'red',
+  onConfirm,
+}: ConfirmOptions) {
   modals.openConfirmModal({
     title,
     children: message,

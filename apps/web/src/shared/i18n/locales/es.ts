@@ -103,7 +103,8 @@ export const es: Translation = {
       },
       noneSelected: {
         title: 'Ninguna lista seleccionada',
-        description: 'Selecciona una lista en la barra superior para ver los artículos',
+        description:
+          'Selecciona una lista en la barra superior para ver los artículos',
       },
     },
     form: {
@@ -130,7 +131,10 @@ export const es: Translation = {
     newItem: 'Nuevo artículo',
     addDetails: 'Agregar detalles',
     details: 'Detalles',
-    amount: { title: 'Cantidad', description: 'Selecciona la cantidad deseada' },
+    amount: {
+      title: 'Cantidad',
+      description: 'Selecciona la cantidad deseada',
+    },
     removeFilters: 'Quitar filtros',
     deleteLabel: 'artículo "{{name}}"',
     empty: {
@@ -206,7 +210,13 @@ export const es: Translation = {
     subtitle:
       'Tus comentarios nos ayudan a mejorar la experiencia de todos. ¡Gracias por compartir!',
     message: 'Mensaje',
-    ratings: { r1: 'Pésimo', r2: 'Malo', r3: 'Regular', r4: 'Bueno', r5: 'Excelente' },
+    ratings: {
+      r1: 'Pésimo',
+      r2: 'Malo',
+      r3: 'Regular',
+      r4: 'Bueno',
+      r5: 'Excelente',
+    },
     ratingRequired: 'Por favor, da una calificación',
     attachments: 'Adjuntos',
     sent: '¡Gracias por tus comentarios!',
@@ -263,7 +273,8 @@ export const es: Translation = {
     'item.unchecked': '{{actorName}} desmarcó "{{targetName}}"',
     'item.deleted': '{{actorName}} quitó "{{targetName}}"',
     'category.created': '{{actorName}} creó la categoría "{{targetName}}"',
-    'category.updated': '{{actorName}} renombró la categoría a "{{targetName}}"',
+    'category.updated':
+      '{{actorName}} renombró la categoría a "{{targetName}}"',
     'category.deleted': '{{actorName}} eliminó la categoría "{{targetName}}"',
     'member.added': '{{actorName}} agregó a {{targetName}} a la lista',
     'member.removed': '{{actorName}} quitó a {{targetName}} de la lista',

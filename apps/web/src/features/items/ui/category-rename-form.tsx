@@ -6,9 +6,16 @@ import { invalidateList } from '@/entities/list';
 import { useCategoriesRename } from '@/shared/api/generated/categories/categories';
 import type { CategoriesDtoOutputItem } from '@/shared/api/generated/models';
 
-export function CategoryRenameForm({ category }: { category: CategoriesDtoOutputItem }) {
+export function CategoryRenameForm({
+  category,
+}: {
+  category: CategoriesDtoOutputItem;
+}) {
   const { t } = useTranslation();
-  const form = useForm({ initialValues: { name: category.name }, validate: { name: isNotEmpty(t('lists.form.nameRequired')) } });
+  const form = useForm({
+    initialValues: { name: category.name },
+    validate: { name: isNotEmpty(t('lists.form.nameRequired')) },
+  });
   const rename = useCategoriesRename({
     mutation: {
       onSuccess: () => {
@@ -19,11 +26,28 @@ export function CategoryRenameForm({ category }: { category: CategoriesDtoOutput
   });
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={form.onSubmit(({ name }) => rename.mutate({ listId: category.listId, categoryId: category.id, data: { name } }))}>
-      <TextInput data-autofocus label={t('lists.form.name')} {...form.getInputProps('name')} />
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={form.onSubmit(({ name }) =>
+        rename.mutate({
+          listId: category.listId,
+          categoryId: category.id,
+          data: { name },
+        })
+      )}
+    >
+      <TextInput
+        data-autofocus
+        label={t('lists.form.name')}
+        {...form.getInputProps('name')}
+      />
       <div className="flex justify-end gap-2">
-        <Button variant="default" onClick={() => modals.closeAll()}>{t('common.cancel')}</Button>
-        <Button type="submit" loading={rename.isPending}>{t('common.save')}</Button>
+        <Button variant="default" onClick={() => modals.closeAll()}>
+          {t('common.cancel')}
+        </Button>
+        <Button type="submit" loading={rename.isPending}>
+          {t('common.save')}
+        </Button>
       </div>
     </form>
   );

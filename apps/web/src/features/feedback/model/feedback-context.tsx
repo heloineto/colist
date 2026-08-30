@@ -1,7 +1,13 @@
 import { type ReactNode, createContext, use, useState } from 'react';
 
 export type FeedbackTab = 'feedback' | 'error';
-type FeedbackApi = { opened: boolean; tab: FeedbackTab; setTab: (tab: FeedbackTab) => void; open: (tab?: FeedbackTab) => void; close: () => void };
+type FeedbackApi = {
+  opened: boolean;
+  tab: FeedbackTab;
+  setTab: (tab: FeedbackTab) => void;
+  open: (tab?: FeedbackTab) => void;
+  close: () => void;
+};
 
 const FeedbackContext = createContext<FeedbackApi | null>(null);
 

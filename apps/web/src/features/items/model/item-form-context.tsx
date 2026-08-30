@@ -2,12 +2,18 @@ import { type ReactNode, createContext, use, useState } from 'react';
 import type { ItemsDtoOutputItem } from '@/shared/api/generated/models';
 
 type ItemFormState = { opened: boolean; item: ItemsDtoOutputItem | null };
-type ItemFormApi = ItemFormState & { open: (item?: ItemsDtoOutputItem) => void; close: () => void };
+type ItemFormApi = ItemFormState & {
+  open: (item?: ItemsDtoOutputItem) => void;
+  close: () => void;
+};
 
 const ItemFormContext = createContext<ItemFormApi | null>(null);
 
 export function ItemFormProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<ItemFormState>({ opened: false, item: null });
+  const [state, setState] = useState<ItemFormState>({
+    opened: false,
+    item: null,
+  });
   const api: ItemFormApi = {
     ...state,
     open: (item) => setState({ opened: true, item: item ?? null }),
