@@ -1,0 +1,10 @@
+dist
+coverage
+reports
+node_modules
+.turbo
+bun.lock
+mise.lock
+**/.terraform
+**/.terraform-lint
+.scratch

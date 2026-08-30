@@ -1,0 +1,6 @@
+branch="$(git symbolic-ref HEAD 2>/dev/null)"
+
+if [ "$branch" = "refs/heads/main" ]; then
+    echo "Merges into main are not allowed. Use a PR."
+    exit 1
+fi
