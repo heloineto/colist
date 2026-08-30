@@ -15,14 +15,14 @@ export class DocsSetup {
       SwaggerModule.createDocument(app, config)
     );
 
-    SwaggerModule.setup('swagger', app, document, {
+    SwaggerModule.setup('api/swagger', app, document, {
       swaggerUiEnabled: false,
-      jsonDocumentUrl: 'openapi/json',
-      yamlDocumentUrl: 'openapi/yaml',
+      jsonDocumentUrl: 'api/openapi/json',
+      yamlDocumentUrl: 'api/openapi/yaml',
     });
 
     app.use(
-      '/docs',
+      '/api/docs',
       apiReference({
         content: document,
         title: 'Colist API',

@@ -40,6 +40,8 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 - [P0 — Monorepo scaffold](../colist-v2-p0-scaffold/spec.md) — **done 2026-08-30** (`4d90b0b`, `feat/p0-scaffold` → PR to `dev` pending): Next app deleted on `dev`, vav tooling ported, `apps/api` (NestJS + Drizzle on-boot migrate + pino + `/health`) and `apps/web` (Vite + TanStack Router + Mantine + Tailwind 4 + i18next + PWA + FSD) skeletons, both Dockerfiles build. Gate is `bun run lint && bun run test` (no `check` script). Next: P1.
 - [P1 — Infra & CI code](../colist-v2-p1-infra-ci/spec.md) — **done 2026-08-30** (`feat/p1-infra-ci`, PR #1 stacked on P0's PR #2 → `dev`): vav iac ported prod-only (private RDS, uploads bucket, task role, zone import, `web` Caddy container), `main.yml` apply→build→deploy + rollback, `iac.yml` PR plan, dependabot, wizard `scripts/setup-aws-prod.sh` (P1 sitting applied: state bucket, bootstrap roles, `AWS_ACCOUNT_ID`, `main` protection; `--resume` at P5), `scripts/db-tunnel.sh`. OIDC provider is account-wide (vav owns it) → data source. Next: P2.
 
+- [P2 — API](../colist-v2-p2-api/spec.md) — **done 2026-08-30** (`feat/p2-api`, stacked on PR #1): better-auth in-process (`/api/auth/*`, bcrypt-compatible verify, Google, cookie sessions), `@Auth`/`@ActiveUser` + `MembershipGuard`/`@ListRole`, Drizzle schema + `0000_init.sql`, every P2 endpoint incl. SSE `/events`, throttled `/errors`, S3 presign; 83 e2e (member/owner/non-member matrix) + 7 unit. Spec comment carries P3/P4a handoff notes (`account.issuer`, avatar public URL, client error-code map). Next: P3.
+
 ## Not yet specified
 
 - `activities` retention/pruning — when scale makes it real.
