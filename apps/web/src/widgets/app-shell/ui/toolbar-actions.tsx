@@ -120,7 +120,7 @@ export function MoreOptions({ mode, onClose }: { mode: Mode; onClose?: () => voi
   return (
     <>
       <Action mode="footer" icon={DotsThreeIcon} label={t('shell.moreOptions')} onClick={open} />
-      <Drawer opened={opened} onClose={close} position="bottom" size="auto" withCloseButton={false} classNames={{ content: 'rounded-t-lg!', body: 'px-0! py-2! flex flex-col' }}>
+      <Drawer opened={opened} onClose={close} position="bottom" withCloseButton={false} classNames={{ content: "rounded-t-lg! h-fit!", body: "px-0! py-2! flex flex-col" }}>
         {links}
       </Drawer>
     </>

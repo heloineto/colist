@@ -24,6 +24,4 @@ export const CreateErrorReportSchema = z
     'Send a message or a captured error'
   );
 
-export class CreateErrorReportDto extends createDto(
-  CreateErrorReportSchema
-) {}
+export class CreateErrorReportDto extends createDto(CreateErrorReportSchema) {}
