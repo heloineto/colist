@@ -11,7 +11,7 @@ dist
 .cspellcache
 .claude/settings.local.json
 .claude/worktrees
-reports/
+/reports/
 coverage/
 *.tsbuildinfo
 **/.terraform
