@@ -1,6 +1,6 @@
 # P3 — Data migration pipeline
 
-Status: implemented — real-dump rehearsal pending (wizard run)
+Status: done
 Source: [Implementation phasing § P3](../colist-v2-rebuild/issues/18-implementation-phasing.md) + tickets [11 migration/cutover](../colist-v2-rebuild/issues/11-data-migration-cutover.md), [10 domain model](../colist-v2-rebuild/issues/10-domain-model-v2.md); transform gotchas from the [P2 spec comment](../colist-v2-p2-api/spec.md).
 Branch: `feat/p3-migration` (off `feat/p2-api`; PR #4 ← PR #1 ← PR #2 ← `dev` still unmerged — retarget when the stack lands). `main` untouched.
 Base: P2 schema `apps/api/migrations/0000_init.sql` (better-auth 1.7 tables, uuid ids); local docker Postgres 17 on `:5200` (`bun run start:services`); the API applies migrations on boot.
@@ -50,3 +50,4 @@ Prod run (P5 step 3 — same wizard, different target), avatar renaming/re-keyin
 ## Comments
 
 - 2026-08-30: pipeline implemented on `feat/p3-migration`. Synthetic rehearsal (fake CSVs with a real bcrypt hash, valid v4 uuids, Tiptap jsonb, tester accounts, orphan list) runs green through legacy → transform → verify, API boots on the result, `POST /api/auth/sign-in/email` with the bcrypt password → 200, `GET /api/lists` / `/api/me` / items correct, `user.image` = S3 public URL. Deviations from ticket 11: `\copy` per table instead of `pg_dump --data-only` (pg_dump 14 vs newer server, and `auth.users` column drift); curl over the public `profiles` bucket instead of a bun download script; `jsonb_path_query('strict $.**.text')` for the Tiptap flatten (lax mode double-counts). Found and fixed a P2 boot bug on the way (§4). **Pending, human-only**: `scripts/migrate-legacy.sh` against the real Supabase dump into local docker Postgres (stages 1–7, skip stage 6 until P5) — that run closes the phase and turns the local DB into the dev dataset.
+- 2026-08-30: **done**. Real-dump rehearsal into local docker Postgres: 47 users / 47 accounts / 43 lists / 52 memberships / 55 categories / 896 items / 0 errors / 4 feedbacks, `verify.sql` green; sign-in with the real bcrypt password → 200, 5 lists, `user.image` = S3 URL. Avatars sit in `.migration/avatars/` until P5 (`y` on stage 6 before the bucket exists now records a skip instead of aborting). Local DB is the dev dataset from here on. Next: P4a.
