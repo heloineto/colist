@@ -19,6 +19,7 @@ const eslintConfig = defineConfig([
     'public/**',
     'reports/**',
     'src/app/route-tree.gen.ts',
+    'src/shared/api/generated/**',
   ]),
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked.map((config) => ({
@@ -98,6 +99,10 @@ const eslintConfig = defineConfig([
   {
     files: ['src/**/index.ts'],
     rules: { 'no-restricted-imports': 'off' },
+  },
+  {
+    files: ['src/app/routes/**'],
+    rules: { '@typescript-eslint/only-throw-error': 'off' },
   },
   {
     plugins: {

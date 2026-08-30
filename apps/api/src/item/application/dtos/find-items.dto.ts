@@ -1,4 +1,4 @@
-import { createZodDto } from 'nestjs-zod';
+import { createDto } from '@/common/application/dtos/zod-dto';
 import { z } from 'zod';
 
 export const FindItemsSchema = z.strictObject({
@@ -11,4 +11,4 @@ export const FindItemsSchema = z.strictObject({
     .optional(),
 });
 
-export class FindItemsDto extends createZodDto(FindItemsSchema) {}
+export class FindItemsDto extends createDto(FindItemsSchema) {}

@@ -1,4 +1,4 @@
-import { createZodDto } from 'nestjs-zod';
+import { createDto } from '@/common/application/dtos/zod-dto';
 import { z } from 'zod';
 
 export const UpdateMeSchema = z
@@ -8,4 +8,4 @@ export const UpdateMeSchema = z
   })
   .refine((value) => Object.keys(value).length > 0, 'Nothing to update');
 
-export class UpdateMeDto extends createZodDto(UpdateMeSchema) {}
+export class UpdateMeDto extends createDto(UpdateMeSchema) {}

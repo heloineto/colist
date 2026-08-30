@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DateTimeSchema } from '@/common/domain/date-time.schema';
 
 export const ActivityActionSchema = z.enum([
   'list.renamed',
@@ -24,7 +25,7 @@ export const ActivitySchema = z.strictObject({
   actorName: z.string(),
   action: ActivityActionSchema,
   targetName: z.string().nullable(),
-  createdAt: z.date(),
+  createdAt: DateTimeSchema,
 });
 export type Activity = z.infer<typeof ActivitySchema>;
 

@@ -9,6 +9,7 @@ export class DocsSetup {
       .setTitle('Colist API')
       .setDescription('Shared shopping lists')
       .setVersion('1.0')
+      .setOpenAPIVersion('3.1.0')
       .build();
 
     const document = cleanupOpenApiDoc(

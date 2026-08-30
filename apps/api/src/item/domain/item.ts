@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DateTimeSchema } from '@/common/domain/date-time.schema';
 
 export const ItemSchema = z.strictObject({
   id: z.int(),
@@ -9,8 +10,8 @@ export const ItemSchema = z.strictObject({
   amount: z.int(),
   checked: z.boolean(),
   details: z.string().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: DateTimeSchema,
+  updatedAt: DateTimeSchema,
 });
 
 export type Item = z.infer<typeof ItemSchema>;
