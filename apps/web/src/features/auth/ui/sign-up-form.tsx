@@ -7,7 +7,7 @@ import { isStrongPassword } from '@/features/auth/lib/password';
 import { useAuthSubmit } from '@/features/auth/lib/use-auth-submit';
 import { GoogleButton } from '@/features/auth/ui/google-button';
 import { PasswordStrength } from '@/features/auth/ui/password-strength';
-import { authClient } from '@/shared/auth';
+import { authClient } from '@/shared/api/auth-client';
 
 export function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
   const { t } = useTranslation();

@@ -6,11 +6,11 @@ import {
   ChatCircleIcon,
   ClockCounterClockwiseIcon,
   DotsThreeIcon,
+  type Icon,
   MagnifyingGlassIcon,
   NotePencilIcon,
   SignOutIcon,
   TrashIcon,
-  type Icon,
 } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
-import { authClient } from '@/shared/auth';
+import { authClient } from '@/shared/api/auth-client';
 
 export const Route = createFileRoute('/_authed')({
   beforeLoad: async () => {

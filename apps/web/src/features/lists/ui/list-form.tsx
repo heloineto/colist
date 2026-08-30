@@ -21,7 +21,6 @@ export function ListForm() {
 
   useEffect(() => {
     if (opened) form.setValues({ name: list?.name ?? '' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- reset on open only
   }, [opened, list]);
 
   const create = useListsCreate({
@@ -45,7 +44,7 @@ export function ListForm() {
   });
 
   const requestClose = () => {
-    if (!form.isDirty()) return close();
+    if (!form.isDirty()) { close(); return; }
     confirmDiscard(close);
   };
 

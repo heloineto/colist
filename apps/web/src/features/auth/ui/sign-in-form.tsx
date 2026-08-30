@@ -3,7 +3,7 @@ import { isEmail, useForm } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
 import { useAuthSubmit } from '@/features/auth/lib/use-auth-submit';
 import { GoogleButton } from '@/features/auth/ui/google-button';
-import { authClient } from '@/shared/auth';
+import { authClient } from '@/shared/api/auth-client';
 
 export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
   const { t } = useTranslation();

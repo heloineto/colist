@@ -101,6 +101,10 @@ const eslintConfig = defineConfig([
     rules: { 'no-restricted-imports': 'off' },
   },
   {
+    files: ['src/app/routes/**'],
+    rules: { '@typescript-eslint/only-throw-error': 'off' },
+  },
+  {
     plugins: {
       'better-tailwindcss': eslintPluginBetterTailwindcss,
     },

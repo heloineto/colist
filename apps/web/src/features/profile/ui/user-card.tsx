@@ -23,7 +23,7 @@ export function UserCard({ me }: { me: MeDtoOutput | undefined }) {
     <div className="flex min-w-0 items-center gap-3">
       <UserAvatar name={me.name} image={me.image} size="xl" />
       <div className="min-w-0">
-        <p className="truncate text-lg leading-6 font-medium">{me.name || t('profile.noName')}</p>
+        <p className="truncate text-lg/6 font-medium">{me.name || t('profile.noName')}</p>
         <p className="truncate leading-6 text-dimmed">{me.email}</p>
         <Button size="compact-xs" variant="subtle" radius="xl" px="0.375rem" className="uppercase" leftSection={<NotePencilIcon size="1rem" weight="bold" />} onClick={open}>
           {t('profile.edit')}

@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { UserAvatar } from '@/entities/user';
 import { UserCard } from '@/features/profile/ui/user-card';
 import { useMe } from '@/shared/api/generated/me/me';
-import { authClient } from '@/shared/auth';
-import { PRIMARY_COLORS, usePrimaryColor, type PrimaryColor } from '@/shared/lib/preferences';
+import { authClient } from '@/shared/api/auth-client';
+import { PRIMARY_COLORS, usePrimaryColor } from '@/shared/lib/preferences';
 import { ColorSchemeToggle } from '@/shared/ui/color-scheme-toggle';
 import { LanguageSelect } from '@/shared/ui/language-select';
 
@@ -20,13 +20,13 @@ function PrimaryColorSelect() {
     <Select
       variant="unstyled" size="md" allowDeselect={false} className="px-4 hover:bg-gray-100 dark:hover:bg-dark-800"
       leftSectionWidth={29}
-      leftSection={<span className="size-[1.125rem] rounded-full" style={{ background: `var(--mantine-color-${color}-filled)` }} />}
+      leftSection={<span className="size-4.5 rounded-full" style={{ background: `var(--mantine-color-${color}-filled)` }} />}
       value={color}
-      onChange={(value) => value && setColor(value as PrimaryColor)}
+      onChange={(value) => value && setColor(value)}
       data={PRIMARY_COLORS.map((value) => ({ value, label: t(`profile.colors.${value}`) }))}
       renderOption={({ option, checked }) => (
         <span className="flex items-center gap-2">
-          <span className="size-[1.125rem] rounded-full" style={{ background: `var(--mantine-color-${option.value}-filled)` }} />
+          <span className="size-4.5 rounded-full" style={{ background: `var(--mantine-color-${option.value}-filled)` }} />
           {option.label}
           {checked && <CheckIcon size="0.8em" className="opacity-40" />}
         </span>

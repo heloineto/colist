@@ -11,7 +11,7 @@ export function ColorSchemeToggle({ className }: { className?: string }) {
       className={className}
       size="md"
       value={colorScheme}
-      onChange={(value) => setColorScheme(value as 'light' | 'dark' | 'auto')}
+      onChange={(value) => setColorScheme(value)}
       data={[
         {
           value: 'light',

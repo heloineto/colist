@@ -1,7 +1,7 @@
 import { Button, Divider } from '@mantine/core';
 import { GoogleLogoIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
-import { authClient } from '@/shared/auth';
+import { authClient } from '@/shared/api/auth-client';
 
 export function GoogleButton() {
   const { t } = useTranslation();

@@ -34,7 +34,7 @@ function toAnyOf(property: PropertySchema): PropertySchema {
 function patchFactory(dto: ZodDtoClass) {
   const original = dto._OPENAPI_METADATA_FACTORY;
   dto._OPENAPI_METADATA_FACTORY = function patched(this: ZodDtoClass) {
-    const properties = original.call(this);
+    const properties = original.call(this) as Record<string, PropertySchema>;
     return Object.fromEntries(
       Object.entries(properties).map(([key, property]) => [
         key,

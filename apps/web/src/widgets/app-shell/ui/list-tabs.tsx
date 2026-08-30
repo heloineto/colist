@@ -26,7 +26,7 @@ export function ListTabs() {
       h="3rem"
       value={listId === null ? null : String(listId)}
       onChange={(value) => {
-        if (value === NEW) return listForm.open();
+        if (value === NEW) { listForm.open(); return; }
         setListId(value === null ? null : Number(value));
       }}
     >

@@ -2,7 +2,7 @@ import { Button, Checkbox, Modal, Rating, SegmentedControl, Textarea } from '@ma
 import { useForm } from '@mantine/form';
 import { BugBeetleIcon, ChatCircleIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
-import { useFeedback, type FeedbackTab } from '@/features/feedback/model/feedback-context';
+import { useFeedback } from '@/features/feedback/model/feedback-context';
 import { AttachmentsInput } from '@/features/feedback/ui/attachments-input';
 import { useErrorsCreate } from '@/shared/api/generated/reports/reports';
 import { useFeedbacksCreate } from '@/shared/api/generated/reports/reports';
@@ -59,7 +59,7 @@ export function FeedbackModal() {
 
   return (
     <Modal opened={opened} onClose={close} withCloseButton={false} classNames={{ body: 'p-0!' }}>
-      <SegmentedControl className="mx-4 mt-4" fullWidth value={tab} onChange={(value) => setTab(value as FeedbackTab)}
+      <SegmentedControl className="mx-4 mt-4" fullWidth value={tab} onChange={(value) => setTab(value)}
         data={[
           { value: 'feedback', label: <span className="flex items-center justify-center gap-1"><ChatCircleIcon size="1rem" weight="bold" />{t('feedback.tabFeedback')}</span> },
           { value: 'error', label: <span className="flex items-center justify-center gap-1"><BugBeetleIcon size="1rem" weight="bold" />{t('feedback.tabError')}</span> },

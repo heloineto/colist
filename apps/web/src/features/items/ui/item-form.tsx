@@ -1,7 +1,7 @@
 import { ActionIcon, Badge, Button, Drawer, TextInput, Textarea, Tooltip } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import { HashIcon, NumberCircleEightIcon, NumberCircleFiveIcon, NumberCircleFourIcon, NumberCircleNineIcon, NumberCircleOneIcon, NumberCircleSevenIcon, NumberCircleSixIcon, NumberCircleThreeIcon, NumberCircleTwoIcon, TextAlignLeftIcon, type Icon } from '@phosphor-icons/react';
+import { HashIcon, type Icon, NumberCircleEightIcon, NumberCircleFiveIcon, NumberCircleFourIcon, NumberCircleNineIcon, NumberCircleOneIcon, NumberCircleSevenIcon, NumberCircleSixIcon, NumberCircleThreeIcon, NumberCircleTwoIcon, TextAlignLeftIcon } from '@phosphor-icons/react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { invalidateList, useSelectedList } from '@/entities/list';
@@ -28,7 +28,6 @@ export function ItemForm() {
     if (!opened) return;
     form.setValues(item ? { name: item.name, details: item.details ?? '', amount: item.amount, categoryId: item.categoryId } : EMPTY);
     setDetailsOpened(Boolean(item?.details));
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- reset on open only
   }, [opened, item]);
 
   const done = () => {

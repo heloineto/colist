@@ -15,7 +15,7 @@ export function EmptyState({ icon: IconComponent, title, description, action, si
       <IconComponent size={size === 'sm' ? '2.5rem' : '4rem'} className="text-dimmed" />
       <p className={size === 'sm' ? 'font-semibold' : 'text-lg font-semibold'}>{title}</p>
       {description && <p className="text-sm text-dimmed">{description}</p>}
-      {action && <div className="mt-2">{action}</div>}
+      {action !== undefined && <div className="mt-2">{action}</div>}
     </div>
   );
 }

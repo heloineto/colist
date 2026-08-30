@@ -2,7 +2,7 @@ import { notifications } from '@mantine/notifications';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toAuthErrorCode } from '@/shared/auth';
+import { toAuthErrorCode } from '@/shared/api/auth-client';
 
 type AuthResult = { error: { code?: string } | null };
 

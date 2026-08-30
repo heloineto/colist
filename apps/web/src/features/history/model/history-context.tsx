@@ -1,5 +1,5 @@
 import { useDisclosure } from '@mantine/hooks';
-import { createContext, use, type ReactNode } from 'react';
+import { type ReactNode, createContext, use } from 'react';
 
 type HistoryApi = { opened: boolean; open: () => void; close: () => void };
 const HistoryContext = createContext<HistoryApi | null>(null);

@@ -1,7 +1,7 @@
 import { Divider, Radio } from '@mantine/core';
 import { ArrowsDownUpIcon, ShapesIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
-import { useListOptions, type ListOptions } from '@/shared/lib/preferences';
+import { type ListOptions, useListOptions } from '@/shared/lib/preferences';
 
 function OptionGroup<Key extends keyof ListOptions>({
   option,

@@ -1,5 +1,5 @@
 import { Avatar, type AvatarProps } from '@mantine/core';
-import { getColor, getInitials } from '@/entities/user/avatar';
+import { getColor, getInitials } from '@/entities/user/model/avatar';
 
 type Props = AvatarProps & { name: string; image: string | null };
 
