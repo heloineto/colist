@@ -4,7 +4,7 @@ Effort: `colist-v2-rebuild`. Tracker conventions: `docs/agents/issue-tracker.md`
 
 ## Destination
 
-Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own API and Postgres, zero Supabase, mobile-first client on the platform this map decides, deployed to AWS via Terraform + GitHub-OIDC CI/CD. The map is done when every architectural decision is locked and implementation is ready to hand off (per phase, to `/implement`).
+Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own API and Postgres, zero Supabase, mobile-first client on the platform this map decides, deployed to AWS via Terraform + GitHub-OIDC CI/CD. **Done 2026-08-30** — every decision locked; phases in [Implementation phasing](issues/18-implementation-phasing.md).
 
 ## Notes
 
@@ -36,6 +36,7 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 - [Delegate colist.heloineto.com to Route 53](issues/20-buy-domain-delegate-dns.md) — done 2026-08-29 via `scripts/setup-dns-delegation.sh`: hosted zone `Z0692102Z0YEGOX1LW1O` (hand-created, **pending `terraform import`** in ticket 12; NS in `route53.env`), GoDaddy `colist` NS delegated (apex untouched), Google `colist-web` prod origin/redirect + `heloineto.com` authorized domain set.
 - [AWS and Terraform architecture](issues/12-aws-terraform-architecture.md) — vav iac minus staging: account `547279162914` us-east-2, `iac/{bootstrap,environments/production,modules}`, 3 CI roles (`main` deploys, `dev` tests only, no promotion), `t4g.small` ECS/EC2 + EIP, **private RDS** via SSM port-forward (`scripts/db-tunnel.sh`, DBeaver + cutover), `colist-web` = Caddy image with baked SPA + Caddyfile in `apps/web` (always ship both images), SSM SecureString `DATABASE_URL`/`BETTER_AUTH_SECRET`/`GOOGLE_*`, one S3 bucket `colist-production-uploads` (public-read `avatars/` only, ECS task role), Route 53 zone imported into production stack + A record; runbook = wizard `scripts/setup-aws-prod.sh` (state bucket `colist-tfstate` still to create).
 - [CI/CD pipeline design](issues/13-cicd-pipeline-design.md) — vav `.github` minus build/promote: PR + `dev` push = `test.yml`; `main` push = one `main.yml` (tf apply ‖ build api + web arm64 → `deploy-ecs.sh` both digests, `workflow_dispatch` rollback), `iac.yml` = PR plan only, `main` branch-protected; **Vercel retired** — disconnect Git integration (+ `legacy` tag) as a wizard step before `AWS_ACCOUNT_ID`, "never commit to `main`" holds until then; Dependabot = vav cooldowns minus uv; docker preinstalled on runner; `APP_VERSION=${{ github.sha }}` build-arg → `VITE_APP_VERSION`.
+- [Implementation phasing](issues/18-implementation-phasing.md) — **map complete** 2026-08-30: six phases / seven `/implement` efforts on `dev` (P0 scaffold deletes the Next app; P1 iac+CI, wizard run through bootstrap only; P2 API; P3 migration rehearsal = local dev data; P4a online parity incl. animations; P4b offline+crash capture; P5 resume wizard → first `main` merge = deploy → cutover); one PR per phase; effort dir + `spec.md` created per phase on pickup; parity inventory in `research/feature-parity-checklist.md`.
 
 ## Not yet specified
 
