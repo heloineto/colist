@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   ActivityRecorder,
   type Actor,
@@ -27,6 +27,10 @@ export class RenameListUseCase {
       targetName: dto.name,
     });
 
-    return (await this.listRepository.findOne(actor.id, listId)) as List;
+    const list = await this.listRepository.findOne(actor.id, listId);
+
+    if (list === null) throw new NotFoundException('List not found');
+
+    return list;
   }
 }

@@ -16,7 +16,7 @@ export function GoogleButton() {
         onClick={() =>
           void authClient.signIn.social({
             provider: 'google',
-            callbackURL: '/app',
+            callbackURL: `${window.location.origin}/app`,
           })
         }
       >

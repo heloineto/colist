@@ -46,7 +46,7 @@ export function createPinoHttpOptions(configService: ConfigService): Params {
       autoLogging:
         mode === 'test'
           ? false
-          : { ignore: (request) => request.url === '/health' },
+          : { ignore: (request) => request.url === '/api/health' },
     },
   };
 }

@@ -2,10 +2,6 @@ import type { Category } from '@/category/domain/category';
 
 export abstract class CategoryRepository {
   abstract find(listId: number): Promise<Category[]>;
-  abstract findOne(
-    listId: number,
-    categoryId: number
-  ): Promise<Category | null>;
   abstract create(listId: number, name: string): Promise<Category>;
   abstract rename(
     listId: number,

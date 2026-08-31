@@ -40,6 +40,10 @@ describe('GET /api/lists/:listId/activities', () => {
       .patch(`/api/lists/${list.id}/items/${(item.body as { id: number }).id}`)
       .send({ checked: true })
       .expect(200);
+    await member.agent
+      .patch(`/api/lists/${list.id}/items/${(item.body as { id: number }).id}`)
+      .send({ checked: false })
+      .expect(200);
     await owner.agent
       .patch(`/api/lists/${list.id}`)
       .send({ name: 'Mercado' })
@@ -58,6 +62,7 @@ describe('GET /api/lists/:listId/activities', () => {
       ])
     ).toEqual([
       ['list.renamed', owner.name, 'Mercado'],
+      ['item.unchecked', member.name, 'Café'],
       ['item.checked', member.name, 'Café'],
       ['item.created', member.name, 'Café'],
       ['member.added', owner.name, member.name],
@@ -68,7 +73,7 @@ describe('GET /api/lists/:listId/activities', () => {
       .query({ limit: 1, before: activities[0].id })
       .expect(200);
     expect(page.body).toEqual([
-      expect.objectContaining({ action: 'item.checked' }),
+      expect.objectContaining({ action: 'item.unchecked' }),
     ]);
   });
 });

@@ -1,5 +1,6 @@
 import { ActionIcon, Drawer, NavLink, Popover, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useEffect } from 'react';
 import {
   ArrowsDownUpIcon,
   BugBeetleIcon,
@@ -31,6 +32,8 @@ type ActionProps = {
   active?: boolean;
   disabled?: boolean;
   children?: ReactNode;
+  /** Controls the NavLink collapse (nav mode only). */
+  opened?: boolean;
 };
 
 /** One toolbar action rendered as a NavLink (desktop navbar) or a tooltip'd ActionIcon (mobile footer). */
@@ -42,6 +45,7 @@ export function Action({
   active,
   disabled,
   children,
+  opened,
 }: ActionProps) {
   if (mode === 'nav') {
     return (
@@ -51,6 +55,7 @@ export function Action({
         active={active}
         disabled={disabled}
         onClick={onClick}
+        opened={opened}
         leftSection={<IconComponent size="1.125rem" />}
       >
         {children}
@@ -170,7 +175,7 @@ export function HistoryAction({ mode }: { mode: Mode }) {
       icon={ClockCounterClockwiseIcon}
       label={t('shell.history')}
       disabled={listId === null}
-      onClick={history.open}
+      onClick={() => history.open()}
     />
   );
 }
@@ -178,15 +183,21 @@ export function HistoryAction({ mode }: { mode: Mode }) {
 export function MoreOptions({
   mode,
   onClose,
+  navExpanded,
 }: {
   mode: Mode;
   onClose?: () => void;
+  /** nav mode: collapse the submenu when the navbar collapses. */
+  navExpanded?: boolean;
 }) {
   const { t } = useTranslation();
   const { list } = useSelectedList();
   const actions = useListActions(list);
   const feedback = useFeedback();
   const [opened, { open, close }] = useDisclosure(false);
+  useEffect(() => {
+    if (navExpanded === false) close();
+  }, [navExpanded, close]);
   const run = (callback: () => void) => () => {
     close();
     onClose?.();
@@ -239,9 +250,10 @@ export function MoreOptions({
         icon={DotsThreeIcon}
         label={t('shell.moreOptions')}
         active={opened}
+        opened={opened}
         onClick={opened ? close : open}
       >
-        {opened && links}
+        {links}
       </Action>
     );
   }

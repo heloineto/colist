@@ -6,7 +6,7 @@ export type RecordInput = {
   listId: number;
   actor: Actor;
   action: ActivityAction;
-  targetName?: string | null;
+  targetName: string;
   /** Override the notified members (e.g. include a member about to be removed). */
   notify?: string[];
 };

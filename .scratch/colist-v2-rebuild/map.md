@@ -48,6 +48,7 @@ Colist rebuilt as a voto-a-voto-style monorepo: bun + turborepo + mise, its own 
 
 
 - [P4b — Web client, offline & crash capture](../colist-v2-p4b-offline/spec.md) — **done 2026-08-30** (`feat/p4b-offline`, PR #7 stacked on P4a's PR #6): persisted query cache (IDB via `persistQueryClient`) + SW app shell, paused-mutation queue for item/category ops with optimistic item patches (survives reload; 404 on a queued op drops silently per LWW), all other mutations fail fast with an offline toast, crash capture → `POST /errors` (dedup, cap 10, offline dropped). Fixed en route: better-auth `getSession()` throws offline (both route gates crashed — `safeSession()` treats network failure as "keep cached UI"); SW no longer intercepts `/api/*` navigations (Google OAuth redirect). Verified airplane-mode via Playwright against the built SW; queue flushed into Postgres. Next: P5.
+- [P5 — Deploy & cutover](../colist-v2-p5-cutover/spec.md) — **soaking since 2026-08-31** (`dev`→`main` PRs #8/#16/#17/#18): wizard run to completion, stack live at `https://colist.heloineto.com` (ECS+Caddy same-origin, private RDS w/ bundled CA, health at `/api/health`), 47 users / 43 lists / 899 items migrated through the SSM tunnel, avatars in S3, sessions reset, sign-in smoke ✓. Remaining: 1-wk soak → teardown (Supabase pause, Vercel delete, drop migrate scripts, publish Google consent).
 
 ## Not yet specified
 

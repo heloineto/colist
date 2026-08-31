@@ -34,6 +34,7 @@ env:
 jobs:
   apply:
     name: Apply (production)
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -105,7 +106,8 @@ jobs:
   deploy:
     name: Deploy
     needs: [apply, build]
-    if: ${{ !cancelled() && needs.apply.result == 'success' && (needs.build.result == 'success' || needs.build.result == 'skipped') }}
+    # Rollback dispatches skip apply and build; only a failed job blocks the deploy.
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -127,11 +129,15 @@ jobs:
           # resolve <repo> <ref>: ref is a tag (default: the immutable git-<sha> just pushed),
           # a sha256:<digest>, or a full ECR ref. Tags are pinned to their digest.
           resolve() {
-            local repo_uri; repo_uri=$(aws ecr describe-repositories --repository-names "$1" --query 'repositories[0].repositoryUri' --output text)
+            local repo_uri digest
+            repo_uri=$(aws ecr describe-repositories --repository-names "$1" --query 'repositories[0].repositoryUri' --output text)
             case "$2" in
               */*)      echo "$2" ;;
               sha256:*) echo "$repo_uri@$2" ;;
-              *)        echo "$repo_uri@$(aws ecr describe-images --repository-name "$1" --image-ids imageTag="$2" --query 'imageDetails[0].imageDigest' --output text)" ;;
+              *)
+                digest=$(aws ecr describe-images --repository-name "$1" --image-ids imageTag="$2" --query 'imageDetails[0].imageDigest' --output text)
+                [[ "$digest" == sha256:* ]] || { echo "::error::no image $1:$2" >&2; exit 1; }
+                echo "$repo_uri@$digest" ;;
             esac
           }
           echo "api=$(resolve colist-api "$API_INPUT")" >> "$GITHUB_OUTPUT"

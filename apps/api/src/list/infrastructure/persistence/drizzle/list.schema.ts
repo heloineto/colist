@@ -13,8 +13,9 @@ import {
   updatedAt,
 } from '@/common/infrastructure/persistence/drizzle/columns';
 import { user } from '@/iam/infrastructure/persistence/drizzle/iam.schema';
+import { MEMBERSHIP_ROLES } from '@/list/domain/membership';
 
-export const membershipRole = pgEnum('membership_role', ['owner', 'member']);
+export const membershipRole = pgEnum('membership_role', MEMBERSHIP_ROLES);
 
 export const lists = pgTable(
   'lists',

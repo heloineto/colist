@@ -2,6 +2,11 @@ import { notifications } from '@mantine/notifications';
 import { MutationCache, QueryCache, QueryClient } from '@tanstack/react-query';
 import i18next from 'i18next';
 import { ApiError } from '@/shared/api/fetcher';
+import { invalidateActivities } from '@/shared/api/generated/activities/activities';
+import { invalidateCategories } from '@/shared/api/generated/categories/categories';
+import { invalidateItems } from '@/shared/api/generated/items/items';
+import { invalidateLists as invalidateListsIndex } from '@/shared/api/generated/lists/lists';
+import { invalidateMemberships } from '@/shared/api/generated/memberships/memberships';
 import { CONTENT_MUTATION_KEYS } from '@/shared/api/offline';
 
 declare module '@tanstack/react-query' {
@@ -34,6 +39,26 @@ export function showError(error: unknown) {
   });
 }
 
+/** Coarse invalidation: everything scoped to one list, plus the lists index (badges, names). */
+export function invalidateList(listId: number) {
+  void invalidateItems(queryClient, listId);
+  void invalidateCategories(queryClient, listId);
+  void invalidateMemberships(queryClient, listId);
+  void invalidateActivities(queryClient, listId);
+  void invalidateListsIndex(queryClient);
+}
+
+export function invalidateLists() {
+  void invalidateListsIndex(queryClient);
+}
+
+/** Generated mutations carry path params in `variables`; a `listId` scopes the refetch. */
+function invalidateAfter(variables: unknown) {
+  const listId = (variables as { listId?: unknown } | undefined)?.listId;
+  if (typeof listId === 'number') invalidateList(listId);
+  else invalidateLists();
+}
+
 /** Queued op against a deleted target: dropped per LWW (ticket 09), no toast. */
 function isDroppedQueueOp(error: unknown, mutationKey: readonly unknown[]) {
   if (!(error instanceof ApiError) || error.status !== 404) return false;
@@ -53,6 +78,8 @@ export const queryClient = new QueryClient({
     },
   }),
   mutationCache: new MutationCache({
+    // Every mutation triggers a refetch of what it could have touched; SSE covers other members.
+    onSettled: (_data, _error, variables) => invalidateAfter(variables),
     onError: (error, _variables, _context, mutation) => {
       if (mutation.meta?.silent) return;
       if (isDroppedQueueOp(error, mutation.options.mutationKey ?? [])) return;

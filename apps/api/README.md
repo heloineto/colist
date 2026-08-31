@@ -1,6 +1,6 @@
 # Colist API
 
-NestJS 11 + Express 5, hexagonal layout enforced by `project-structure.mjs`. Inherits root [`CLAUDE.md`](../../CLAUDE.md). Served under `/api/*` (Caddy proxies unstripped); `/health` is the only bare route.
+NestJS 11 + Express 5, hexagonal layout enforced by `project-structure.mjs`. Inherits root [`CLAUDE.md`](../../CLAUDE.md). Served under `/api/*` (Caddy proxies unstripped).
 
 ## Contexts
 

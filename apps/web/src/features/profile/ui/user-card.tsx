@@ -35,7 +35,7 @@ export function UserCard({ me }: { me: MeDtoOutput | undefined }) {
           variant="subtle"
           radius="xl"
           px="0.375rem"
-          className="uppercase"
+          classNames={{ root: '-ml-[0.375rem] mt-0.5', label: 'uppercase' }}
           leftSection={<NotePencilIcon size="1rem" weight="bold" />}
           onClick={open}
         >

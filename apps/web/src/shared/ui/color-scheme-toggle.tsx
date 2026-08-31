@@ -1,5 +1,5 @@
 import { SegmentedControl, useMantineColorScheme } from '@mantine/core';
-import { MoonStarsIcon, SunIcon } from '@phosphor-icons/react';
+import { GearSixIcon, MoonStarsIcon, SunIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorSchemeToggle({ className }: { className?: string }) {
@@ -26,7 +26,19 @@ export function ColorSchemeToggle({ className }: { className?: string }) {
             </span>
           ),
         },
-        { value: 'auto', label: 'Auto' },
+        {
+          value: 'auto',
+          label: (
+            <span className="flex items-center justify-center gap-1">
+              <GearSixIcon
+                size="1.125rem"
+                weight="bold"
+                className="dark:text-dark-100 text-gray-600"
+              />
+              Auto
+            </span>
+          ),
+        },
         {
           value: 'dark',
           label: (

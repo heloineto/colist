@@ -81,7 +81,7 @@ resource "aws_ecs_task_definition" "this" {
         }
       ]
       healthCheck = {
-        command     = ["CMD-SHELL", "bun -e \"const r = await fetch('http://localhost:${var.api_port}/health'); process.exit(r.ok ? 0 : 1)\""]
+        command     = ["CMD-SHELL", "bun -e \"const r = await fetch('http://localhost:${var.api_port}/api/health'); process.exit(r.ok ? 0 : 1)\""]
         interval    = 30
         timeout     = 5
         retries     = 3
@@ -141,6 +141,12 @@ resource "aws_ecs_service" "this" {
 
   deployment_minimum_healthy_percent = 0
   deployment_maximum_percent         = 100
+
+  # A task that never becomes healthy rolls the service back to the previous revision.
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   lifecycle {
     ignore_changes = [task_definition]

@@ -1,8 +1,7 @@
 import { Controller, type MessageEvent, Sse } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { type Observable, fromEvent, interval, map, merge } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { type Observable, filter, fromEvent, interval, map, merge } from 'rxjs';
 import {
   LIST_CHANGED_EVENT,
   type ListChangedEvent,

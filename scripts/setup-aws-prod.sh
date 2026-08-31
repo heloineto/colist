@@ -292,8 +292,8 @@ secret_arn=$(terraform -chdir="$PROD" output -raw db_master_user_secret_arn)
 db_host=$(terraform -chdir="$PROD" output -raw db_address)
 db_json=$(aws secretsmanager get-secret-value --secret-id "$secret_arn" --query SecretString --output text)
 db_user=$(printf '%s' "$db_json" | jq -r .username)
-db_pass=$(printf '%s' "$db_json" | jq -r .password | jq -sRr @uri)
-DATABASE_URL="postgres://${db_user}:${db_pass}@${db_host}:5432/postgres?sslmode=require"
+db_pass=$(printf '%s' "$db_json" | jq -r '.password|@uri')
+DATABASE_URL="postgres://${db_user}:${db_pass}@${db_host}:5432/postgres?sslmode=require&sslrootcert=/app/rds-ca.pem"
 BETTER_AUTH_SECRET=$(openssl rand -base64 32)
 GOOGLE_CLIENT_ID=$(grep -E '^GOOGLE_CLIENT_ID=' apps/api/.env.development.local | cut -d= -f2- || true)
 GOOGLE_CLIENT_SECRET=$(grep -E '^GOOGLE_CLIENT_SECRET=' apps/api/.env.development.local | cut -d= -f2- || true)
@@ -327,12 +327,12 @@ stage "First deploy + smoke test"
 say "Open the PR dev → main and merge it. main.yml applies, builds both images and rolls the service."
 step "Watch: gh run watch   (or the Actions tab)"
 pause "Press Enter once the Main workflow is green"
-until curl -fsS "https://${HOST}/health" >/dev/null 2>&1; do
-  warn "https://${HOST}/health not answering yet (Caddy needs a minute for the Let's Encrypt cert)."
-  confirm "Retry?" || { SKIPPED+=("smoke: curl https://${HOST}/health"); break; }
+until curl -fsS "https://${HOST}/api/health" >/dev/null 2>&1; do
+  warn "https://${HOST}/api/health not answering yet (Caddy needs a minute for the Let's Encrypt cert)."
+  confirm "Retry?" || { SKIPPED+=("smoke: curl https://${HOST}/api/health"); break; }
   sleep 20
 done
-curl -fsS "https://${HOST}/health" 2>/dev/null | sed 's/^/    /' || true
+curl -fsS "https://${HOST}/api/health" 2>/dev/null | sed 's/^/    /' || true
 say "Then: sign-up, SSE, Google login (consent still in Testing). Next: data migration (ticket 11)."
 pause
 

@@ -5,11 +5,11 @@ import {
   BetterAuthInstance,
 } from '@/iam/infrastructure/better-auth/better-auth';
 
-/**
- * better-auth reads the raw body, so it is mounted before Nest's JSON parser:
- * create the app with `bodyParser: false`, call this, then `app.useBodyParser('json')`.
- */
+/** Mounted before Nest's JSON parser (see `setupApp`): better-auth reads the raw body. */
 export function mountBetterAuth(app: INestApplication): void {
   const { auth } = app.get(BetterAuthInstance);
-  app.use(`${AUTH_BASE_PATH}/*splat`, toNodeHandler(auth));
+  // Plain prefix mount (no `*splat`): with a splat pattern Express 5 puts the
+  // whole matched path in `req.baseUrl`, and better-call then rebuilds the URL
+  // without the query string - which drops `?state=&code=` on OAuth callbacks.
+  app.use(AUTH_BASE_PATH, toNodeHandler(auth));
 }

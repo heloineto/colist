@@ -1,6 +1,5 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { INQUIRER } from '@nestjs/core';
-import { isUndefined, omitBy } from 'lodash';
 import { PinoLogger } from 'nestjs-pino';
 import type {
   ErrorLogPayload,
@@ -30,18 +29,18 @@ export class PinoLoggerAdapter extends Logger {
   }
 
   debug({ message, data }: LogPayload): void {
-    this.pino.debug(omitBy({ data }, isUndefined), message);
+    this.pino.debug({ data }, message);
   }
 
   info({ message, data }: LogPayload): void {
-    this.pino.info(omitBy({ data }, isUndefined), message);
+    this.pino.info({ data }, message);
   }
 
   warn({ message, data }: LogPayload): void {
-    this.pino.warn(omitBy({ data }, isUndefined), message);
+    this.pino.warn({ data }, message);
   }
 
   error({ message, error, data }: ErrorLogPayload): void {
-    this.pino.error(omitBy({ error, data }, isUndefined), message);
+    this.pino.error({ error, data }, message);
   }
 }

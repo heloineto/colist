@@ -24,9 +24,9 @@ export function Navbar() {
         <SortAction mode="nav" onOpenChange={setPinned} />
         <HistoryAction mode="nav" />
         <FeedbackAction mode="nav" />
-        <MoreOptions mode="nav" />
+        <MoreOptions mode="nav" navExpanded={expanded || pinned} />
       </div>
-      <div className="px-1.5">
+      <div className="px-1">
         <AddItemNavButton expanded={expanded || pinned} />
       </div>
     </nav>

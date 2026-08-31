@@ -6,11 +6,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ZodResponse } from 'nestjs-zod';
+import { FindActivitiesDto } from '@/activity/application/dtos/find-activities.dto';
 import { FindActivitiesUseCase } from '@/activity/application/use-cases/find-activities.use-case';
-import {
-  ActivitiesDto,
-  FindActivitiesQueryDto,
-} from '@/activity/presentation/http/dto/find-activities.dto';
+import { ActivitiesDto } from '@/activity/presentation/http/dto/activity.dto';
 import { ListId } from '@/list/presentation/http/decorators/list-id.decorator';
 import { MembershipGuard } from '@/list/presentation/http/guards/membership.guard';
 
@@ -29,7 +27,7 @@ export class ActivitiesController {
     operationId: 'activities',
   })
   @ZodResponse({ status: 200, type: ActivitiesDto })
-  find(@ListId() listId: number, @Query() query: FindActivitiesQueryDto) {
+  find(@ListId() listId: number, @Query() query: FindActivitiesDto) {
     return this.findActivities.execute(listId, query);
   }
 }

@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { invalidateLists } from '@/entities/list';
 import { useListForm } from '@/features/lists/model/list-form-context';
 import {
   useListsDelete,
@@ -12,12 +11,9 @@ export function useListActions(list: ListsDtoOutputItem | null) {
   const { t } = useTranslation();
   const listForm = useListForm();
   const remove = useListsDelete({
-    mutation: {
-      meta: { success: t('lists.deleted') },
-      onSuccess: invalidateLists,
-    },
+    mutation: { meta: { success: t('lists.deleted') } },
   });
-  const leave = useListsLeave({ mutation: { onSuccess: invalidateLists } });
+  const leave = useListsLeave();
 
   if (!list) return null;
   return {

@@ -29,7 +29,7 @@ function Rows({
     <AnimatePresence initial={false}>
       {items.map((item) => (
         <motion.div
-          key={item.id}
+          key={item.clientId ?? item.id}
           className="relative shrink-0 overflow-hidden"
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: itemHeight(item), opacity: 1 }}

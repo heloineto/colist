@@ -73,11 +73,12 @@ describe('LeaveListUseCase', () => {
 
     await leaveList.execute(owner, member(owner, 'owner'));
 
-    expect(membershipRepository.remove).toHaveBeenCalledWith(owner.id, LIST_ID);
-    expect(membershipRepository.promote).toHaveBeenCalledWith(
+    expect(membershipRepository.replaceOwner).toHaveBeenCalledWith(
+      owner.id,
       oldest.id,
       LIST_ID
     );
+    expect(membershipRepository.remove).not.toHaveBeenCalled();
     expect(activityRecorder.record).toHaveBeenCalledWith(
       expect.objectContaining({
         action: 'owner.promoted',
@@ -99,7 +100,7 @@ describe('LeaveListUseCase', () => {
       oldest.id,
       LIST_ID
     );
-    expect(membershipRepository.promote).not.toHaveBeenCalled();
+    expect(membershipRepository.replaceOwner).not.toHaveBeenCalled();
     expect(activityRecorder.record).toHaveBeenCalledWith(
       expect.objectContaining({
         action: 'member.left',

@@ -125,6 +125,21 @@ describe('POST /api/lists/:listId/items', () => {
       .expect(400);
   });
 
+  it('returns 400 when moving an item to a category of another list', async () => {
+    const { member, list } = await createSharedList(app);
+    const other = await createSharedList(app);
+    const item = await createItem(member, list.id, { name: 'x' });
+    const foreign = await other.owner.agent
+      .post(`/api/lists/${other.list.id}/categories`)
+      .send({ name: 'x' })
+      .expect(201);
+
+    await member.agent
+      .patch(`/api/lists/${list.id}/items/${item.id}`)
+      .send({ categoryId: (foreign.body as { id: number }).id })
+      .expect(400);
+  });
+
   it('creates with defaults and bumps the unchecked count', async () => {
     const { member, owner, list } = await createSharedList(app);
 
