@@ -30,6 +30,7 @@ void i18next
       caches: ['localStorage'],
     },
     interpolation: { escapeValue: false },
+    showSupportNotice: false,
   });
 
 i18next.on('languageChanged', (language) => {
