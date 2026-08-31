@@ -34,7 +34,7 @@ export function ListTabs() {
       }}
     >
       <ScrollArea type="never" w="100vw">
-        <Tabs.List className="mt-2 flex-nowrap!">
+        <Tabs.List className="mt-2 w-max min-w-full flex-nowrap!">
           {lists.map((list) => (
             <Tabs.Tab
               key={list.id}
