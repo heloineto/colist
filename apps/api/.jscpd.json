@@ -1,0 +1,12 @@
+{
+  "threshold": 0,
+  "reporters": ["html", "console"],
+  "output": "./reports/jscpd",
+  "ignore": [
+    "node_modules/**",
+    "dist/**",
+    ".turbo/**",
+    "reports/**",
+    "migrations/**"
+  ]
+}
