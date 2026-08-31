@@ -24,18 +24,19 @@ export function AddItemNavButton({ expanded }: { expanded: boolean }) {
   return (
     <Button
       radius="xl"
-      className="h-[42px] justify-start overflow-hidden px-2! transition-[width] duration-200"
+      className="h-[42px] overflow-hidden pr-0! pl-2! transition-[width] duration-200"
+      classNames={{
+        inner: 'justify-start',
+        section: 'me-0!',
+        label:
+          'absolute left-[2.625rem] whitespace-nowrap transition-opacity duration-150',
+      }}
       style={{ width: expanded ? '100%' : 42 }}
       leftSection={<PlusIcon size="1.5rem" weight="bold" />}
       onClick={add}
       aria-label={t('shell.addItem')}
     >
-      <span
-        className="transition-opacity duration-150"
-        style={{ opacity: expanded ? 1 : 0 }}
-      >
-        {t('shell.addItem')}
-      </span>
+      <span style={{ opacity: expanded ? 1 : 0 }}>{t('shell.addItem')}</span>
     </Button>
   );
 }
