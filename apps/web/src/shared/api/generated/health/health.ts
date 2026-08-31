@@ -43,7 +43,7 @@ const withQueryKey = <T extends object, K>(
 };
 
 export const getHealthUrl = () => {
-  return `/health`;
+  return `/api/health`;
 };
 
 /**
@@ -59,7 +59,7 @@ export const health = async (
 };
 
 export const getHealthQueryKey = () => {
-  return [`/health`] as const;
+  return [`/api/health`] as const;
 };
 
 export const getHealthQueryOptions = <

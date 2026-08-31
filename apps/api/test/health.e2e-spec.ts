@@ -5,7 +5,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createTestApp } from './helpers';
 import type TestAgent from 'supertest/lib/agent';
 
-describe('GET /health', () => {
+describe('GET /api/health', () => {
   let app: INestApplication<App>;
   let api: TestAgent;
 
@@ -22,7 +22,7 @@ describe('GET /health', () => {
   });
 
   it('returns ok without auth', async () => {
-    const response = await api.get('/health').expect(200);
+    const response = await api.get('/api/health').expect(200);
 
     expect(response.body).toEqual({ status: 'ok' });
   });

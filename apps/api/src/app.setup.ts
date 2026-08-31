@@ -7,7 +7,7 @@ import { mountBetterAuth } from '@/iam/infrastructure/better-auth/mount-better-a
  * with `bodyParser: false`).
  */
 export function setupApp(app: NestExpressApplication): void {
-  app.setGlobalPrefix('api', { exclude: ['health'] });
+  app.setGlobalPrefix('api');
   mountBetterAuth(app);
   app.useBodyParser('json');
 }
