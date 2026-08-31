@@ -25,7 +25,7 @@ RUN bun install --frozen-lockfile --production --ignore-scripts
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 COPY --from=builder /app/apps/api/migrations ./apps/api/migrations
 # RDS CA bundle: DATABASE_URL carries sslrootcert=/app/rds-ca.pem so pg verifies the RDS cert chain.
-ADD https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /app/rds-ca.pem
+ADD --chmod=644 https://truststore.pki.rds.amazonaws.com/global/global-bundle.pem /app/rds-ca.pem
 
 WORKDIR /app/apps/api
 USER bun
