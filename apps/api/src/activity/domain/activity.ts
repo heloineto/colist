@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { DateTimeSchema } from '@/common/domain/date-time.schema';
 
-export const ActivityActionSchema = z.enum([
+export const ACTIVITY_ACTIONS = [
   'list.renamed',
   'item.created',
   'item.updated',
@@ -15,7 +15,8 @@ export const ActivityActionSchema = z.enum([
   'member.removed',
   'member.left',
   'owner.promoted',
-]);
+] as const;
+export const ActivityActionSchema = z.enum(ACTIVITY_ACTIONS);
 export type ActivityAction = z.infer<typeof ActivityActionSchema>;
 
 export const ActivitySchema = z.strictObject({

@@ -1,23 +1,10 @@
 import { bigint, pgEnum, pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { ACTIVITY_ACTIONS } from '@/activity/domain/activity';
 import { createdAt } from '@/common/infrastructure/persistence/drizzle/columns';
 import { user } from '@/iam/infrastructure/persistence/drizzle/iam.schema';
 import { lists } from '@/list/infrastructure/persistence/drizzle/list.schema';
 
-export const activityAction = pgEnum('activity_action', [
-  'list.renamed',
-  'item.created',
-  'item.updated',
-  'item.checked',
-  'item.unchecked',
-  'item.deleted',
-  'category.created',
-  'category.updated',
-  'category.deleted',
-  'member.added',
-  'member.removed',
-  'member.left',
-  'owner.promoted',
-]);
+export const activityAction = pgEnum('activity_action', ACTIVITY_ACTIONS);
 
 export const activities = pgTable('activities', {
   id: bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),

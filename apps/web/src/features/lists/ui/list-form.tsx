@@ -3,7 +3,6 @@ import { isNotEmpty, useForm } from '@mantine/form';
 import { useMediaQuery } from '@mantine/hooks';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { invalidateLists } from '@/entities/list';
 import { useListForm } from '@/features/lists/model/list-form-context';
 import {
   useListsCreate,
@@ -14,7 +13,7 @@ import { confirmDiscard } from '@/shared/ui/confirm';
 
 export function ListForm() {
   const { t } = useTranslation();
-  const { opened, list, close } = useListForm();
+  const { opened, payload: list, close } = useListForm();
   const isDesktop = useMediaQuery('(min-width: 48em)');
   const [, setListId] = useSelectedListId();
   const form = useForm({
@@ -30,7 +29,6 @@ export function ListForm() {
     mutation: {
       meta: { success: t('lists.created') },
       onSuccess: (created) => {
-        invalidateLists();
         setListId(created.id);
         close();
       },
@@ -39,10 +37,7 @@ export function ListForm() {
   const rename = useListsRename({
     mutation: {
       meta: { success: t('lists.renamed') },
-      onSuccess: () => {
-        invalidateLists();
-        close();
-      },
+      onSuccess: close,
     },
   });
 

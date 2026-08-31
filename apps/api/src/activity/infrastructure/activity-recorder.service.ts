@@ -20,24 +20,30 @@ export class EventEmitterActivityRecorder implements ActivityRecorder {
   ) {}
 
   async record(input: RecordInput): Promise<void> {
-    await this.activityRepository.insert({
-      listId: input.listId,
-      actorId: input.actor.id,
-      actorName: input.actor.name,
-      action: input.action,
-      targetName: input.targetName ?? null,
-    });
+    const [userIds] = await Promise.all([
+      this.resolveUserIds(input.listId, input.notify),
+      this.activityRepository.insert({
+        listId: input.listId,
+        actorId: input.actor.id,
+        actorName: input.actor.name,
+        action: input.action,
+        targetName: input.targetName,
+      }),
+    ]);
 
-    await this.notify(input.listId, input.notify);
+    this.emit(input.listId, userIds);
   }
 
   async notify(listId: number, userIds?: string[]): Promise<void> {
-    const event: ListChangedEvent = {
-      listId,
-      userIds:
-        userIds ?? (await this.membershipRepository.findMemberIds(listId)),
-    };
+    this.emit(listId, await this.resolveUserIds(listId, userIds));
+  }
 
+  private resolveUserIds(listId: number, userIds?: string[]) {
+    return userIds ?? this.membershipRepository.findMemberIds(listId);
+  }
+
+  private emit(listId: number, userIds: string[]) {
+    const event: ListChangedEvent = { listId, userIds };
     // ponytail: in-process bus; Postgres LISTEN/NOTIFY if the API ever runs >1 instance.
     this.eventEmitter.emit(LIST_CHANGED_EVENT, event);
   }

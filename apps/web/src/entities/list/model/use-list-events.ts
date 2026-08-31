@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { invalidateList } from '@/entities/list/model/invalidate';
-import { queryClient } from '@/shared/api/query-client';
+import { invalidateList, queryClient } from '@/shared/api/query-client';
 
 type ListChanged = { listId: number };
 

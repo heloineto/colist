@@ -15,6 +15,7 @@ import type {
 import {
   getItemsCreateMutationKey,
   getItemsDeleteMutationKey,
+  getItemsQueryKey,
   getItemsUpdateMutationKey,
   itemsCreate,
   itemsDelete,
@@ -42,8 +43,15 @@ export const CONTENT_MUTATION_KEYS: string[] = [
   getCategoriesDeleteMutationKey()[0],
 ];
 
-/** Pause (not fail) while offline; retry so a flaky reconnect keeps the op. */
-const queued = { networkMode: 'online', retry: 3 } as const;
+/**
+ * Pause (not fail) while offline; retry so a flaky reconnect keeps the op.
+ * One scope so a reload-resumed queue replays in order (create before its edits).
+ */
+const queued = {
+  networkMode: 'online',
+  retry: 3,
+  scope: { id: 'offline-content' },
+} as const;
 
 /**
  * Default mutation functions so paused mutations survive a reload
@@ -57,7 +65,7 @@ export function registerOfflineMutations(queryClient: QueryClient) {
     listId: number,
     patch: (items: ItemsDtoOutput) => ItemsDtoOutput
   ) => {
-    const queryKey = [`/api/lists/${listId}/items`];
+    const queryKey = getItemsQueryKey(listId);
     void queryClient.cancelQueries({ queryKey });
     queryClient.setQueriesData<ItemsDtoOutput>({ queryKey }, (items) =>
       items ? patch(items) : items

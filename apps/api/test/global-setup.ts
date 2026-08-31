@@ -13,7 +13,10 @@ config({ path: resolve(API_ROOT, '.env.test'), override: true, quiet: true });
 export async function setup() {
   execSync(`${COMPOSE} up -d --wait`, { stdio: 'inherit', cwd: API_ROOT });
 
-  const db = drizzle(process.env.DATABASE_URL ?? '');
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) throw new Error('DATABASE_URL missing from .env.test');
+
+  const db = drizzle(databaseUrl);
   await migrate(db, { migrationsFolder: resolve(API_ROOT, 'migrations') });
   await db.$client.end();
 }

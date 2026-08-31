@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { and, desc, eq, lt } from 'drizzle-orm';
-import {
-  ActivityRepository,
-  type FindActivitiesQuery,
-} from '@/activity/application/ports/activity.repository';
+import type { FindActivitiesDto } from '@/activity/application/dtos/find-activities.dto';
+import { ActivityRepository } from '@/activity/application/ports/activity.repository';
 import type { Activity, NewActivity } from '@/activity/domain/activity';
 import { activities } from '@/activity/infrastructure/persistence/drizzle/activity.schema';
 import {
@@ -19,7 +17,7 @@ export class DrizzleActivityRepository implements ActivityRepository {
     await this.db.insert(activities).values(activity);
   }
 
-  find(listId: number, query: FindActivitiesQuery): Promise<Activity[]> {
+  find(listId: number, query: FindActivitiesDto): Promise<Activity[]> {
     const cursor =
       query.before === undefined ? undefined : lt(activities.id, query.before);
 

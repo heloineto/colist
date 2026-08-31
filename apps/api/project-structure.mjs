@@ -10,6 +10,7 @@ export const folderStructureConfig = createFolderStructure({
       children: [
         { name: 'main.ts' },
         { name: 'app.module.ts' },
+        { name: 'app.setup.ts' },
         { ruleId: 'common_folder' },
         { ruleId: 'core_folder' },
         { ruleId: 'feature_folder' },

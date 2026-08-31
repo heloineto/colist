@@ -5,10 +5,7 @@ import {
   BetterAuthInstance,
 } from '@/iam/infrastructure/better-auth/better-auth';
 
-/**
- * better-auth reads the raw body, so it is mounted before Nest's JSON parser:
- * create the app with `bodyParser: false`, call this, then `app.useBodyParser('json')`.
- */
+/** Mounted before Nest's JSON parser (see `setupApp`): better-auth reads the raw body. */
 export function mountBetterAuth(app: INestApplication): void {
   const { auth } = app.get(BetterAuthInstance);
   app.use(`${AUTH_BASE_PATH}/*splat`, toNodeHandler(auth));

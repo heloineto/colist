@@ -23,7 +23,6 @@
       "dependsOn": ["^build", "^lint"]
     },
     "test": {
-      "outputs": ["coverage/**"],
       "dependsOn": []
     },
     "test:unit": {

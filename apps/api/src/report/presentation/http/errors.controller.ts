@@ -9,14 +9,13 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import type { ActiveUserType } from '@/iam/domain/active-user';
-import { AuthType } from '@/iam/domain/auth-type';
 import { OptionalActiveUser } from '@/iam/presentation/http/decorators/active-user.decorator';
-import { Auth } from '@/iam/presentation/http/decorators/auth.decorator';
+import { Public } from '@/iam/presentation/http/decorators/public.decorator';
 import { CreateErrorReportDto } from '@/report/application/dtos/create-error-report.dto';
 import { CreateErrorReportUseCase } from '@/report/application/use-cases/create-error-report.use-case';
 
 @ApiTags('Reports')
-@Auth(AuthType.None)
+@Public()
 @UseGuards(ThrottlerGuard)
 @Controller('errors')
 export class ErrorsController {

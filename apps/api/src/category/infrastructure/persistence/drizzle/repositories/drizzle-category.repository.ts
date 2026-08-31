@@ -20,15 +20,6 @@ export class DrizzleCategoryRepository implements CategoryRepository {
       .orderBy(asc(categories.name));
   }
 
-  async findOne(listId: number, categoryId: number): Promise<Category | null> {
-    const rows = await this.db
-      .select()
-      .from(categories)
-      .where(this.pk(listId, categoryId));
-
-    return rows[0] ?? null;
-  }
-
   async create(listId: number, name: string): Promise<Category> {
     const [category] = await this.db
       .insert(categories)

@@ -2,12 +2,12 @@ import { Button, FileButton, Menu, TextInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { CameraIcon, TrashIcon } from '@phosphor-icons/react';
-import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UserAvatar } from '@/entities/user';
-import { getMeQueryKey, useMeUpdate } from '@/shared/api/generated/me/me';
+import { invalidateMe, useMeUpdate } from '@/shared/api/generated/me/me';
 import type { MeDtoOutput } from '@/shared/api/generated/models';
+import { queryClient } from '@/shared/api/query-client';
 import { IMAGE_TYPES, uploadFile } from '@/shared/api/upload';
 
 export function ProfileForm({
@@ -18,7 +18,6 @@ export function ProfileForm({
   onDone: () => void;
 }) {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
   const [image, setImage] = useState<string | null>(me.image);
   const [uploading, setUploading] = useState(false);
   const form = useForm({
@@ -29,8 +28,7 @@ export function ProfileForm({
     mutation: {
       meta: { success: t('profile.saved') },
       onSuccess: () => {
-        void queryClient.invalidateQueries({ queryKey: getMeQueryKey() });
-        void queryClient.invalidateQueries({ queryKey: ['/api/lists'] });
+        void invalidateMe(queryClient);
         onDone();
       },
     },
