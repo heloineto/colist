@@ -29,8 +29,9 @@ function PrimaryColorSelect() {
       variant="unstyled"
       size="md"
       allowDeselect={false}
-      className="dark:hover:bg-dark-800 px-4 hover:bg-gray-100"
+      className="dark:hover:bg-dark-800 px-4 pt-0.5 hover:bg-gray-100"
       leftSectionWidth={29}
+      leftSectionProps={{ className: 'justify-start!' }}
       leftSection={
         <span
           className="size-4.5 rounded-full"
@@ -126,7 +127,7 @@ export function UserMenu() {
         </div>
         <div className="flex flex-col pb-4">
           <ColorSchemeToggle className="rounded-none!" />
-          <LanguageSelect className="dark:hover:bg-dark-800 px-4 hover:bg-gray-100" />
+          <LanguageSelect className="dark:hover:bg-dark-800 px-4 pt-0.5 hover:bg-gray-100" />
           <PrimaryColorSelect />
           <SignOutButton />
         </div>

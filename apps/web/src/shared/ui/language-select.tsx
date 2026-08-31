@@ -13,7 +13,14 @@ export function LanguageSelect({ className }: { className?: string }) {
       allowDeselect={false}
       className={className}
       leftSectionWidth={29}
-      leftSection={<TranslateIcon size="1.125rem" weight="bold" />}
+      leftSectionProps={{ className: 'justify-start!' }}
+      leftSection={
+        <TranslateIcon
+          size="1.125rem"
+          weight="bold"
+          className="dark:text-dark-50 text-gray-600"
+        />
+      }
       value={i18n.resolvedLanguage}
       onChange={(language) => language && void i18n.changeLanguage(language)}
       data={SUPPORTED_LANGUAGES.map((language) => ({
