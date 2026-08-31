@@ -81,7 +81,7 @@ resource "aws_ecs_task_definition" "this" {
         }
       ]
       healthCheck = {
-        command     = ["CMD-SHELL", "bun -e \"const r = await fetch('http://localhost:${var.api_port}/health'); process.exit(r.ok ? 0 : 1)\""]
+        command     = ["CMD-SHELL", "bun -e \"const r = await fetch('http://localhost:${var.api_port}/api/health'); process.exit(r.ok ? 0 : 1)\""]
         interval    = 30
         timeout     = 5
         retries     = 3

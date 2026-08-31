@@ -4,7 +4,7 @@ ECS cluster, task definition, and service. The task runs two containers in host
 network mode:
 
 - **api**: the NestJS app from ECR, secrets injected from SSM via `valueFrom`,
-  runtime `task_role_arn` for S3. A container health check probes `/health`, so
+  runtime `task_role_arn` for S3. A container health check probes `/api/health`, so
   a wedged-but-running process is caught and the task replaced
 - **web**: Caddy with the SPA baked in (`apps/web/Dockerfile`), from ECR.
   Terminates TLS via Let's Encrypt (cert storage on the persistent host volume

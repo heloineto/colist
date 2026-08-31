@@ -2,9 +2,6 @@ colist.heloineto.com {
 	handle /api/* {
 		reverse_proxy localhost:5100
 	}
-	handle /health {
-		reverse_proxy localhost:5100
-	}
 	handle {
 		root * /srv
 		try_files {path} /index.html

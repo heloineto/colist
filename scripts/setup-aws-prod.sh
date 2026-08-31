@@ -327,12 +327,12 @@ stage "First deploy + smoke test"
 say "Open the PR dev → main and merge it. main.yml applies, builds both images and rolls the service."
 step "Watch: gh run watch   (or the Actions tab)"
 pause "Press Enter once the Main workflow is green"
-until curl -fsS "https://${HOST}/health" >/dev/null 2>&1; do
-  warn "https://${HOST}/health not answering yet (Caddy needs a minute for the Let's Encrypt cert)."
-  confirm "Retry?" || { SKIPPED+=("smoke: curl https://${HOST}/health"); break; }
+until curl -fsS "https://${HOST}/api/health" >/dev/null 2>&1; do
+  warn "https://${HOST}/api/health not answering yet (Caddy needs a minute for the Let's Encrypt cert)."
+  confirm "Retry?" || { SKIPPED+=("smoke: curl https://${HOST}/api/health"); break; }
   sleep 20
 done
-curl -fsS "https://${HOST}/health" 2>/dev/null | sed 's/^/    /' || true
+curl -fsS "https://${HOST}/api/health" 2>/dev/null | sed 's/^/    /' || true
 say "Then: sign-up, SSE, Google login (consent still in Testing). Next: data migration (ticket 11)."
 pause
 
