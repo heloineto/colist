@@ -1,6 +1,6 @@
 # P5 — Deploy & cutover
 
-Status: in progress
+Status: soaking — migrated 2026-08-31, teardown after 2026-09-07
 Source: [Implementation phasing § P5](../colist-v2-rebuild/issues/18-implementation-phasing.md) + tickets [12 AWS/Terraform](../colist-v2-rebuild/issues/12-aws-terraform-architecture.md), [13 CI/CD](../colist-v2-rebuild/issues/13-cicd-pipeline-design.md), [11 migration/cutover](../colist-v2-rebuild/issues/11-data-migration-cutover.md), [19 Google OAuth](../colist-v2-rebuild/issues/19-google-oauth-credentials.md), [20 DNS delegation](../colist-v2-rebuild/issues/20-buy-domain-delegate-dns.md).
 Branch: none of its own — P5 lands the stack on `dev`, then PRs `dev` → `main`.
 
@@ -39,3 +39,5 @@ PR `dev` → `main` (/create-pr); merge once green. `main.yml`: apply ‖ build-
 - Soak complete; Supabase paused; Vercel project deleted; map updated.
 
 ## Comments
+
+- 2026-08-31 — Cutover done. Stack landed via async merge API (stacked PRs need `merge-async` + manual cascade). First deploy 502'd: node-pg `sslmode=require` verifies CA → bundled RDS global CA in the image (`ADD --chmod=644`, mode 0600 broke `USER bun`) + `sslrootcert=/app/rds-ca.pem` in the SSM `DATABASE_URL`. Health moved to `/api/health` (bare `/health` fell through Caddy to the SPA; global prefix now has no exclude). `.gitignore` `reports/` → `/reports/` (generated client file was untracked, broke CI). i18next 25.10 Locize console notice silenced (`showSupportNotice: false`, PR #19). Migration: 47 users / 43 lists / 899 items loaded through the SSM tunnel (idle-timeout kills the session — keepalive ping needed), avatars in S3, sign-in smoke ✓. `legacy` staging schema left on prod (drop pending user call). Sessions reset by TRUNCATE as planned.
