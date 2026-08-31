@@ -1,5 +1,4 @@
 import {
-  Anchor,
   Button,
   Collapse,
   PasswordInput,
@@ -16,7 +15,7 @@ import { GoogleButton } from '@/features/auth/ui/google-button';
 import { PasswordStrength } from '@/features/auth/ui/password-strength';
 import { authClient } from '@/shared/api/auth-client';
 
-export function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
+export function SignUpForm() {
   const { t } = useTranslation();
   const { submit, loading } = useAuthSubmit();
   const isWide = useMediaQuery('(min-width: 62em)');
@@ -38,7 +37,6 @@ export function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
         (values) => void submit(() => authClient.signUp.email(values))
       )}
     >
-      <h2 className="text-lg font-semibold">{t('auth.signUp.title')}</h2>
       <TextInput
         label={t('auth.fields.name')}
         placeholder={t('auth.fields.namePlaceholder')}
@@ -83,12 +81,6 @@ export function SignUpForm({ onSwitch }: { onSwitch: () => void }) {
         {t('auth.signUp.submit')}
       </Button>
       <GoogleButton />
-      <p className="mt-2 text-center text-sm">
-        {t('auth.signUp.hasAccount')}{' '}
-        <Anchor component="button" type="button" size="sm" onClick={onSwitch}>
-          {t('auth.signUp.switch')}
-        </Anchor>
-      </p>
     </form>
   );
 }

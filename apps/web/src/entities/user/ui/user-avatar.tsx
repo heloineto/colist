@@ -6,7 +6,7 @@ type Props = AvatarProps & { name: string; image: string | null };
 export function UserAvatar({ name, image, ...props }: Props) {
   return (
     <Avatar
-      radius="xl"
+      radius="50%"
       src={image}
       color={getColor(getInitials(name))}
       {...props}

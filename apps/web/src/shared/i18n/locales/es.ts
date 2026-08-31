@@ -71,6 +71,7 @@ export const es: Translation = {
       PASSWORD_TOO_LONG: 'Contraseña demasiado larga',
       generic: 'No se pudo ingresar. Inténtalo de nuevo.',
     },
+    rememberMe: 'Recordarme',
     copyright: 'Todos los derechos reservados.',
     lightMode: 'Modo claro',
     darkMode: 'Modo oscuro',

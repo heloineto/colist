@@ -76,10 +76,20 @@ function SignOutButton() {
       active
       variant="subtle"
       label={t('profile.signOut')}
-      className="px-4!"
-      classNames={{ root: 'bg-gray-50 dark:bg-dark-700', label: 'text-md!' }}
+      classNames={{
+        root: 'bg-gray-50 dark:bg-dark-700 data-[active]:hover:bg-gray-100 dark:data-[active]:hover:bg-dark-800 px-4!',
+        label: 'text-gray-900 dark:text-dark-50 text-md!',
+      }}
       leftSection={
-        loading ? <Loader size="1.125rem" /> : <SignOutIcon size="1.125rem" />
+        loading ? (
+          <Loader size="1.125rem" />
+        ) : (
+          <SignOutIcon
+            size="1.125rem"
+            weight="bold"
+            className="dark:text-dark-50 text-gray-600"
+          />
+        )
       }
       onClick={() => void signOut()}
     />
@@ -99,7 +109,7 @@ export function UserMenu() {
         aria-label="profile"
       >
         {me ? (
-          <UserAvatar name={me.name} image={me.image} size={40} radius="xl" />
+          <UserAvatar name={me.name} image={me.image} size={40} />
         ) : (
           <Skeleton circle h={40} w={40} />
         )}
