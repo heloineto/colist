@@ -170,7 +170,7 @@ export function HistoryAction({ mode }: { mode: Mode }) {
       icon={ClockCounterClockwiseIcon}
       label={t('shell.history')}
       disabled={listId === null}
-      onClick={history.open}
+      onClick={() => history.open()}
     />
   );
 }

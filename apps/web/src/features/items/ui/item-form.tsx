@@ -25,7 +25,7 @@ import {
 } from '@phosphor-icons/react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { invalidateList, useSelectedList } from '@/entities/list';
+import { useSelectedList } from '@/entities/list';
 import { useItemForm } from '@/features/items/model/item-form-context';
 import { AmountModal } from '@/features/items/ui/amount-modal';
 import { CategoryButton } from '@/features/items/ui/category-picker';
@@ -57,7 +57,7 @@ const EMPTY = {
 
 export function ItemForm() {
   const { t } = useTranslation();
-  const { opened, item, close } = useItemForm();
+  const { opened, payload: item, close } = useItemForm();
   const { listId } = useSelectedList();
   const [detailsOpened, setDetailsOpened] = useState(false);
   const [amountOpened, amountModal] = useDisclosure(false);
@@ -79,12 +79,9 @@ export function ItemForm() {
     setDetailsOpened(Boolean(item?.details));
   }, [opened, item]);
 
-  const settled = () => {
-    if (listId !== null) invalidateList(listId);
-  };
-  const create = useItemsCreate({ mutation: { onSettled: settled } });
-  const update = useItemsUpdate({ mutation: { onSettled: settled } });
-  const remove = useItemsDelete({ mutation: { onSettled: settled } });
+  const create = useItemsCreate();
+  const update = useItemsUpdate();
+  const remove = useItemsDelete();
 
   const submit = form.onSubmit((values) => {
     if (listId === null) return;

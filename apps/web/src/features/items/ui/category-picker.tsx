@@ -19,7 +19,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { invalidateList } from '@/entities/list';
 import { CategoryRenameForm } from '@/features/items/ui/category-rename-form';
 import {
   useCategories,
@@ -96,16 +95,9 @@ function CategoryPicker({
   const { t, i18n } = useTranslation();
   const [search, setSearch] = useState('');
   const create = useCategoriesCreate({
-    mutation: {
-      onSuccess: (created) => {
-        invalidateList(listId);
-        onChange(created.id);
-      },
-    },
+    mutation: { onSuccess: (created) => onChange(created.id) },
   });
-  const remove = useCategoriesDelete({
-    mutation: { onSuccess: () => invalidateList(listId) },
-  });
+  const remove = useCategoriesDelete();
   const query = search.trim().toLocaleLowerCase(i18n.language);
   const filtered = categories?.filter((category) =>
     category.name.toLocaleLowerCase(i18n.language).includes(query)

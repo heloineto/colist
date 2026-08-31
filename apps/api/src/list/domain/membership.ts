@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import { DateTimeSchema } from '@/common/domain/date-time.schema';
 
-export const MembershipRoleSchema = z.enum(['owner', 'member']);
+export const MEMBERSHIP_ROLES = ['owner', 'member'] as const;
+export const MembershipRoleSchema = z.enum(MEMBERSHIP_ROLES);
 export type MembershipRole = z.infer<typeof MembershipRoleSchema>;
 
 export const MembershipSchema = z.strictObject({

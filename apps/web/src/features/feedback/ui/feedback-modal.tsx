@@ -128,7 +128,8 @@ function ErrorForm({ onDone }: { onDone: () => void }) {
 
 export function FeedbackModal() {
   const { t } = useTranslation();
-  const { opened, tab, setTab, close } = useFeedback();
+  const { opened, payload, open, close } = useFeedback();
+  const tab = payload ?? 'feedback';
 
   return (
     <Modal
@@ -141,7 +142,7 @@ export function FeedbackModal() {
         className="mx-4 mt-4"
         fullWidth
         value={tab}
-        onChange={(value) => setTab(value)}
+        onChange={(value) => open(value)}
         data={[
           {
             value: 'feedback',

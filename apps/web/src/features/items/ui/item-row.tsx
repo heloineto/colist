@@ -1,7 +1,6 @@
 import { Badge, Checkbox, Highlight } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
-import { invalidateList } from '@/entities/list';
 import { itemHeight } from '@/features/items/lib/group';
 import { useItemForm } from '@/features/items/model/item-form-context';
 import { AmountModal } from '@/features/items/ui/amount-modal';
@@ -18,12 +17,7 @@ export function ItemRow({
   const itemForm = useItemForm();
   const [amountOpened, amountModal] = useDisclosure(false);
   const [amount, setAmount] = useState(item.amount);
-  const update = useItemsUpdate({
-    mutation: {
-      meta: { silent: true },
-      onSettled: () => invalidateList(item.listId),
-    },
-  });
+  const update = useItemsUpdate({ mutation: { meta: { silent: true } } });
   const patch = (
     data: Partial<Pick<ItemsDtoOutputItem, 'checked' | 'amount'>>
   ) => update.mutate({ listId: item.listId, itemId: item.id, data });

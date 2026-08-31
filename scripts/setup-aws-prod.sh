@@ -292,8 +292,8 @@ secret_arn=$(terraform -chdir="$PROD" output -raw db_master_user_secret_arn)
 db_host=$(terraform -chdir="$PROD" output -raw db_address)
 db_json=$(aws secretsmanager get-secret-value --secret-id "$secret_arn" --query SecretString --output text)
 db_user=$(printf '%s' "$db_json" | jq -r .username)
-db_pass=$(printf '%s' "$db_json" | jq -r .password | jq -sRr @uri)
-DATABASE_URL="postgres://${db_user}:${db_pass}@${db_host}:5432/postgres?sslmode=require"
+db_pass=$(printf '%s' "$db_json" | jq -r '.password|@uri')
+DATABASE_URL="postgres://${db_user}:${db_pass}@${db_host}:5432/postgres?sslmode=require&sslrootcert=/app/rds-ca.pem"
 BETTER_AUTH_SECRET=$(openssl rand -base64 32)
 GOOGLE_CLIENT_ID=$(grep -E '^GOOGLE_CLIENT_ID=' apps/api/.env.development.local | cut -d= -f2- || true)
 GOOGLE_CLIENT_SECRET=$(grep -E '^GOOGLE_CLIENT_SECRET=' apps/api/.env.development.local | cut -d= -f2- || true)

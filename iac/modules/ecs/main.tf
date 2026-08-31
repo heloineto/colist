@@ -142,6 +142,12 @@ resource "aws_ecs_service" "this" {
   deployment_minimum_healthy_percent = 0
   deployment_maximum_percent         = 100
 
+  # A task that never becomes healthy rolls the service back to the previous revision.
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
+
   lifecycle {
     ignore_changes = [task_definition]
   }

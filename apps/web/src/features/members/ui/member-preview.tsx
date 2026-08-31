@@ -1,7 +1,6 @@
 import { Button } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useTranslation } from 'react-i18next';
-import { invalidateList } from '@/entities/list';
 import { UserAvatar, getColor, getInitials } from '@/entities/user';
 import { useMembershipsAdd } from '@/shared/api/generated/memberships/memberships';
 import type {
@@ -20,10 +19,7 @@ export function MemberPreview({
   const add = useMembershipsAdd({
     mutation: {
       meta: { success: t('share.added') },
-      onSuccess: () => {
-        invalidateList(list.id);
-        modals.closeAll();
-      },
+      onSuccess: () => modals.closeAll(),
     },
   });
 

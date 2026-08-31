@@ -27,19 +27,24 @@ export class LeaveListUseCase {
       return;
     }
 
-    const memberIds = members.map((member) => member.userId);
-    await this.membershipRepository.remove(actor.id, listId);
+    const isOwner = membership.role === 'owner';
+    await (isOwner
+      ? this.membershipRepository.replaceOwner(
+          actor.id,
+          successor.userId,
+          listId
+        )
+      : this.membershipRepository.remove(actor.id, listId));
     await this.activityRecorder.record({
       listId,
       actor,
       action: 'member.left',
       targetName: actor.name,
-      notify: memberIds,
+      notify: members.map((member) => member.userId),
     });
 
-    if (membership.role !== 'owner') return;
+    if (!isOwner) return;
 
-    await this.membershipRepository.promote(successor.userId, listId);
     await this.activityRecorder.record({
       listId,
       actor,

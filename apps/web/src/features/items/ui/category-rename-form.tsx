@@ -2,7 +2,6 @@ import { Button, TextInput } from '@mantine/core';
 import { isNotEmpty, useForm } from '@mantine/form';
 import { modals } from '@mantine/modals';
 import { useTranslation } from 'react-i18next';
-import { invalidateList } from '@/entities/list';
 import { useCategoriesRename } from '@/shared/api/generated/categories/categories';
 import type { CategoriesDtoOutputItem } from '@/shared/api/generated/models';
 
@@ -17,12 +16,7 @@ export function CategoryRenameForm({
     validate: { name: isNotEmpty(t('lists.form.nameRequired')) },
   });
   const rename = useCategoriesRename({
-    mutation: {
-      onSuccess: () => {
-        invalidateList(category.listId);
-        modals.closeAll();
-      },
-    },
+    mutation: { onSuccess: () => modals.closeAll() },
   });
 
   return (

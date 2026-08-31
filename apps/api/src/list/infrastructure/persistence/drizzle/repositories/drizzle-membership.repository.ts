@@ -74,20 +74,22 @@ export class DrizzleMembershipRepository implements MembershipRepository {
     return rows[0] ?? null;
   }
 
-  async remove(userId: string, listId: number): Promise<boolean> {
-    const deleted = await this.db
-      .delete(memberships)
-      .where(this.pk(userId, listId))
-      .returning({ userId: memberships.userId });
-
-    return deleted.length > 0;
+  async remove(userId: string, listId: number): Promise<void> {
+    await this.db.delete(memberships).where(this.pk(userId, listId));
   }
 
-  async promote(userId: string, listId: number): Promise<void> {
-    await this.db
-      .update(memberships)
-      .set({ role: 'owner' })
-      .where(this.pk(userId, listId));
+  async replaceOwner(
+    userId: string,
+    successorId: string,
+    listId: number
+  ): Promise<void> {
+    await this.db.transaction(async (tx) => {
+      await tx.delete(memberships).where(this.pk(userId, listId));
+      await tx
+        .update(memberships)
+        .set({ role: 'owner' })
+        .where(this.pk(successorId, listId));
+    });
   }
 
   private pk(userId: string, listId: number) {

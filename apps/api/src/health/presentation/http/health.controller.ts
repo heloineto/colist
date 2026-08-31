@@ -1,9 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthType } from '@/iam/domain/auth-type';
-import { Auth } from '@/iam/presentation/http/decorators/auth.decorator';
+import { Public } from '@/iam/presentation/http/decorators/public.decorator';
 
-@Auth(AuthType.None)
+@Public()
 @ApiTags('Health')
 @Controller('health')
 export class HealthController {

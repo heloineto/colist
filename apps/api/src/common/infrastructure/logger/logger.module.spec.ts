@@ -50,6 +50,15 @@ describe('LoggerModule (integration)', () => {
     });
   });
 
+  it('omits undefined fields', async () => {
+    const { logger, lines } = await createLogger();
+
+    logger.info({ message: 'bare' });
+
+    expect(lines[0]).not.toHaveProperty('data');
+    expect(lines[0]).not.toHaveProperty('error');
+  });
+
   it('serializes Error instance under error key', async () => {
     const { logger, lines } = await createLogger();
 

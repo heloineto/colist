@@ -9,7 +9,6 @@ import {
   UsersThreeIcon,
 } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
-import { invalidateList } from '@/entities/list';
 import { UserAvatar } from '@/entities/user';
 import { MemberPreview } from '@/features/members/ui/member-preview';
 import { ApiError } from '@/shared/api/fetcher';
@@ -88,9 +87,7 @@ function MemberRow({
   canManage: boolean;
 }) {
   const { t } = useTranslation();
-  const remove = useMembershipsRemove({
-    mutation: { onSuccess: () => invalidateList(list.id) },
-  });
+  const remove = useMembershipsRemove();
   const isOwner = member.role === 'owner';
 
   return (

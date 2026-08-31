@@ -59,6 +59,10 @@ resource "aws_s3_bucket" "uploads" {
   bucket = "${local.name_prefix}-uploads"
 
   tags = { Name = "${local.name_prefix}-uploads" }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "uploads" {
