@@ -238,8 +238,8 @@ export const es: Translation = {
     avatar: 'Foto de perfil',
     changeAvatar: 'Cambiar foto',
     removeAvatar: 'Quitar foto',
-    themeDark: 'Tema oscuro',
-    themeLight: 'Tema claro',
+    themeDark: 'Oscuro',
+    themeLight: 'Claro',
     primaryColor: 'Color principal',
     colors: {
       red: 'Rojo',

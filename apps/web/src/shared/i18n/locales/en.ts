@@ -226,8 +226,8 @@ export const en: Translation = {
     avatar: 'Profile picture',
     changeAvatar: 'Change picture',
     removeAvatar: 'Remove picture',
-    themeDark: 'Dark theme',
-    themeLight: 'Light theme',
+    themeDark: 'Dark',
+    themeLight: 'Light',
     primaryColor: 'Accent color',
     colors: {
       red: 'Red',

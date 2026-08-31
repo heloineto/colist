@@ -236,8 +236,8 @@ export const pt = {
     avatar: 'Foto de perfil',
     changeAvatar: 'Trocar foto',
     removeAvatar: 'Remover foto',
-    themeDark: 'Tema escuro',
-    themeLight: 'Tema claro',
+    themeDark: 'Escuro',
+    themeLight: 'Claro',
     primaryColor: 'Cor principal',
     colors: {
       red: 'Vermelho',

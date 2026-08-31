@@ -10,6 +10,7 @@ import {
   activities,
   getActivitiesQueryKey,
 } from '@/shared/api/generated/activities/activities';
+import { useMemberships } from '@/shared/api/generated/memberships/memberships';
 import { relativeTime } from '@/shared/lib/format';
 import { EmptyState } from '@/shared/ui/empty-state';
 
@@ -29,6 +30,10 @@ function Activities({ listId }: { listId: number }) {
       last.length < PAGE ? undefined : last.at(-1)?.id,
   });
   const rows = query.data?.pages.flat();
+  const membersQuery = useMemberships(listId);
+  const imageByUserId = new Map(
+    (membersQuery.data ?? []).map((member) => [member.userId, member.image])
+  );
 
   if (!rows) {
     return [1, 2, 3, 4, 5].map((row) => (
@@ -53,7 +58,15 @@ function Activities({ listId }: { listId: number }) {
     <div className="flex flex-col gap-1">
       {rows.map((activity) => (
         <div key={activity.id} className="flex items-center gap-3 py-2">
-          <UserAvatar name={activity.actorName} image={null} size="sm" />
+          <UserAvatar
+            name={activity.actorName}
+            image={
+              activity.actorId === null
+                ? null
+                : (imageByUserId.get(activity.actorId) ?? null)
+            }
+            size="sm"
+          />
           <div className="min-w-0">
             <p className="text-sm">
               {t(`activity.${activity.action}`, {
