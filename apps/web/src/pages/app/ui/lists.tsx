@@ -50,7 +50,7 @@ export function Lists() {
 
   return (
     <div
-      className="relative grow overflow-hidden"
+      className="relative grow"
       style={{ '--direction': direction } as React.CSSProperties}
     >
       <AnimatePresence initial={false}>
