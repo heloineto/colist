@@ -11,4 +11,10 @@ export default defineConfig([
       'fsd/insignificant-slice': 'off',
     },
   },
+  {
+    // steiger 0.7 forbids essence-based segment names; "providers" is the
+    // conventional FSD app-layer segment, keep it
+    files: ['./src/app/providers.tsx'],
+    rules: { 'fsd/segments-by-purpose': 'off' },
+  },
 ]);
