@@ -39,7 +39,7 @@
     "motion": "^13.1.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-i18next": "^16.0.0",
+    "react-i18next": "^17.0.11",
     "tailwind-preset-mantine": "^4.1.0"
   },
   "devDependencies": {
