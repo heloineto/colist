@@ -29,6 +29,8 @@ const persister = createAsyncStoragePersister({
 });
 
 const baseTheme = createTheme({
+  fontFamily: "'Geist Variable', sans-serif",
+  fontFamilyMonospace: "'Geist Mono Variable', monospace",
   defaultRadius: 'md',
   primaryShade: 8,
   components: {
