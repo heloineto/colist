@@ -70,6 +70,7 @@ export const pt = {
       PASSWORD_TOO_LONG: 'Senha muito longa',
       generic: 'Não foi possível entrar. Tente novamente.',
     },
+    rememberMe: 'Lembrar de mim',
     copyright: 'Todos os direitos reservados.',
     lightMode: 'Modo claro',
     darkMode: 'Modo escuro',

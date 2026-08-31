@@ -1,11 +1,11 @@
-import { Anchor, Button, PasswordInput, TextInput } from '@mantine/core';
+import { Button, Checkbox, PasswordInput, TextInput } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
 import { useAuthSubmit } from '@/features/auth/lib/use-auth-submit';
 import { GoogleButton } from '@/features/auth/ui/google-button';
 import { authClient } from '@/shared/api/auth-client';
 
-export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
+export function SignInForm() {
   const { t } = useTranslation();
   const { submit, loading } = useAuthSubmit();
   const form = useForm({
@@ -20,7 +20,6 @@ export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
         (values) => void submit(() => authClient.signIn.email(values))
       )}
     >
-      <h2 className="text-lg font-semibold">{t('auth.signIn.title')}</h2>
       <TextInput
         label={t('auth.fields.email')}
         placeholder={t('auth.fields.emailPlaceholder')}
@@ -34,16 +33,12 @@ export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
         autoComplete="current-password"
         {...form.getInputProps('password')}
       />
+      {/* FUTURE: wire "remember me" (visual parity with v1 for now) */}
+      <Checkbox defaultChecked label={t('auth.rememberMe')} className="mt-1" />
       <Button type="submit" fullWidth mt="md" loading={loading}>
         {t('auth.signIn.submit')}
       </Button>
       <GoogleButton />
-      <p className="mt-2 text-center text-sm">
-        {t('auth.signIn.noAccount')}{' '}
-        <Anchor component="button" type="button" size="sm" onClick={onSwitch}>
-          {t('auth.signIn.switch')}
-        </Anchor>
-      </p>
     </form>
   );
 }

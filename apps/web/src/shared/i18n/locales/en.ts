@@ -71,6 +71,7 @@ export const en: Translation = {
       PASSWORD_TOO_LONG: 'Password too long',
       generic: 'Could not sign in. Please try again.',
     },
+    rememberMe: 'Remember me',
     copyright: 'All rights reserved.',
     lightMode: 'Light mode',
     darkMode: 'Dark mode',

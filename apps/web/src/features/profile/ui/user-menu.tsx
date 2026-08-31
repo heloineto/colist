@@ -29,8 +29,9 @@ function PrimaryColorSelect() {
       variant="unstyled"
       size="md"
       allowDeselect={false}
-      className="dark:hover:bg-dark-800 px-4 hover:bg-gray-100"
+      className="dark:hover:bg-dark-800 px-4 pt-0.5 hover:bg-gray-100"
       leftSectionWidth={29}
+      leftSectionProps={{ className: 'justify-start!' }}
       leftSection={
         <span
           className="size-4.5 rounded-full"
@@ -76,10 +77,20 @@ function SignOutButton() {
       active
       variant="subtle"
       label={t('profile.signOut')}
-      className="px-4!"
-      classNames={{ root: 'bg-gray-50 dark:bg-dark-700', label: 'text-md!' }}
+      classNames={{
+        root: 'bg-gray-50 dark:bg-dark-700 data-[active]:hover:bg-gray-100 dark:data-[active]:hover:bg-dark-800 px-4!',
+        label: 'text-gray-900 dark:text-dark-50 text-md!',
+      }}
       leftSection={
-        loading ? <Loader size="1.125rem" /> : <SignOutIcon size="1.125rem" />
+        loading ? (
+          <Loader size="1.125rem" />
+        ) : (
+          <SignOutIcon
+            size="1.125rem"
+            weight="bold"
+            className="dark:text-dark-50 text-gray-600"
+          />
+        )
       }
       onClick={() => void signOut()}
     />
@@ -99,7 +110,7 @@ export function UserMenu() {
         aria-label="profile"
       >
         {me ? (
-          <UserAvatar name={me.name} image={me.image} size={40} radius="xl" />
+          <UserAvatar name={me.name} image={me.image} size={40} />
         ) : (
           <Skeleton circle h={40} w={40} />
         )}
@@ -116,7 +127,7 @@ export function UserMenu() {
         </div>
         <div className="flex flex-col pb-4">
           <ColorSchemeToggle className="rounded-none!" />
-          <LanguageSelect className="dark:hover:bg-dark-800 px-4 hover:bg-gray-100" />
+          <LanguageSelect className="dark:hover:bg-dark-800 px-4 pt-0.5 hover:bg-gray-100" />
           <PrimaryColorSelect />
           <SignOutButton />
         </div>
