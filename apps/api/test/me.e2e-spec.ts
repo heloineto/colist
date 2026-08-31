@@ -44,6 +44,18 @@ describe('GET /api/me', () => {
   });
 });
 
+describe('GET /api/auth/callback/google', () => {
+  it('receives the query string (regression: splat mount dropped it)', async () => {
+    // An unknown state must fail as a state MISMATCH, not "state_not_found" -
+    // the latter means the query string never reached better-auth.
+    const response = await request(app.getHttpServer()).get(
+      '/api/auth/callback/google?state=bogus&code=bogus'
+    );
+
+    expect(response.headers.location).not.toContain('state_not_found');
+  });
+});
+
 describe('PATCH /api/me', () => {
   it('requires auth', async () => {
     await request(app.getHttpServer())
