@@ -6,9 +6,11 @@ import { createRoot } from 'react-dom/client';
 import { Providers } from '@/app/providers';
 import { routeTree } from '@/app/route-tree.gen';
 import { installCrashCapture } from '@/shared/lib/crash-report';
+import { trackKeyboardInset } from '@/shared/lib/keyboard';
 import { CrashScreen } from '@/shared/ui/crash-screen';
 
 installCrashCapture();
+trackKeyboardInset();
 
 const router = createRouter({ routeTree, defaultErrorComponent: CrashScreen });
 
