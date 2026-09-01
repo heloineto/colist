@@ -2,3 +2,10 @@
 @import '@fontsource-variable/geist-mono';
 @import 'tailwind-preset-mantine';
 @import '@mantine/notifications/styles.layer.css';
+
+/* iOS Safari zooms the page into any focused input with font-size < 16px */
+@media (pointer: coarse) {
+  .mantine-Input-input {
+    font-size: max(1rem, var(--input-fz, 1rem));
+  }
+}

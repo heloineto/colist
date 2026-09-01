@@ -1,5 +1,6 @@
 import { useDebouncedValue } from '@mantine/hooks';
 import { type ReactNode, createContext, use, useState } from 'react';
+import { armKeyboard } from '@/shared/lib/keyboard';
 
 export type ListUiState = {
   search: string;
@@ -22,7 +23,10 @@ export function ListUiProvider({ children }: { children: ReactNode }) {
     debouncedSearch,
     searchOpened,
     setSearch,
-    openSearch: () => setSearchOpened(true),
+    openSearch: () => {
+      armKeyboard();
+      setSearchOpened(true);
+    },
     closeSearch: () => {
       setSearchOpened(false);
       setSearch('');
