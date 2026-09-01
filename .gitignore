@@ -17,4 +17,3 @@ coverage/
 **/.terraform
 **/.terraform-lint
 dev-dist
-.migration

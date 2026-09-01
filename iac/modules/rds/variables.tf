@@ -19,7 +19,7 @@ variable "app_security_group_id" {
 }
 
 variable "engine_version" {
-  description = "Postgres major version. Must be >= the source (Supabase) major for a clean dump/restore."
+  description = "Postgres major version."
   type        = string
   default     = "17"
 }
