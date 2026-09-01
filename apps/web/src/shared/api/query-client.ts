@@ -33,6 +33,8 @@ function describe(error: unknown) {
 
 export function showError(error: unknown) {
   notifications.show({
+    // one offline toast, however many requests fail (`show` ignores a live id)
+    id: error instanceof TypeError ? 'offline' : undefined,
     title: i18next.t('errors.title'),
     message: describe(error),
     color: 'red',

@@ -1,5 +1,6 @@
 import {
   Checkbox,
+  Drawer,
   HoverCard,
   MantineProvider,
   Modal,
@@ -32,6 +33,9 @@ const persister = createAsyncStoragePersister({
 // (mantine#8847, #8928); touch devices get no autofocus in modals.
 const coarsePointer = matchMedia('(pointer: coarse)').matches;
 
+// Overlays end at the iOS keyboard instead of behind it (trackKeyboardInset).
+const aboveKeyboard = { bottom: 'var(--keyboard-inset, 0px)' };
+
 const baseTheme = createTheme({
   fontFamily: "'Geist Variable', sans-serif",
   fontFamilyMonospace: "'Geist Mono Variable', monospace",
@@ -40,8 +44,9 @@ const baseTheme = createTheme({
   components: {
     Modal: Modal.extend({
       defaultProps: { centered: true, trapFocus: !coarsePointer },
-      styles: { title: { fontWeight: 700 } },
+      styles: { title: { fontWeight: 700 }, inner: aboveKeyboard },
     }),
+    Drawer: Drawer.extend({ styles: { inner: aboveKeyboard } }),
     Tooltip: Tooltip.extend({ defaultProps: { withArrow: true } }),
     HoverCard: HoverCard.extend({ defaultProps: { withArrow: true } }),
     Checkbox: Checkbox.extend({ defaultProps: { radius: '0.375rem' } }),

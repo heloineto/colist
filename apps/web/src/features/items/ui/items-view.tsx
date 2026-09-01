@@ -108,7 +108,8 @@ export function ItemsView({ listId }: { listId: number }) {
     }
   }, [items, unchecked.length, checked.length]);
 
-  if (itemsQuery.isError) {
+  // A failed refetch keeps the cached items (offline); only an empty cache is an error.
+  if (itemsQuery.isError && !items) {
     return (
       <Alert
         color="red"
