@@ -28,6 +28,10 @@ const persister = createAsyncStoragePersister({
   },
 });
 
+// Programmatic focus inside a portaled Modal freezes touch scrolling on iOS
+// (mantine#8847, #8928); touch devices get no autofocus in modals.
+const coarsePointer = matchMedia('(pointer: coarse)').matches;
+
 const baseTheme = createTheme({
   fontFamily: "'Geist Variable', sans-serif",
   fontFamilyMonospace: "'Geist Mono Variable', monospace",
@@ -35,7 +39,7 @@ const baseTheme = createTheme({
   primaryShade: 8,
   components: {
     Modal: Modal.extend({
-      defaultProps: { centered: true },
+      defaultProps: { centered: true, trapFocus: !coarsePointer },
       styles: { title: { fontWeight: 700 } },
     }),
     Tooltip: Tooltip.extend({ defaultProps: { withArrow: true } }),
