@@ -41,6 +41,15 @@ data "aws_iam_policy_document" "tf_plan" {
     ]
     resources = ["*"]
   }
+
+  # Plan refreshes the RDS master-password rotation resource, which needs
+  # DescribeSecret. Not "secretsmanager:Get*": this role runs on every pull
+  # request and must never read secret values.
+  statement {
+    sid       = "DescribeSecrets"
+    actions   = ["secretsmanager:DescribeSecret"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_role_policy" "tf_plan" {

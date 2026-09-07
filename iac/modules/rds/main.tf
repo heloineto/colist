@@ -62,3 +62,12 @@ resource "aws_db_instance" "this" {
 
   tags = { Name = var.name_prefix }
 }
+
+# The API copies the master password from SSM at task start; automatic
+# rotation would break every DB connection. To rotate: `aws rds
+# modify-db-instance --rotate-master-user-password`, re-run the SSM stage of
+# scripts/setup-aws-prod.sh, force an ECS deploy.
+resource "aws_secretsmanager_secret_rotation" "master" {
+  secret_id        = aws_db_instance.this.master_user_secret[0].secret_arn
+  rotation_enabled = false
+}
