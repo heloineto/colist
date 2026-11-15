@@ -14,6 +14,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { UserAvatar } from '@/entities/user';
+import { ConnectedApps } from '@/features/profile/ui/connected-apps';
 import { UserCard } from '@/features/profile/ui/user-card';
 import { useMe } from '@/shared/api/generated/me/me';
 import { authClient } from '@/shared/api/auth-client';
@@ -129,6 +130,7 @@ export function UserMenu() {
           <ColorSchemeToggle className="rounded-none!" />
           <LanguageSelect className="dark:hover:bg-dark-800 px-4 pt-0.5 hover:bg-gray-100" />
           <PrimaryColorSelect />
+          <ConnectedApps />
           <SignOutButton />
         </div>
       </Modal>

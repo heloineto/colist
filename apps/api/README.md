@@ -10,6 +10,8 @@ NestJS 11 + Express 5, hexagonal layout enforced by `project-structure.mjs`. Inh
 
 better-auth handles `/api/auth/*` (email+password, Google, cookie sessions in Postgres). It's mounted **before** the JSON body parser (`bodyParser: false` + `mountBetterAuth(app)` + `useBodyParser('json')`, see `main.ts`). Everything else is guarded by default; opt out with `@Auth(AuthType.None)`. List-scoped routes add `@UseGuards(MembershipGuard)` (+ `@ListRole('owner')`).
 
+better-auth is also the OAuth 2.1 authorization server for the MCP endpoint (`jwt()` + `mcp()` + `cimd()`): discovery under the root `/.well-known/oauth-*` (Caddy routes it here), CIMD clients only, one `lists` scope, 15 min JWT access tokens bound to `${BETTER_AUTH_URL}/api/mcp`. Users revoke a Connected app with `DELETE /api/connected-apps/:consentId` (consent + refresh tokens).
+
 Docs: `/api/docs` (Scalar), spec: `/api/openapi/json` (orval input). better-auth routes aren't in the spec — the web client uses `better-auth/react`.
 
 ## Env

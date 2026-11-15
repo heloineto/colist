@@ -9,6 +9,7 @@ import { UserUpdater } from '@/iam/application/ports/user-updater.port';
 import {
   BetterAuthInstance,
   createBetterAuth,
+  getMcpResource,
 } from '@/iam/infrastructure/better-auth/better-auth';
 import { BetterAuthTokenValidator } from '@/iam/infrastructure/better-auth/better-auth-token-validator';
 import { BetterAuthUserUpdater } from '@/iam/infrastructure/better-auth/better-auth-user-updater';
@@ -21,7 +22,10 @@ import { BetterAuthUserUpdater } from '@/iam/infrastructure/better-auth/better-a
       useFactory: (
         db: Drizzle,
         configService: ConfigService
-      ): BetterAuthInstance => ({ auth: createBetterAuth(db, configService) }),
+      ): BetterAuthInstance => ({
+        auth: createBetterAuth(db, configService),
+        mcpResource: getMcpResource(configService.get('BETTER_AUTH_URL')),
+      }),
     },
     { provide: TokenValidator, useClass: BetterAuthTokenValidator },
     { provide: UserUpdater, useClass: BetterAuthUserUpdater },
