@@ -257,6 +257,20 @@ export const es: Translation = {
     },
     signOut: 'Cerrar sesión',
     saved: 'Perfil actualizado',
+    connectedApps: {
+      title: 'Apps conectadas',
+      since: 'Conectada {{when}}',
+      disconnect: 'Desconectar',
+      confirmMessage: '{{name}} perderá el acceso a tus listas.',
+      disconnected: 'App desconectada',
+    },
+  },
+  oauth: {
+    title: '{{name}} quiere acceder a tu cuenta',
+    grants: 'Ver y editar tus listas',
+    redirect: 'Después volverás a {{host}}',
+    allow: 'Permitir',
+    deny: 'Denegar',
   },
   history: {
     title: 'Historial',

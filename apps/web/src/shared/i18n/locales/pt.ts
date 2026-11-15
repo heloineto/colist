@@ -255,6 +255,20 @@ export const pt = {
     },
     signOut: 'Sair da conta',
     saved: 'Perfil atualizado',
+    connectedApps: {
+      title: 'Apps conectados',
+      since: 'Conectado {{when}}',
+      disconnect: 'Desconectar',
+      confirmMessage: '{{name}} perderá o acesso às suas listas.',
+      disconnected: 'App desconectado',
+    },
+  },
+  oauth: {
+    title: '{{name}} quer acessar sua conta',
+    grants: 'Ver e editar suas listas',
+    redirect: 'Depois você volta para {{host}}',
+    allow: 'Permitir',
+    deny: 'Negar',
   },
   history: {
     title: 'Histórico',

@@ -1,6 +1,33 @@
+import { oauthProviderClient } from '@better-auth/oauth-provider/client';
 import { createAuthClient } from 'better-auth/react';
 
-export const authClient = createAuthClient({ basePath: '/api/auth' });
+/** `oauthProviderClient` forwards the signed OAuth query, so sign-in resumes an MCP authorization. */
+export const authClient = createAuthClient({
+  basePath: '/api/auth',
+  plugins: [oauthProviderClient()],
+});
+
+/** On `/auth` mid-OAuth (signed query): better-auth redirects on its own after sign-in. */
+export function isOAuthFlow() {
+  return new URLSearchParams(window.location.search).has('sig');
+}
+
+/** A Connected app's display info. `client_name` is self-asserted; its `client_id` host isn't. */
+export async function fetchOAuthClient(clientId: string) {
+  const { data, error } = await authClient.oauth2.publicClient({
+    query: { client_id: clientId },
+  });
+  if (error) throw new Error(error.message);
+  return {
+    name: data.client_name ?? hostOf(clientId),
+    host: hostOf(clientId),
+    logo: data.logo_uri ?? null,
+  };
+}
+
+export function hostOf(url: string | null) {
+  return URL.parse(url ?? '')?.host ?? '';
+}
 
 /** better-auth error codes the auth forms can surface; anything else → generic. */
 export const AUTH_ERROR_CODES = [

@@ -2,7 +2,7 @@ import { notifications } from '@mantine/notifications';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toAuthErrorCode } from '@/shared/api/auth-client';
+import { isOAuthFlow, toAuthErrorCode } from '@/shared/api/auth-client';
 
 type AuthResult = { error: { code?: string } | null };
 
@@ -16,7 +16,8 @@ export function useAuthSubmit() {
     setLoading(true);
     const { error } = await call().finally(() => setLoading(false));
     if (!error) {
-      await navigate({ to: '/app' });
+      // Mid-OAuth the server's redirect to consent / the client wins; don't race it.
+      if (!isOAuthFlow()) await navigate({ to: '/app' });
       return;
     }
     const code = toAuthErrorCode(error.code);

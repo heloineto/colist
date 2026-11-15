@@ -245,6 +245,20 @@ export const en: Translation = {
     },
     signOut: 'Sign out',
     saved: 'Profile updated',
+    connectedApps: {
+      title: 'Connected apps',
+      since: 'Connected {{when}}',
+      disconnect: 'Disconnect',
+      confirmMessage: '{{name}} will lose access to your lists.',
+      disconnected: 'App disconnected',
+    },
+  },
+  oauth: {
+    title: '{{name}} wants to access your account',
+    grants: 'View and edit your lists',
+    redirect: 'You will then return to {{host}}',
+    allow: 'Allow',
+    deny: 'Deny',
   },
   history: {
     title: 'History',
