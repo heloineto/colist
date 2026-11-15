@@ -1,5 +1,9 @@
 # Contributing
 
+## Branching
+
+Branch `<type>/<desc>` from `main`, open a PR to `main`. Merging deploys.
+
 ## Script conventions
 
 ### Naming

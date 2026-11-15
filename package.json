@@ -58,7 +58,7 @@
     }
   },
   "validate-branch-name": {
-    "pattern": "^(main|dev){1}$|^(feat|fix|hotfix|chore|docs|refactor|ci|test|style)(\\(.+\\))?/.+$|^dependabot/.+$",
+    "pattern": "^main$|^(feat|fix|hotfix|chore|docs|refactor|ci|test|style)(\\(.+\\))?/.+$|^dependabot/.+$",
     "errorMsg": "Branch name invalid. Format: <type>/<description>. Example: feat/add-new-feature"
   }
 }
