@@ -11,5 +11,9 @@ export function mountBetterAuth(app: INestApplication): void {
   // Plain prefix mount (no `*splat`): with a splat pattern Express 5 puts the
   // whole matched path in `req.baseUrl`, and better-call then rebuilds the URL
   // without the query string - which drops `?state=&code=` on OAuth callbacks.
-  app.use(AUTH_BASE_PATH, toNodeHandler(auth));
+  const handler = toNodeHandler(auth);
+  app.use(AUTH_BASE_PATH, handler);
+  // OAuth discovery lives at the origin root (RFC 8414 / RFC 9728), outside
+  // `/api`; the mcp/oauth-provider `onRequest` hooks answer it.
+  app.use('/.well-known', handler);
 }
