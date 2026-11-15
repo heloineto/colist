@@ -2,15 +2,13 @@ import {
   BadRequestException,
   type CanActivate,
   type ExecutionContext,
-  ForbiddenException,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { z } from 'zod';
 import { ActiveUserSchema } from '@/iam/domain/active-user';
 import { REQUEST_USER_KEY } from '@/iam/presentation/http/iam.constants';
-import { MembershipRepository } from '@/list/application/ports/membership.repository';
+import { AuthorizeMembershipUseCase } from '@/list/application/use-cases/authorize-membership.use-case';
 import type { MembershipRole } from '@/list/domain/membership';
 import { LIST_ROLE_KEY } from '@/list/presentation/http/decorators/list-role.decorator';
 import {
@@ -20,15 +18,12 @@ import {
 
 const ListIdParamSchema = z.coerce.number().int().positive();
 
-/**
- * Resolves `:listId` against the active user's Memberships.
- * Non-members get 404 (a list they can't see doesn't exist); wrong role gets 403.
- */
+/** Resolves `:listId` via `AuthorizeMembershipUseCase` (404 non-members, 403 wrong role). */
 @Injectable()
 export class MembershipGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly membershipRepository: MembershipRepository
+    private readonly authorizeMembership: AuthorizeMembershipUseCase
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -38,22 +33,15 @@ export class MembershipGuard implements CanActivate {
 
     if (!listId.success) throw new BadRequestException('Invalid listId');
 
-    const membership = await this.membershipRepository.findOne(
-      user.id,
-      listId.data
-    );
-
-    if (membership === null) throw new NotFoundException('List not found');
-
     const requiredRole = this.reflector.getAllAndOverride<
       MembershipRole | undefined
     >(LIST_ROLE_KEY, [context.getHandler(), context.getClass()]);
 
-    if (requiredRole !== undefined && membership.role !== requiredRole) {
-      throw new ForbiddenException(`Only the ${requiredRole} can do this`);
-    }
-
-    request[REQUEST_MEMBERSHIP_KEY] = membership;
+    request[REQUEST_MEMBERSHIP_KEY] = await this.authorizeMembership.execute(
+      user.id,
+      listId.data,
+      requiredRole
+    );
     return true;
   }
 }

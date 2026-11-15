@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AddMembershipUseCase } from '@/list/application/use-cases/add-membership.use-case';
+import { AuthorizeMembershipUseCase } from '@/list/application/use-cases/authorize-membership.use-case';
 import { CreateListUseCase } from '@/list/application/use-cases/create-list.use-case';
 import { DeleteListUseCase } from '@/list/application/use-cases/delete-list.use-case';
 import { FindListUseCase } from '@/list/application/use-cases/find-list.use-case';
@@ -12,10 +13,13 @@ import { ListInfrastructureModule } from '@/list/infrastructure/list-infrastruct
 import { ListsController } from '@/list/presentation/http/lists.controller';
 import { MembershipsController } from '@/list/presentation/http/memberships.controller';
 
+// Global: exports are used by other contexts (MembershipGuard, MCP).
+@Global()
 @Module({
   imports: [ListInfrastructureModule],
   controllers: [ListsController, MembershipsController],
   providers: [
+    AuthorizeMembershipUseCase,
     FindListsUseCase,
     FindListUseCase,
     CreateListUseCase,
@@ -25,6 +29,13 @@ import { MembershipsController } from '@/list/presentation/http/memberships.cont
     FindMembershipsUseCase,
     AddMembershipUseCase,
     RemoveMembershipUseCase,
+  ],
+  exports: [
+    AuthorizeMembershipUseCase,
+    FindListsUseCase,
+    FindListUseCase,
+    CreateListUseCase,
+    RenameListUseCase,
   ],
 })
 export class ListModule {}
