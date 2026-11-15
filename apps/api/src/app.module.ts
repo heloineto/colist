@@ -12,6 +12,7 @@ import { HealthModule } from '@/health/health.module';
 import { IamModule } from '@/iam/iam.module';
 import { ItemModule } from '@/item/item.module';
 import { ListModule } from '@/list/list.module';
+import { McpModule } from '@/mcp/mcp.module';
 import { RealtimeModule } from '@/realtime/realtime.module';
 import { ReportModule } from '@/report/report.module';
 import { UploadModule } from '@/upload/upload.module';
@@ -33,6 +34,7 @@ export const THROTTLE = { limit: 10, ttl: 60_000 };
     RealtimeModule,
     ReportModule,
     UploadModule,
+    McpModule,
   ],
   providers: [
     { provide: APP_PIPE, useClass: ZodValidationPipe },

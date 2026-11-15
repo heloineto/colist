@@ -24,6 +24,8 @@
     "@aws-sdk/s3-request-presigner": "^3.1121.0",
     "@better-auth/cimd": "^1.7.25",
     "@better-auth/mcp": "^1.7.25",
+    "@modelcontextprotocol/node": "^2.1.2",
+    "@modelcontextprotocol/server": "^2.4.0",
     "@nestjs/common": "^11.1.26",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.1.26",
@@ -47,6 +49,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@faker-js/faker": "^10.6.0",
+    "@modelcontextprotocol/client": "^2.4.0",
     "@nestjs/cli": "^11.0.23",
     "@nestjs/schematics": "^11.0.10",
     "@nestjs/testing": "^11.1.26",

@@ -4,13 +4,15 @@ NestJS 11 + Express 5, hexagonal layout enforced by `project-structure.mjs`. Inh
 
 ## Contexts
 
-`iam` (better-auth mount, guards, `/me`, `/users/lookup`) · `list` (lists, memberships, `MembershipGuard`) · `category` · `item` · `activity` (history + `ActivityRecorder` → `list.changed` events) · `realtime` (`GET /events` SSE) · `report` (`/errors` public+throttled, `/feedbacks`) · `upload` (S3 presigned PUT).
+`iam` (better-auth mount, guards, `/me`, `/users/lookup`) · `list` (lists, memberships, `MembershipGuard`) · `category` · `item` · `activity` (history + `ActivityRecorder` → `list.changed` events) · `realtime` (`GET /events` SSE) · `report` (`/errors` public+throttled, `/feedbacks`) · `upload` (S3 presigned PUT) · `mcp` (presentation-only: `/api/mcp`, MCP tools over the other contexts' use-cases).
 
 ## Auth
 
 better-auth handles `/api/auth/*` (email+password, Google, cookie sessions in Postgres). It's mounted **before** the JSON body parser (`bodyParser: false` + `mountBetterAuth(app)` + `useBodyParser('json')`, see `main.ts`). Everything else is guarded by default; opt out with `@Auth(AuthType.None)`. List-scoped routes add `@UseGuards(MembershipGuard)` (+ `@ListRole('owner')`).
 
 better-auth is also the OAuth 2.1 authorization server for the MCP endpoint (`jwt()` + `mcp()` + `cimd()`): discovery under the root `/.well-known/oauth-*` (Caddy routes it here), CIMD clients only, one `lists` scope, 15 min JWT access tokens bound to `${BETTER_AUTH_URL}/api/mcp`. Users revoke a Connected app with `DELETE /api/connected-apps/:consentId` (consent + refresh tokens).
+
+`/api/mcp` (`@Public()`) checks the bearer via the `McpAuthenticator` port (`requireMcpAuth`: 401 + `WWW-Authenticate: Bearer resource_metadata=...`), then serves 8 tools with MCP SDK v2 `createMcpHandler` (stateless, default legacy mode so 2025-era clients work too). Tools call the same use-cases as HTTP, so Activities and SSE come for free; list-scoped tools run `AuthorizeMembershipUseCase` first.
 
 Docs: `/api/docs` (Scalar), spec: `/api/openapi/json` (orval input). better-auth routes aren't in the spec — the web client uses `better-auth/react`.
 

@@ -13,7 +13,7 @@ import { ListInfrastructureModule } from '@/list/infrastructure/list-infrastruct
 import { ListsController } from '@/list/presentation/http/lists.controller';
 import { MembershipsController } from '@/list/presentation/http/memberships.controller';
 
-// Global: exports are used by other contexts (MembershipGuard).
+// Global: exports are used by other contexts (MembershipGuard, MCP).
 @Global()
 @Module({
   imports: [ListInfrastructureModule],
@@ -30,6 +30,12 @@ import { MembershipsController } from '@/list/presentation/http/memberships.cont
     AddMembershipUseCase,
     RemoveMembershipUseCase,
   ],
-  exports: [AuthorizeMembershipUseCase],
+  exports: [
+    AuthorizeMembershipUseCase,
+    FindListsUseCase,
+    FindListUseCase,
+    CreateListUseCase,
+    RenameListUseCase,
+  ],
 })
 export class ListModule {}
