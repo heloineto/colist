@@ -2,6 +2,11 @@ colist.heloineto.com {
 	handle /api/* {
 		reverse_proxy localhost:5100
 	}
+	# OAuth discovery for the MCP server (RFC 8414 / RFC 9728), served by the API
+	@oauth_discovery path /.well-known/oauth-* /.well-known/openid-configuration*
+	handle @oauth_discovery {
+		reverse_proxy localhost:5100
+	}
 	handle {
 		root * /srv
 		try_files {path} /index.html

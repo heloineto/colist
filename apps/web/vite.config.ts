@@ -17,7 +17,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       // Never serve index.html for API navigations (Google OAuth redirect).
-      workbox: { navigateFallbackDenylist: [/^\/api\//] },
+      workbox: { navigateFallbackDenylist: [/^\/api\//, /^\/\.well-known\//] },
       includeAssets: [
         'favicon.ico',
         'apple-touch-icon.png',
@@ -47,5 +47,10 @@ export default defineConfig({
     }),
   ],
   resolve: { tsconfigPaths: true },
-  server: { proxy: { '/api': 'http://localhost:5100' } },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:5100',
+      '/.well-known': 'http://localhost:5100',
+    },
+  },
 });
