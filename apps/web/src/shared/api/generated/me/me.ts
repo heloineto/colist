@@ -93,6 +93,7 @@ export const getMeQueryOptions = <
 export type MeQueryResult = NonNullable<Awaited<ReturnType<typeof me>>>;
 export type MeQueryError = ErrorType<unknown>;
 
+/** @summary Current user */
 export function useMe<
   TData = Awaited<ReturnType<typeof me>>,
   TError = ErrorType<unknown>,
@@ -115,6 +116,7 @@ export function useMe<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary Current user */
 export function useMe<
   TData = Awaited<ReturnType<typeof me>>,
   TError = ErrorType<unknown>,
@@ -137,6 +139,7 @@ export function useMe<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary Current user */
 export function useMe<
   TData = Awaited<ReturnType<typeof me>>,
   TError = ErrorType<unknown>,
@@ -151,10 +154,7 @@ export function useMe<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-/**
- * @summary Current user
- */
-
+/** @summary Current user */
 export function useMe<
   TData = Awaited<ReturnType<typeof me>>,
   TError = ErrorType<unknown>,
@@ -180,7 +180,7 @@ export function useMe<
 }
 
 /**
- * @summary Current user
+ * @summary Invalidates the {@link useMe} query
  */
 export const invalidateMe = async (
   queryClient: QueryClient,
@@ -207,8 +207,21 @@ export const meUpdate = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<MeDtoOutput>(getMeUpdateUrl(), {
     ...options,
@@ -268,9 +281,7 @@ export type MeUpdateMutationBody = BodyType<UpdateMeDto>;
 export type MeUpdateMutationError = ErrorType<unknown>;
 export type MeUpdateMutationVariables = { data: BodyType<UpdateMeDto> };
 
-/**
- * @summary Update name or avatar
- */
+/** @summary Update name or avatar */
 export const useMeUpdate = <TError = ErrorType<unknown>, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<

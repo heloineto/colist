@@ -37,8 +37,21 @@ export const errorsCreate = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<void>(getErrorsCreateUrl(), {
     ...options,
@@ -101,6 +114,7 @@ export type ErrorsCreateMutationVariables = {
 };
 
 /**
+ * Public (pre-login crashes matter), rate-limited per IP (10/min). Attributed to the session when a cookie is present.
  * @summary Report an error
  */
 export const useErrorsCreate = <TError = ErrorType<void>, TContext = unknown>(
@@ -138,8 +152,21 @@ export const feedbacksCreate = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<void>(getFeedbacksCreateUrl(), {
     ...options,
@@ -201,9 +228,7 @@ export type FeedbacksCreateMutationVariables = {
   data: BodyType<CreateFeedbackDto>;
 };
 
-/**
- * @summary Send feedback
- */
+/** @summary Send feedback */
 export const useFeedbacksCreate = <
   TError = ErrorType<unknown>,
   TContext = unknown,

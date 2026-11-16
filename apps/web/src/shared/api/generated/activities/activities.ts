@@ -124,6 +124,10 @@ export type ActivitiesQueryResult = NonNullable<
 >;
 export type ActivitiesQueryError = ErrorType<unknown>;
 
+/**
+ * Newest first; pass `before=<id>` to page.
+ * @summary List history
+ */
 export function useActivities<
   TData = Awaited<ReturnType<typeof activities>>,
   TError = ErrorType<unknown>,
@@ -148,6 +152,10 @@ export function useActivities<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Newest first; pass `before=<id>` to page.
+ * @summary List history
+ */
 export function useActivities<
   TData = Awaited<ReturnType<typeof activities>>,
   TError = ErrorType<unknown>,
@@ -172,6 +180,10 @@ export function useActivities<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Newest first; pass `before=<id>` to page.
+ * @summary List history
+ */
 export function useActivities<
   TData = Awaited<ReturnType<typeof activities>>,
   TError = ErrorType<unknown>,
@@ -189,9 +201,9 @@ export function useActivities<
   queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
+ * Newest first; pass `before=<id>` to page.
  * @summary List history
  */
-
 export function useActivities<
   TData = Awaited<ReturnType<typeof activities>>,
   TError = ErrorType<unknown>,
@@ -219,7 +231,7 @@ export function useActivities<
 }
 
 /**
- * @summary List history
+ * @summary Invalidates the {@link useActivities} query
  */
 export const invalidateActivities = async (
   queryClient: QueryClient,
