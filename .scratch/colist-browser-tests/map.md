@@ -25,7 +25,8 @@ Every decision locked, ready to hand to `/implement`, for browser tests in `apps
 
 **Map complete 2026-11-15.** User approved every decision ([decisions page](decisions.html)).
 
-**Implementation (started 2026-11-15):** stacked draft PRs by subagents: `chore/vitest-5` -> `test/web-e2e-harness` -> `test/web-e2e-flows`.
+**Implementation (started 2026-11-15):** stacked draft PRs by subagents: [`chore/vitest-5` #48](https://github.com/heloineto/colist/pull/48) -> [`test/web-e2e-harness` #49](https://github.com/heloineto/colist/pull/49) -> [`test/web-e2e-flows` #51](https://github.com/heloineto/colist/pull/51).
+PR 2 deviations: no `globalTeardown` (`start:e2e` recreates Postgres, `stop:e2e` tears it down); outputDir `reports/test-results/`; root `test:e2e` runs with `--concurrency=1` (Docker network creation broke Chrome page loads in parallel).
 
 ## Not yet specified
 
