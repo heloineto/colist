@@ -85,6 +85,7 @@ export type ConnectedAppsDisconnectMutationError = ErrorType<unknown>;
 export type ConnectedAppsDisconnectMutationVariables = { consentId: string };
 
 /**
+ * Deletes the consent and its refresh tokens. Issued access tokens expire within 15 min.
  * @summary Disconnect an app
  */
 export const useConnectedAppsDisconnect = <

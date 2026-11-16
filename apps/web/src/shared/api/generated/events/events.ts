@@ -90,6 +90,10 @@ export const getEventsQueryOptions = <
 export type EventsQueryResult = NonNullable<Awaited<ReturnType<typeof events>>>;
 export type EventsQueryError = ErrorType<unknown>;
 
+/**
+ * Emits `list.changed` with `{ listId }` for every list the user belongs to; clients refetch. Stateless — re-fetch everything on (re)connect.
+ * @summary Per-user change stream (SSE)
+ */
 export function useEvents<
   TData = Awaited<ReturnType<typeof events>>,
   TError = ErrorType<unknown>,
@@ -112,6 +116,10 @@ export function useEvents<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Emits `list.changed` with `{ listId }` for every list the user belongs to; clients refetch. Stateless — re-fetch everything on (re)connect.
+ * @summary Per-user change stream (SSE)
+ */
 export function useEvents<
   TData = Awaited<ReturnType<typeof events>>,
   TError = ErrorType<unknown>,
@@ -134,6 +142,10 @@ export function useEvents<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Emits `list.changed` with `{ listId }` for every list the user belongs to; clients refetch. Stateless — re-fetch everything on (re)connect.
+ * @summary Per-user change stream (SSE)
+ */
 export function useEvents<
   TData = Awaited<ReturnType<typeof events>>,
   TError = ErrorType<unknown>,
@@ -149,9 +161,9 @@ export function useEvents<
   queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
+ * Emits `list.changed` with `{ listId }` for every list the user belongs to; clients refetch. Stateless — re-fetch everything on (re)connect.
  * @summary Per-user change stream (SSE)
  */
-
 export function useEvents<
   TData = Awaited<ReturnType<typeof events>>,
   TError = ErrorType<unknown>,
@@ -177,7 +189,7 @@ export function useEvents<
 }
 
 /**
- * @summary Per-user change stream (SSE)
+ * @summary Invalidates the {@link useEvents} query
  */
 export const invalidateEvents = async (
   queryClient: QueryClient,

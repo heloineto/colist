@@ -123,6 +123,10 @@ export const getItemsQueryOptions = <
 export type ItemsQueryResult = NonNullable<Awaited<ReturnType<typeof items>>>;
 export type ItemsQueryError = ErrorType<unknown>;
 
+/**
+ * Accent-insensitive `search`; `sort` by name (ICU pt-BR) or updatedAt. Group by `categoryId` client-side.
+ * @summary Items of a list
+ */
 export function useItems<
   TData = Awaited<ReturnType<typeof items>>,
   TError = ErrorType<unknown>,
@@ -147,6 +151,10 @@ export function useItems<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Accent-insensitive `search`; `sort` by name (ICU pt-BR) or updatedAt. Group by `categoryId` client-side.
+ * @summary Items of a list
+ */
 export function useItems<
   TData = Awaited<ReturnType<typeof items>>,
   TError = ErrorType<unknown>,
@@ -171,6 +179,10 @@ export function useItems<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Accent-insensitive `search`; `sort` by name (ICU pt-BR) or updatedAt. Group by `categoryId` client-side.
+ * @summary Items of a list
+ */
 export function useItems<
   TData = Awaited<ReturnType<typeof items>>,
   TError = ErrorType<unknown>,
@@ -188,9 +200,9 @@ export function useItems<
   queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
+ * Accent-insensitive `search`; `sort` by name (ICU pt-BR) or updatedAt. Group by `categoryId` client-side.
  * @summary Items of a list
  */
-
 export function useItems<
   TData = Awaited<ReturnType<typeof items>>,
   TError = ErrorType<unknown>,
@@ -218,7 +230,7 @@ export function useItems<
 }
 
 /**
- * @summary Items of a list
+ * @summary Invalidates the {@link useItems} query
  */
 export const invalidateItems = async (
   queryClient: QueryClient,
@@ -252,8 +264,21 @@ export const itemsCreate = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<ItemDto | ItemDtoOutput>(getItemsCreateUrl(listId), {
     ...options,
@@ -317,6 +342,7 @@ export type ItemsCreateMutationVariables = {
 };
 
 /**
+ * Send a `clientId` (uuid) to make retries idempotent: a repeat returns the existing item with 200.
  * @summary Add an item
  */
 export const useItemsCreate = <TError = ErrorType<unknown>, TContext = unknown>(
@@ -357,8 +383,21 @@ export const itemsUpdate = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<ItemDtoOutput>(getItemsUpdateUrl(listId, itemId), {
     ...options,
@@ -423,6 +462,7 @@ export type ItemsUpdateMutationVariables = {
 };
 
 /**
+ * Checking bumps `updatedAt`. 404 when the item is gone — drop the queued op.
  * @summary Edit or check an item
  */
 export const useItemsUpdate = <TError = ErrorType<unknown>, TContext = unknown>(
@@ -511,6 +551,7 @@ export type ItemsDeleteMutationError = ErrorType<unknown>;
 export type ItemsDeleteMutationVariables = { listId: number; itemId: number };
 
 /**
+ * Already-deleted → 204.
  * @summary Delete an item
  */
 export const useItemsDelete = <TError = ErrorType<unknown>, TContext = unknown>(

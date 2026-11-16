@@ -89,6 +89,7 @@ export const getHealthQueryOptions = <
 export type HealthQueryResult = NonNullable<Awaited<ReturnType<typeof health>>>;
 export type HealthQueryError = ErrorType<unknown>;
 
+/** @summary Health check */
 export function useHealth<
   TData = Awaited<ReturnType<typeof health>>,
   TError = ErrorType<unknown>,
@@ -111,6 +112,7 @@ export function useHealth<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary Health check */
 export function useHealth<
   TData = Awaited<ReturnType<typeof health>>,
   TError = ErrorType<unknown>,
@@ -133,6 +135,7 @@ export function useHealth<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary Health check */
 export function useHealth<
   TData = Awaited<ReturnType<typeof health>>,
   TError = ErrorType<unknown>,
@@ -147,10 +150,7 @@ export function useHealth<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-/**
- * @summary Health check
- */
-
+/** @summary Health check */
 export function useHealth<
   TData = Awaited<ReturnType<typeof health>>,
   TError = ErrorType<unknown>,
@@ -176,7 +176,7 @@ export function useHealth<
 }
 
 /**
- * @summary Health check
+ * @summary Invalidates the {@link useHealth} query
  */
 export const invalidateHealth = async (
   queryClient: QueryClient,
