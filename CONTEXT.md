@@ -31,6 +31,10 @@ The single Member whose Membership role is `owner`. Only the Owner deletes the L
 An append-only record of a mutation on a List (who did what to what), denormalized so it outlives the thing it describes. Timestamped when the server records it, not when the user acted (offline actions date from sync). Rendered into a sentence by the client, per locale.
 _Avoid_: history entry, event
 
+**Connected app**:
+An outside client (e.g. Claude, via MCP) a User authorized through OAuth to read and edit their Lists as them. Its changes are the User's own: Activities name the User, not the app. Revoked from the profile page.
+_Avoid_: integration, connector (that is Claude's word for it)
+
 **Feedback**:
 A message a User sends the maintainer, with optional 1–5 rating and file attachments.
 
