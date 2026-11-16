@@ -17,3 +17,5 @@ coverage/
 **/.terraform
 **/.terraform-lint
 dev-dist
+# v1 -> v2 data migration dump (user data)
+/.migration/
