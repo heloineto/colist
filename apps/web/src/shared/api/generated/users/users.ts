@@ -110,6 +110,10 @@ export type UsersLookupQueryResult = NonNullable<
 >;
 export type UsersLookupQueryError = ErrorType<unknown>;
 
+/**
+ * Preview shown before adding someone to a list.
+ * @summary Find a user by email
+ */
 export function useUsersLookup<
   TData = Awaited<ReturnType<typeof usersLookup>>,
   TError = ErrorType<unknown>,
@@ -133,6 +137,10 @@ export function useUsersLookup<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Preview shown before adding someone to a list.
+ * @summary Find a user by email
+ */
 export function useUsersLookup<
   TData = Awaited<ReturnType<typeof usersLookup>>,
   TError = ErrorType<unknown>,
@@ -156,6 +164,10 @@ export function useUsersLookup<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/**
+ * Preview shown before adding someone to a list.
+ * @summary Find a user by email
+ */
 export function useUsersLookup<
   TData = Awaited<ReturnType<typeof usersLookup>>,
   TError = ErrorType<unknown>,
@@ -172,9 +184,9 @@ export function useUsersLookup<
   queryKey: DataTag<QueryKey, TData, TError>;
 };
 /**
+ * Preview shown before adding someone to a list.
  * @summary Find a user by email
  */
-
 export function useUsersLookup<
   TData = Awaited<ReturnType<typeof usersLookup>>,
   TError = ErrorType<unknown>,
@@ -201,7 +213,7 @@ export function useUsersLookup<
 }
 
 /**
- * @summary Find a user by email
+ * @summary Invalidates the {@link useUsersLookup} query
  */
 export const invalidateUsersLookup = async (
   queryClient: QueryClient,

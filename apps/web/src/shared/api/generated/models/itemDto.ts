@@ -26,6 +26,7 @@ export interface ItemDto {
    */
   amount: number;
   checked: boolean;
+  /** @nullable */
   details: string | null;
   createdAt: string;
   updatedAt: string;

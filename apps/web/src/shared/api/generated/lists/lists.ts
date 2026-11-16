@@ -94,6 +94,7 @@ export const getListsQueryOptions = <
 export type ListsQueryResult = NonNullable<Awaited<ReturnType<typeof lists>>>;
 export type ListsQueryError = ErrorType<unknown>;
 
+/** @summary My lists */
 export function useLists<
   TData = Awaited<ReturnType<typeof lists>>,
   TError = ErrorType<unknown>,
@@ -116,6 +117,7 @@ export function useLists<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary My lists */
 export function useLists<
   TData = Awaited<ReturnType<typeof lists>>,
   TError = ErrorType<unknown>,
@@ -138,6 +140,7 @@ export function useLists<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary My lists */
 export function useLists<
   TData = Awaited<ReturnType<typeof lists>>,
   TError = ErrorType<unknown>,
@@ -152,10 +155,7 @@ export function useLists<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-/**
- * @summary My lists
- */
-
+/** @summary My lists */
 export function useLists<
   TData = Awaited<ReturnType<typeof lists>>,
   TError = ErrorType<unknown>,
@@ -181,7 +181,7 @@ export function useLists<
 }
 
 /**
- * @summary My lists
+ * @summary Invalidates the {@link useLists} query
  */
 export const invalidateLists = async (
   queryClient: QueryClient,
@@ -211,8 +211,21 @@ export const listsCreate = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<ListDtoOutput>(getListsCreateUrl(), {
     ...options,
@@ -272,9 +285,7 @@ export type ListsCreateMutationBody = BodyType<CreateListDto>;
 export type ListsCreateMutationError = ErrorType<unknown>;
 export type ListsCreateMutationVariables = { data: BodyType<CreateListDto> };
 
-/**
- * @summary Create a list
- */
+/** @summary Create a list */
 export const useListsCreate = <TError = ErrorType<unknown>, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<
@@ -352,6 +363,7 @@ export type ListsFindOneQueryResult = NonNullable<
 >;
 export type ListsFindOneQueryError = ErrorType<unknown>;
 
+/** @summary One list */
 export function useListsFindOne<
   TData = Awaited<ReturnType<typeof listsFindOne>>,
   TError = ErrorType<unknown>,
@@ -375,6 +387,7 @@ export function useListsFindOne<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary One list */
 export function useListsFindOne<
   TData = Awaited<ReturnType<typeof listsFindOne>>,
   TError = ErrorType<unknown>,
@@ -398,6 +411,7 @@ export function useListsFindOne<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary One list */
 export function useListsFindOne<
   TData = Awaited<ReturnType<typeof listsFindOne>>,
   TError = ErrorType<unknown>,
@@ -413,10 +427,7 @@ export function useListsFindOne<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-/**
- * @summary One list
- */
-
+/** @summary One list */
 export function useListsFindOne<
   TData = Awaited<ReturnType<typeof listsFindOne>>,
   TError = ErrorType<unknown>,
@@ -443,7 +454,7 @@ export function useListsFindOne<
 }
 
 /**
- * @summary One list
+ * @summary Invalidates the {@link useListsFindOne} query
  */
 export const invalidateListsFindOne = async (
   queryClient: QueryClient,
@@ -475,8 +486,21 @@ export const listsRename = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<ListDtoOutput>(getListsRenameUrl(listId), {
     ...options,
@@ -539,9 +563,7 @@ export type ListsRenameMutationVariables = {
   data: BodyType<CreateListDto>;
 };
 
-/**
- * @summary Rename a list
- */
+/** @summary Rename a list */
 export const useListsRename = <TError = ErrorType<unknown>, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<
@@ -625,9 +647,7 @@ export type ListsDeleteMutationResult = NonNullable<
 export type ListsDeleteMutationError = ErrorType<unknown>;
 export type ListsDeleteMutationVariables = { listId: number };
 
-/**
- * @summary Delete a list (owner)
- */
+/** @summary Delete a list (owner) */
 export const useListsDelete = <TError = ErrorType<unknown>, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<
@@ -713,6 +733,7 @@ export type ListsLeaveMutationError = ErrorType<unknown>;
 export type ListsLeaveMutationVariables = { listId: number };
 
 /**
+ * An owner leaving promotes the longest-standing member; the last member leaving deletes the list.
  * @summary Leave a list
  */
 export const useListsLeave = <TError = ErrorType<unknown>, TContext = unknown>(

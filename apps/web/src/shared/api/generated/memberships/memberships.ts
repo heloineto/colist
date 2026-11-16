@@ -109,6 +109,7 @@ export type MembershipsQueryResult = NonNullable<
 >;
 export type MembershipsQueryError = ErrorType<unknown>;
 
+/** @summary Members of a list */
 export function useMemberships<
   TData = Awaited<ReturnType<typeof memberships>>,
   TError = ErrorType<unknown>,
@@ -132,6 +133,7 @@ export function useMemberships<
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary Members of a list */
 export function useMemberships<
   TData = Awaited<ReturnType<typeof memberships>>,
   TError = ErrorType<unknown>,
@@ -155,6 +157,7 @@ export function useMemberships<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
+/** @summary Members of a list */
 export function useMemberships<
   TData = Awaited<ReturnType<typeof memberships>>,
   TError = ErrorType<unknown>,
@@ -170,10 +173,7 @@ export function useMemberships<
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
-/**
- * @summary Members of a list
- */
-
+/** @summary Members of a list */
 export function useMemberships<
   TData = Awaited<ReturnType<typeof memberships>>,
   TError = ErrorType<unknown>,
@@ -200,7 +200,7 @@ export function useMemberships<
 }
 
 /**
- * @summary Members of a list
+ * @summary Invalidates the {@link useMemberships} query
  */
 export const invalidateMemberships = async (
   queryClient: QueryClient,
@@ -232,8 +232,21 @@ export const membershipsAdd = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<MemberDtoOutput>(getMembershipsAddUrl(listId), {
     ...options,
@@ -296,9 +309,7 @@ export type MembershipsAddMutationVariables = {
   data: BodyType<AddMembershipDto>;
 };
 
-/**
- * @summary Add a member by user id (owner)
- */
+/** @summary Add a member by user id (owner) */
 export const useMembershipsAdd = <
   TError = ErrorType<unknown>,
   TContext = unknown,
@@ -390,9 +401,7 @@ export type MembershipsRemoveMutationVariables = {
   userId: string;
 };
 
-/**
- * @summary Remove a member (owner)
- */
+/** @summary Remove a member (owner) */
 export const useMembershipsRemove = <
   TError = ErrorType<unknown>,
   TContext = unknown,

@@ -37,8 +37,21 @@ export const uploadsPresign = async (
   ): Record<string, string | readonly string[]> => {
     if (!h) return {};
     if (h instanceof Headers) return Object.fromEntries(h.entries());
-    if (Array.isArray(h)) return Object.fromEntries(h);
-    return h;
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(
+          h as Iterable<Iterable<string>>,
+          (entry) => Array.from(entry) as [string, string]
+        )
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<
+      string | readonly string[] | undefined
+    >(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
   };
   return fetcher<PresignedUploadDtoOutput>(getUploadsPresignUrl(), {
     ...options,
@@ -101,6 +114,7 @@ export type UploadsPresignMutationVariables = {
 };
 
 /**
+ * Avatars are public-read under `avatars/`; attachments are private.
  * @summary Presign an S3 PUT
  */
 export const useUploadsPresign = <
