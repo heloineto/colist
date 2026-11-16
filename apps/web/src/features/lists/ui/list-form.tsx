@@ -5,9 +5,11 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useListForm } from '@/features/lists/model/list-form-context';
 import {
+  invalidateLists,
   useListsCreate,
   useListsRename,
 } from '@/shared/api/generated/lists/lists';
+import { queryClient } from '@/shared/api/query-client';
 import { useSelectedListId } from '@/shared/lib/preferences';
 import { confirmDiscard } from '@/shared/ui/confirm';
 
@@ -28,7 +30,9 @@ export function ListForm() {
   const create = useListsCreate({
     mutation: {
       meta: { success: t('lists.created') },
-      onSuccess: (created) => {
+      onSuccess: async (created) => {
+        // Else useSelectedList drops the id, absent from the stale lists, and selects the first list.
+        await invalidateLists(queryClient);
         setListId(created.id);
         close();
       },
