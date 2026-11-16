@@ -1,6 +1,7 @@
 import path from 'node:path';
 import {
   type APIRequest,
+  type Locator,
   type Page,
   test as base,
   expect,
@@ -39,8 +40,35 @@ export async function signUp(
   }
 }
 
+/** Unique per test, so tests sharing a worker's account never see each other's lists. */
+export function uniqueName(prefix: string) {
+  return `${prefix} ${Date.now().toString(36)}`;
+}
+
+export async function createList(page: Page, name: string) {
+  await page.getByRole('tab', { name: 'Nova lista', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: 'Nova lista' });
+  await dialog.getByLabel('Nome').fill(name);
+  await dialog.getByRole('button', { name: 'Criar' }).click();
+  await expect(page.getByRole('tab', { name })).toHaveAttribute(
+    'aria-selected',
+    'true'
+  );
+}
+
+export async function addItem(page: Page, toolbar: Locator, name: string) {
+  await toolbar.getByRole('button', { name: 'Adicionar item' }).click();
+  const input = page.getByPlaceholder('Novo item');
+  await input.fill(name);
+  await input.press('Enter');
+  await expect(page.getByRole('checkbox', { name })).toBeVisible();
+}
+
 type WorkerFixtures = { account: Account & { storagePath: string } };
-type TestFixtures = { secondUser: Account & { page: Page } };
+type TestFixtures = {
+  secondUser: Account & { page: Page };
+  toolbar: Locator;
+};
 
 export const test = base.extend<TestFixtures, WorkerFixtures>({
   // One account per worker: tests write server state, so they must not share one.
@@ -59,6 +87,10 @@ export const test = base.extend<TestFixtures, WorkerFixtures>({
   ],
   storageState: async ({ account }, use) => {
     await use(account.storagePath);
+  },
+  // Toolbar actions live in the navbar on desktop and in the footer on mobile.
+  toolbar: async ({ page, isMobile }, use) => {
+    await use(page.getByRole(isMobile ? 'contentinfo' : 'navigation').first());
   },
   // A second signed-in browser, for sharing and realtime flows.
   secondUser: async ({ playwright, browser }, use, testInfo) => {

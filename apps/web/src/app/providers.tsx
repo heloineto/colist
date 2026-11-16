@@ -80,7 +80,8 @@ export function Providers({ children }: { children: ReactNode }) {
           <Notifications position={isDesktop ? undefined : 'bottom-center'} />
           {children}
         </ModalsProvider>
-        <ReactQueryDevtools />
+        {/* Its floating button covers the mobile footer in e2e runs. */}
+        {!navigator.webdriver && <ReactQueryDevtools />}
       </PersistQueryClientProvider>
     </MantineProvider>
   );

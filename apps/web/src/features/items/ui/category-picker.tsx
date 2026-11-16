@@ -42,20 +42,20 @@ export function CategoryButton({ listId, value, onChange }: Props) {
   const categoriesQuery = useCategories(listId);
   const selected =
     categoriesQuery.data?.find((category) => category.id === value) ?? null;
+  const label = selected
+    ? t('categories.changeTooltip')
+    : t('categories.addTooltip');
 
   return (
     <>
-      <Tooltip
-        label={
-          selected ? t('categories.changeTooltip') : t('categories.addTooltip')
-        }
-      >
+      <Tooltip label={label}>
         <ActionIcon
           className="w-auto! px-1.5!"
           variant="subtle"
           size="lg"
           color="gray"
           onClick={open}
+          aria-label={label}
         >
           <TagIcon size="1.25rem" />
           {selected && (
