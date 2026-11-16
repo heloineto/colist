@@ -3,9 +3,11 @@ import { fileURLToPath } from 'node:url';
 import eslint from '@eslint/js';
 import eslintReact from '@eslint-react/eslint-plugin';
 import stylistic from '@stylistic/eslint-plugin';
+import vitest from '@vitest/eslint-plugin';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss';
+import playwright from 'eslint-plugin-playwright';
 import tseslint from 'typescript-eslint';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -186,6 +188,16 @@ const eslintConfig = defineConfig([
         },
       ],
     },
+  },
+  {
+    files: ['e2e/**'],
+    extends: [playwright.configs['flat/recommended']],
+    // Fixture `use` callbacks are not React's `use`.
+    rules: { '@eslint-react/rules-of-hooks': 'off' },
+  },
+  {
+    files: ['src/**/*.spec.ts'],
+    ...vitest.configs.recommended,
   },
 ]);
 

@@ -21,7 +21,7 @@
     "stop:services": "docker compose --env-file .env.development.local down",
     "test": "turbo run test",
     "test:unit": "turbo run test:unit",
-    "test:e2e": "turbo run test:e2e"
+    "test:e2e": "turbo run test:e2e --concurrency=1"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",

@@ -12,6 +12,8 @@ dist
 .claude/settings.local.json
 .claude/worktrees
 /reports/
+apps/*/reports/
+apps/web/playwright/.auth/
 coverage/
 *.tsbuildinfo
 **/.terraform
