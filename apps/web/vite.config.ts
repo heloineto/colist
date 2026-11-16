@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+const apiUrl = process.env.API_URL ?? 'http://localhost:5100';
+
 export default defineConfig({
   plugins: [
     tanstackRouter({
@@ -49,8 +51,8 @@ export default defineConfig({
   resolve: { tsconfigPaths: true },
   server: {
     proxy: {
-      '/api': 'http://localhost:5100',
-      '/.well-known': 'http://localhost:5100',
+      '/api': apiUrl,
+      '/.well-known': apiUrl,
     },
   },
 });

@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colist: decisões testes de browser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style type="text/tailwindcss">
+  @theme {
+    --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+    --color-ground: var(--ground);
+    --color-surface: var(--surface);
+    --color-ink: var(--ink);
+    --color-muted: var(--muted);
+    --color-line: var(--line);
+    --color-accent: var(--accent);
+    --color-accent-soft: var(--accent-soft);
+    --color-warn: var(--warn);
+    --color-warn-soft: var(--warn-soft);
+  }
+</style>
+<style>
+  :root {
+    --ground: #f3f6f1; --surface: #ffffff; --ink: #17201a; --muted: #5a6a5f;
+    --line: #d6ded4; --accent: #2b8a3e; --accent-soft: #e3f1e5;
+    --warn: #a85400; --warn-soft: #fbeedd; color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0e1310; --surface: #151c17; --ink: #e5ebe5; --muted: #95a599;
+      --line: #2a352d; --accent: #5fd27a; --accent-soft: #1a2f20;
+      --warn: #ffad5a; --warn-soft: #3a2812; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0e1310; --surface: #151c17; --ink: #e5ebe5; --muted: #95a599;
+    --line: #2a352d; --accent: #5fd27a; --accent-soft: #1a2f20;
+    --warn: #ffad5a; --warn-soft: #3a2812; color-scheme: dark;
+  }
+  body { background: var(--ground); color: var(--ink); }
+  .prose-w { max-width: 68ch; }
+  h1, h2, h3 { text-wrap: balance; }
+  code { font-family: var(--font-mono); font-size: .86em; background: var(--accent-soft); padding: .08em .35em; border-radius: 4px; }
+  .check {
+    width: 1.35rem; height: 1.35rem; border-radius: 6px; border: 2px solid var(--accent);
+    display: grid; place-items: center; flex: none; background: var(--accent); color: var(--surface);
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .decision[data-contested="true"] .check { background: transparent; border-color: var(--warn); color: transparent; }
+  .decision[data-contested="true"] { border-color: var(--warn); }
+  .decision[data-contested="true"] .verdict { text-decoration: line-through; text-decoration-color: var(--warn); text-decoration-thickness: 2px; }
+  .decision .note { display: none; }
+  .decision[data-contested="true"] .note { display: block; }
+  .decision { transition: border-color .2s ease; }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .chev { transform: rotate(90deg); }
+  .chev { transition: transform .2s ease; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  .scroller { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; }
+  .toc a[aria-current="true"] { color: var(--accent); font-weight: 600; }
+  .flowstep { opacity: 0; animation: rise .5s ease forwards; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .flowstep { opacity: 1; }
+  }
+  svg text { font-family: var(--font-sans); fill: var(--ink); }
+  svg .mono { font-family: var(--font-mono); }
+  svg .muted { fill: var(--muted); }
+</style>
+<body class="font-sans antialiased">
+
+<header class="border-b border-line">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+    <p class="font-mono text-xs uppercase tracking-[.14em] text-muted">colist · .scratch/colist-browser-tests</p>
+    <button id="themeBtn" type="button" class="text-sm text-muted hover:text-ink px-3 py-2 rounded-md border border-line">Alternar tema</button>
+  </div>
+</header>
+
+<main class="mx-auto max-w-6xl px-4 sm:px-6 lg:grid lg:grid-cols-[13rem_1fr] lg:gap-12">
+
+  <nav class="toc hidden lg:block sticky top-6 self-start pt-12 text-sm" aria-label="Seções">
+    <p class="font-mono text-[11px] uppercase tracking-[.14em] text-muted mb-3">Seções</p>
+    <ol class="grid gap-2">
+      <li><a href="#resumo" class="text-muted hover:text-ink">Resumo</a></li>
+      <li><a href="#camadas" class="text-muted hover:text-ink">1 · Camadas e harness</a></li>
+      <li><a href="#backend" class="text-muted hover:text-ink">2 · Backend do e2e</a></li>
+      <li><a href="#cobertura" class="text-muted hover:text-ink">3 · O que testar</a></li>
+      <li><a href="#ci" class="text-muted hover:text-ink">4 · CI</a></li>
+      <li><a href="#fases" class="text-muted hover:text-ink">5 · Ordem de entrega</a></li>
+      <li><a href="#fontes" class="text-muted hover:text-ink">Fontes</a></li>
+    </ol>
+  </nav>
+
+  <div class="min-w-0 pb-40">
+    <section id="resumo" class="pt-12 pb-10">
+      <p class="font-mono text-xs uppercase tracking-[.14em] text-accent mb-4">Mapa completo · 15 nov 2026</p>
+      <h1 class="text-3xl sm:text-5xl font-semibold leading-[1.08] tracking-tight prose-w">Playwright de verdade contra a API de verdade, em todo PR.</h1>
+      <p class="mt-6 text-lg leading-relaxed text-muted prose-w">Pesquisei e decidi tudo sozinho, como você pediu, copiando o padrão do <code>voto-a-voto/apps/web</code> onde ele serve. Onde o Colist é diferente, eu diverjo e explico o porquê. <strong class="text-ink font-semibold">Desmarque a decisão que quiser mudar</strong>, escreva o que prefere, e copie tudo no botão de baixo para colar no Claude.</p>
+
+      <div class="mt-8 grid sm:grid-cols-3 gap-px bg-line border border-line rounded-lg overflow-hidden">
+        <div class="bg-surface p-5">
+          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-muted">Unit</p>
+          <p class="mt-2 font-medium">Vitest 5, os 4 specs de hoje em <code>src/**/*.spec.ts</code>.</p>
+        </div>
+        <div class="bg-surface p-5">
+          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-muted">E2E</p>
+          <p class="mt-2 font-medium">Playwright em <code>apps/web/e2e/</code>, Chrome desktop e celular.</p>
+        </div>
+        <div class="bg-surface p-5">
+          <p class="font-mono text-[11px] uppercase tracking-[.14em] text-muted">CI</p>
+          <p class="mt-2 font-medium">Job novo <code>E2E (web)</code>, obrigatório para merge.</p>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-lg border border-warn bg-warn-soft p-4 prose-w">
+        <p class="text-sm leading-relaxed"><strong class="font-semibold">Uma interpretação minha:</strong> li "Vitest para testar testes end-to-end que seria com Playwright mesmo" como: e2e roda no runner do Playwright e unitário roda no Vitest. O voto-a-voto também usa o Vitest em modo browser, mas só para rodar as stories do Storybook, e o Colist não tem Storybook. Se você queria testes de componente no browser com o Vitest, desmarque a primeira decisão.</p>
+      </div>
+    </section>
+
+    <section id="camadas" class="py-10 border-t border-line">
+      <p class="font-mono text-xs uppercase tracking-[.14em] text-muted">Decisão 1</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">Camadas e harness</h2>
+      <p class="mt-3 text-muted leading-relaxed prose-w">Mesma estrutura de arquivos do voto-a-voto. As mudanças estão na tabela abaixo, cada uma com o motivo.</p>
+      <div class="mt-6 grid gap-4" data-group="Camadas"></div>
+
+      <h3 class="mt-12 text-lg font-semibold">Onde diverge do voto-a-voto</h3>
+      <div class="scroller mt-4 rounded-lg border border-line bg-surface">
+        <table class="w-full min-w-[680px] text-sm">
+          <thead>
+            <tr class="text-left border-b border-line">
+              <th class="p-3 font-mono text-[11px] uppercase tracking-[.12em] text-muted font-medium">Ponto</th>
+              <th class="p-3 font-mono text-[11px] uppercase tracking-[.12em] text-muted font-medium">voto-a-voto</th>
+              <th class="p-3 font-mono text-[11px] uppercase tracking-[.12em] text-muted font-medium">Colist</th>
+              <th class="p-3 font-mono text-[11px] uppercase tracking-[.12em] text-muted font-medium">Por quê</th>
+            </tr>
+          </thead>
+          <tbody id="diffRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="backend" class="py-10 border-t border-line">
+      <p class="font-mono text-xs uppercase tracking-[.14em] text-muted">Decisão 2</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">Contra o que o browser roda</h2>
+      <p class="mt-3 text-muted leading-relaxed prose-w">O voto-a-voto aponta para um backend compartilhado com uma conta real. O Colist não tem staging (merge = produção), então o Playwright sobe tudo sozinho: um Postgres descartável, a API em modo teste e o Vite.</p>
+
+      <figure class="mt-8 rounded-lg border border-line bg-surface p-4 sm:p-6">
+        <div class="scroller">
+          <svg viewBox="0 30 860 220" class="min-w-[720px] w-full" role="img" aria-label="Playwright abre Chrome desktop e celular no Vite na porta 5402, que faz proxy de /api para a API NestJS em modo teste na porta 5401, que usa um Postgres descartável na porta 5400. Cada worker cria a própria conta pela API.">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
+              </marker>
+            </defs>
+            <g class="flowstep" style="animation-delay:.05s">
+              <rect x="10" y="60" width="170" height="110" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="95" y="96" text-anchor="middle" font-weight="600" font-size="16">Playwright</text>
+              <text x="95" y="120" text-anchor="middle" class="muted" font-size="12">Desktop Chrome</text>
+              <text x="95" y="140" text-anchor="middle" class="muted" font-size="12">Mobile Chrome (Pixel 7)</text>
+            </g>
+            <g class="flowstep" style="animation-delay:.15s">
+              <rect x="245" y="60" width="160" height="110" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+              <text x="325" y="96" text-anchor="middle" font-weight="600" font-size="15">Vite dev</text>
+              <text x="325" y="120" text-anchor="middle" class="mono muted" font-size="12">:5402</text>
+              <text x="325" y="140" text-anchor="middle" class="muted" font-size="11">proxy via API_URL</text>
+            </g>
+            <g class="flowstep" style="animation-delay:.25s">
+              <rect x="470" y="60" width="180" height="110" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+              <text x="560" y="96" text-anchor="middle" font-weight="600" font-size="15">API NestJS</text>
+              <text x="560" y="120" text-anchor="middle" class="mono muted" font-size="12">:5401 · NODE_ENV=test</text>
+              <text x="560" y="140" text-anchor="middle" class="muted" font-size="11">WEB_URL libera o Vite</text>
+            </g>
+            <g class="flowstep" style="animation-delay:.35s">
+              <rect x="710" y="60" width="140" height="110" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+              <text x="780" y="96" text-anchor="middle" font-weight="600" font-size="15">Postgres</text>
+              <text x="780" y="120" text-anchor="middle" class="mono muted" font-size="12">:5400</text>
+              <text x="780" y="140" text-anchor="middle" class="muted" font-size="11">colist-web-e2e</text>
+            </g>
+            <g class="flowstep" style="animation-delay:.5s" stroke="var(--accent)" stroke-width="2" fill="none">
+              <path d="M180 115 L245 115" marker-end="url(#arr)"/>
+              <path d="M405 115 L470 115" marker-end="url(#arr)"/>
+              <path d="M650 115 L710 115" marker-end="url(#arr)"/>
+              <path d="M95 170 C95 215, 560 215, 560 172" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+            </g>
+            <g class="flowstep" style="animation-delay:.6s" font-size="11">
+              <text x="190" y="105" class="muted">páginas</text>
+              <text x="418" y="105" class="muted">/api</text>
+              <text x="230" y="234" class="muted">fixture account: cada worker cria a própria conta direto na API</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption class="mt-3 text-sm text-muted prose-w">Portas próprias (54xx) para não brigar com o <code>bun run dev</code> (5000/5100) nem com o e2e da API (5300/5301), cujo teardown derruba o Postgres dele. O banco é jogado fora no fim de cada execução, então não tem código de limpeza.</figcaption>
+      </figure>
+
+      <div class="mt-8 grid gap-4" data-group="Backend"></div>
+    </section>
+
+    <section id="cobertura" class="py-10 border-t border-line">
+      <p class="font-mono text-xs uppercase tracking-[.14em] text-muted">Decisão 3</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">O que o primeiro lote testa</h2>
+      <p class="mt-3 text-muted leading-relaxed prose-w">O critério: o que você usa todo dia, passando pelos componentes do Mantine que mais quebram num upgrade (inputs, Checkbox, Modal, Menu, Combobox, Notifications).</p>
+      <div class="scroller mt-6 rounded-lg border border-line bg-surface">
+        <table class="w-full min-w-[600px] text-sm">
+          <thead>
+            <tr class="text-left border-b border-line">
+              <th class="p-3 font-mono text-[11px] uppercase tracking-[.12em] text-muted font-medium">Spec</th>
+              <th class="p-3 font-mono text-[11px] uppercase tracking-[.12em] text-muted font-medium">Cobre</th>
+            </tr>
+          </thead>
+          <tbody id="specRows"></tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-sm text-muted prose-w"><strong class="text-ink font-medium">Fica para um segundo lote:</strong> histórico, editar perfil, apps conectados + tela de consentimento OAuth, troca de idioma, modo offline, feedback com anexo (precisa de S3). Login com Google fica fora (precisaria de credenciais reais do Google).</p>
+      <div class="mt-8 grid gap-4" data-group="Cobertura"></div>
+    </section>
+
+    <section id="ci" class="py-10 border-t border-line">
+      <p class="font-mono text-xs uppercase tracking-[.14em] text-muted">Decisão 4</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">Roda no CI em todo PR</h2>
+      <p class="mt-3 text-muted leading-relaxed prose-w">O voto-a-voto não roda o e2e do web no CI, porque precisa de uma conta real num backend real. No Colist o e2e é autocontido, e o motivo de tudo isso é barrar upgrade quebrado do Dependabot antes do merge, que já é deploy.</p>
+      <div class="mt-6 grid gap-4" data-group="CI"></div>
+    </section>
+
+    <section id="fases" class="py-10 border-t border-line">
+      <p class="font-mono text-xs uppercase tracking-[.14em] text-muted">Entrega</p>
+      <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">Três PRs para <code>main</code></h2>
+      <ol class="mt-6 grid gap-0 border-l-2 border-line ml-2">
+        <li class="relative pl-6 pb-6">
+          <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-accent"></span>
+          <p class="font-mono text-sm">chore/vitest-5</p>
+          <p class="mt-1 text-muted text-sm prose-w">Vitest 5.1 no web e na API juntos. Isolado para uma regressão do Vitest não se misturar com o Playwright.</p>
+        </li>
+        <li class="relative pl-6 pb-6">
+          <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-accent"></span>
+          <p class="font-mono text-sm">test/web-e2e-harness</p>
+          <p class="mt-1 text-muted text-sm prose-w">Playwright, config, fixtures, <code>start:e2e</code> da API, proxy por <code>API_URL</code>, <code>WEB_URL</code>, lint/knip/tsconfig, o <code>auth.spec.ts</code> e o job de CI. Depois do merge você marca o check como obrigatório.</p>
+        </li>
+        <li class="relative pl-6">
+          <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface border-2 border-accent"></span>
+          <p class="font-mono text-sm">test/web-e2e-flows</p>
+          <p class="mt-1 text-muted text-sm prose-w">Os specs de listas, itens e compartilhamento com tempo real.</p>
+        </li>
+      </ol>
+      <div class="mt-8 grid gap-4" data-group="Entrega"></div>
+    </section>
+
+    <section id="fontes" class="py-10 border-t border-line text-sm text-muted">
+      <h2 class="text-base font-semibold text-ink">Fontes</h2>
+      <ul class="mt-3 grid gap-1.5 font-mono text-xs break-all">
+        <li>.scratch/colist-browser-tests/map.md</li>
+        <li>.scratch/colist-browser-tests/issues/01..06-*.md</li>
+        <li>.scratch/colist-browser-tests/research/playwright-vitest-setup.md</li>
+        <li>../voto-a-voto/apps/web: playwright.config.ts, vitest.config.ts, e2e/</li>
+        <li><a class="underline hover:text-ink" href="https://playwright.dev/docs/auth">playwright.dev · Authentication</a></li>
+        <li><a class="underline hover:text-ink" href="https://playwright.dev/docs/test-webserver">playwright.dev · Web server</a></li>
+      </ul>
+    </section>
+  </div>
+</main>
+
+<div class="fixed inset-x-0 bottom-0 border-t border-line bg-surface/95 backdrop-blur">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+    <p id="status" class="text-sm text-muted" aria-live="polite">Todas as decisões aceitas.</p>
+    <div class="flex gap-2">
+      <button id="resetBtn" type="button" class="text-sm px-3 py-2 rounded-md border border-line text-muted hover:text-ink">Marcar tudo de novo</button>
+      <button id="copyBtn" type="button" class="text-sm px-4 py-2 rounded-md bg-accent text-surface font-medium hover:opacity-90">Copiar alterações</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const MAP = '.scratch/colist-browser-tests';
+const DECISIONS = [
+  { group: 'Camadas', id: '02-test-layers-and-harness', key: 'layers', title: 'Só duas camadas: Vitest unit + Playwright e2e', verdict: 'Sem teste de componente no browser. O e2e é o que pega um Mantine ou React quebrado.',
+    details: [
+      'Vitest em modo browser no voto-a-voto existe só para o Storybook. Sem stories, seria uma terceira camada sem dono.',
+      'Os 4 specs unitários de hoje ficam onde estão, em ambiente node.'
+    ],
+    alts: ['Adicionar testes de componente com Vitest browser', 'Adicionar Storybook + Vitest browser como no voto-a-voto'] },
+  { group: 'Camadas', id: '02-test-layers-and-harness', key: 'vitest5', title: 'Vitest 5.1 no web e na API juntos', verdict: 'Mesma versão nos dois apps; config continua plana, sem projects.',
+    details: [
+      'O syncpack e o grupo <code>vitest</code> do Dependabot já assumem as duas versões iguais.',
+      'O que pode quebrar: <code>clearMocks</code> agora vem ligado e <code>resolves</code>/<code>rejects</code> sem await falham.',
+      '<code>projects</code> não ajuda com um projeto só. Vira projects no dia que surgir uma segunda camada.'
+    ],
+    alts: ['Ficar no Vitest 4', 'Usar projects (unit) igual ao voto-a-voto'] },
+  { group: 'Camadas', id: '02-test-layers-and-harness', key: 'layout', title: 'Layout de arquivos do voto-a-voto', verdict: 'playwright.config.ts, e2e/fixtures.ts, e2e/*.spec.ts, relatórios em reports/test/.',
+    details: [
+      'Scripts: <code>test</code> = unit + e2e, <code>test:unit</code> = <code>vitest run</code>, <code>test:e2e</code> = <code>playwright test</code>.',
+      '<code>eslint-plugin-playwright</code> em <code>e2e/**</code>, <code>@vitest/eslint-plugin</code> nos specs, <code>e2e</code> no tsconfig e no knip, <code>/playwright/.auth</code> no gitignore.',
+      'Locale <code>pt-BR</code> fixo: o i18next detecta pelo navegador, então os textos ficam em português, como nos specs do voto-a-voto.'
+    ],
+    alts: ['Locale en-US nos testes', 'Pasta tests/ em vez de e2e/'] },
+  { group: 'Camadas', id: '02-test-layers-and-harness', key: 'devices', title: 'Chrome desktop e celular', verdict: 'Dois projetos: Desktop Chrome e Mobile Chrome (Pixel 7). Mesmo browser, uma instalação.',
+    details: [
+      'O Colist é um PWA usado principalmente no celular, e o layout muda por breakpoint (navbar, drawer, affix de busca).',
+      'O voto-a-voto só tem Desktop Chrome.'
+    ],
+    alts: ['Só Desktop Chrome', 'Só Mobile Chrome', 'Adicionar Safari (WebKit)'] },
+  { group: 'Backend', id: '03-e2e-backend-and-data', key: 'stack', title: 'API real com banco descartável', verdict: 'Playwright sobe Postgres (compose colist-web-e2e), a API em NODE_ENV=test e o Vite, nessa ordem.',
+    details: [
+      'Sem mock de rotas: esconderia justamente a quebra entre API e tela.',
+      'Nem banco de dev (não suja seus dados) nem produção.',
+      'A API já roda as migrations no boot. Só falta o script <code>start:e2e</code> (compose up + <code>nest start</code>).',
+      'Localmente, <code>reuseExistingServer</code> reaproveita os servidores se já estiverem de pé (igual ao voto-a-voto).'
+    ],
+    alts: ['Rodar contra o dev stack (5000/5100)', 'Mockar a API com page.route', 'Usar build de produção (vite preview) em vez do dev'] },
+  { group: 'Backend', id: '03-e2e-backend-and-data', key: 'fixes', title: 'Duas mudanças pequenas no código', verdict: 'Proxy do Vite lê API_URL; a API recebe WEB_URL do Vite.',
+    details: [
+      'Hoje o proxy aponta fixo para <code>:5100</code>. Vira <code>process.env.API_URL ?? \'http://localhost:5100\'</code>.',
+      'Sem <code>WEB_URL</code>, o better-auth recusa (403) requests com cookie vindos da origem do Vite.'
+    ],
+    alts: [] },
+  { group: 'Backend', id: '03-e2e-backend-and-data', key: 'auth', title: 'Uma conta por worker, criada pela API', verdict: 'Fixture account cria um usuário novo via /api/auth/sign-up/email e guarda o storageState.',
+    details: [
+      'No voto-a-voto há um projeto <code>setup</code> com uma conta só, que funciona porque os testes só leem. Aqui os testes escrevem, e a doc do Playwright recomenda uma conta por worker.',
+      'Cada teste cria a própria lista com nome único.',
+      'Fixture <code>secondUser</code> (outra conta, outro contexto) para compartilhar lista e ver tempo real.',
+      'O formulário de login/cadastro é testado no próprio spec, não na fixture.'
+    ],
+    alts: ['Projeto setup com uma conta só, igual ao voto-a-voto', 'Logar pela tela em cada teste'] },
+  { group: 'Cobertura', id: '04-first-e2e-coverage', key: 'batch', title: 'auth, listas, itens, compartilhamento', verdict: 'Quatro specs, cerca de 15 testes. Sem backfill de unitário.',
+    details: [
+      'Tempo real (SSE) testado de ponta a ponta com dois usuários, sem mock.',
+      'Unitário novo só quando surgir lógica pura nova.'
+    ],
+    alts: ['Incluir modo offline já no primeiro lote', 'Incluir apps conectados + consentimento OAuth', 'Começar só com auth'] },
+  { group: 'CI', id: '05-ci-integration', key: 'job', title: 'Job E2E (web) em todo PR para main', verdict: 'Em paralelo com Lint e Test, 20 min de timeout, só Chromium, relatório como artifact.',
+    details: [
+      '<code>bunx playwright install --with-deps chromium</code>, sem cache de browser (a doc do Playwright desaconselha).',
+      'No CI: 1 worker, 2 retries, trace na primeira retentativa, <code>forbidOnly</code>.',
+      'Upload de <code>apps/web/reports/</code> quando não cancelado, 7 dias.'
+    ],
+    alts: ['Não rodar no CI (igual ao voto-a-voto)', 'Rodar só em PRs do Dependabot', 'Rodar dentro do job Test existente'] },
+  { group: 'CI', id: '05-ci-integration', key: 'required', title: 'Check obrigatório desde o primeiro dia', verdict: 'Entra na proteção da main junto com Lint e Test.',
+    details: [
+      'As retries absorvem instabilidade. Teste instável se conserta, não se pula.'
+    ],
+    alts: ['Opcional por uma semana, depois obrigatório'] },
+  { group: 'Entrega', id: '06-implementation-phasing', key: 'phasing', title: 'vitest-5, depois harness, depois fluxos', verdict: 'Três PRs via /implement (effort colist-browser-tests-impl), na ordem.',
+    details: [
+      'Pronto quando: <code>bun run test</code> e <code>bun run lint</code> passam no <code>apps/web</code> sem nada rodando antes, e o job de CI fica verde no PR 3.',
+      'Prova de que funciona: quebrar de propósito o <code>onChange</code> do Checkbox do item faz o <code>items.spec.ts</code> falhar.'
+    ],
+    alts: ['Tudo num PR só', 'Juntar vitest-5 com o harness'] }
+];
+
+const DIFFS = [
+  ['Backend', 'dev/staging compartilhado, conta real', 'API local + Postgres descartável', 'Colist não tem staging'],
+  ['Auth', 'projeto setup, 1 conta', 'fixture, 1 conta por worker', 'testes escrevem dados'],
+  ['Trace', "'retry-with-trace'", "'on-first-retry'", 'o primeiro foi descontinuado'],
+  ['Dispositivos', 'Desktop Chrome', 'Desktop + Mobile Chrome', 'PWA de celular'],
+  ['Vitest browser', 'Storybook', 'nenhum', 'Colist não tem Storybook'],
+  ['Vitest config', 'projects (unit + storybook)', 'plana', 'um projeto só'],
+  ['Env', 'dotenvx', 'webServer.env + .env.test', 'Colist não usa dotenvx'],
+  ['CI', 'só unit + e2e da API', 'também e2e do web', 'barrar upgrade quebrado']
+];
+
+const SPECS = [
+  ['auth.spec.ts', 'cadastro pela tela cai em /app; sair; entrar de novo; senha errada mostra erro; /app deslogado vai para /auth'],
+  ['lists.spec.ts', 'criar lista, renomear, alternar entre duas abas'],
+  ['items.spec.ts', 'adicionar; marcar (riscado) e desmarcar; mudar quantidade no modal; categoria nova; apagar; busca filtra'],
+  ['sharing.spec.ts', 'compartilhar por e-mail com secondUser; ele vê a lista; item novo aparece pra ele sem recarregar (SSE)']
+];
+
+const STORE_KEY = 'colist-browser-tests-review';
+const loadState = () => { try { return JSON.parse(localStorage.getItem(STORE_KEY)) ?? {}; } catch { return {}; } };
+const saveState = (state) => { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {} };
+const state = loadState();
+
+const checkSvg = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function altsBlock(decision) {
+  if (decision.alts.length === 0) return '';
+  return `<p class="mt-3 font-mono text-[11px] uppercase tracking-[.12em] text-muted">Alternativas que você pode escolher</p>
+    <div class="mt-2 flex flex-wrap gap-2">${decision.alts.map((alt) => `<button type="button" class="alt text-xs px-2.5 py-1.5 rounded-md border border-line hover:border-warn hover:text-warn">${alt}</button>`).join('')}</div>`;
+}
+
+function renderDecision(decision) {
+  const entry = state[decision.key] ?? { contested: false, note: '' };
+  const article = document.createElement('article');
+  article.className = 'decision rounded-lg border border-line bg-surface p-5';
+  article.dataset.contested = String(entry.contested);
+  article.innerHTML = `
+    <div class="flex gap-4 items-start">
+      <button type="button" class="check mt-0.5" role="checkbox" aria-checked="${!entry.contested}" aria-label="Aceitar decisão: ${decision.title}">${checkSvg}</button>
+      <div class="min-w-0 flex-1">
+        <h3 class="font-semibold text-lg leading-snug">${decision.title}</h3>
+        <p class="verdict mt-1 text-muted leading-relaxed">${decision.verdict}</p>
+        <details class="mt-3">
+          <summary class="inline-flex items-center gap-1.5 text-sm text-accent font-medium py-1"><span class="chev" aria-hidden="true">›</span> Por quê e detalhes</summary>
+          <ul class="mt-2 grid gap-2 text-sm leading-relaxed list-disc pl-5">${decision.details.map((line) => `<li>${line}</li>`).join('')}</ul>
+          ${altsBlock(decision)}
+        </details>
+        <div class="note mt-4">
+          <label class="block text-sm font-medium text-warn" for="note-${decision.key}">O que você quer em vez disso?</label>
+          <textarea id="note-${decision.key}" rows="2" class="mt-1.5 w-full rounded-md border border-line bg-ground p-2.5 text-sm" placeholder="Ex.: só Desktop Chrome">${entry.note}</textarea>
+        </div>
+        <p class="mt-3 font-mono text-[11px] text-muted">issues/${decision.id}.md</p>
+      </div>
+    </div>`;
+
+  const checkBtn = article.querySelector('.check');
+  const textarea = article.querySelector('textarea');
+  const setContested = (contested) => {
+    article.dataset.contested = String(contested);
+    checkBtn.setAttribute('aria-checked', String(!contested));
+    state[decision.key] = { contested, note: textarea.value };
+    saveState(state);
+    updateStatus();
+  };
+  checkBtn.addEventListener('click', () => {
+    const contested = article.dataset.contested !== 'true';
+    setContested(contested);
+    if (contested) textarea.focus();
+  });
+  textarea.addEventListener('input', () => { state[decision.key] = { contested: true, note: textarea.value }; saveState(state); });
+  article.querySelectorAll('.alt').forEach((altBtn) => altBtn.addEventListener('click', () => {
+    textarea.value = textarea.value ? `${textarea.value}; ${altBtn.textContent}` : altBtn.textContent;
+    setContested(true);
+    textarea.focus();
+  }));
+  return article;
+}
+
+document.querySelectorAll('[data-group]').forEach((container) => {
+  DECISIONS.filter((decision) => decision.group === container.dataset.group)
+    .forEach((decision) => container.appendChild(renderDecision(decision)));
+});
+
+document.getElementById('diffRows').innerHTML = DIFFS.map(([point, voto, colist, why]) =>
+  `<tr class="border-b border-line last:border-0"><td class="p-3 font-medium whitespace-nowrap">${point}</td><td class="p-3 text-muted font-mono text-[13px]">${voto}</td><td class="p-3 font-mono text-[13px] text-accent">${colist}</td><td class="p-3">${why}</td></tr>`).join('');
+
+document.getElementById('specRows').innerHTML = SPECS.map(([spec, covers]) =>
+  `<tr class="border-b border-line last:border-0"><td class="p-3 font-mono text-[13px] whitespace-nowrap">${spec}</td><td class="p-3">${covers}</td></tr>`).join('');
+
+const statusEl = document.getElementById('status');
+const contestedList = () => DECISIONS.filter((decision) => state[decision.key]?.contested);
+function updateStatus() {
+  const count = contestedList().length;
+  statusEl.textContent = count === 0 ? 'Todas as decisões aceitas.' : `${count} decis${count === 1 ? 'ão' : 'ões'} para mudar.`;
+  statusEl.classList.toggle('text-warn', count > 0);
+}
+updateStatus();
+
+document.getElementById('copyBtn').addEventListener('click', async (event) => {
+  const contested = contestedList();
+  const text = contested.length === 0
+    ? `Aceito todas as decisões do mapa ${MAP}. Pode seguir.`
+    : [`Mudanças no mapa ${MAP}:`, ...contested.map((decision) => `- ${decision.title} (issues/${decision.id}.md): ${state[decision.key].note || 'quero mudar, vamos conversar'}`)].join('\n');
+  const button = event.currentTarget;
+  try {
+    await navigator.clipboard.writeText(text);
+    button.textContent = 'Copiado';
+  } catch {
+    window.prompt('Copie o texto:', text);
+    button.textContent = 'Copiar alterações';
+    return;
+  }
+  setTimeout(() => { button.textContent = 'Copiar alterações'; }, 1800);
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  DECISIONS.forEach((decision) => { delete state[decision.key]; });
+  saveState(state);
+  document.querySelectorAll('.decision').forEach((article) => {
+    article.dataset.contested = 'false';
+    article.querySelector('.check').setAttribute('aria-checked', 'true');
+    article.querySelector('textarea').value = '';
+  });
+  updateStatus();
+});
+
+const root = document.documentElement;
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const isDark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = isDark ? 'light' : 'dark';
+});
+
+const links = [...document.querySelectorAll('.toc a')];
+const observer = new IntersectionObserver((entries) => {
+  entries.filter((entry) => entry.isIntersecting).forEach((entry) => {
+    links.forEach((link) => link.setAttribute('aria-current', String(link.getAttribute('href') === `#${entry.target.id}`)));
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
+</script>
+</body>
+</html>

@@ -13,6 +13,8 @@
     "lint:dry": "jscpd .",
     "lint:types": "tsc --noEmit",
     "lint:unused": "knip --cache",
+    "start:e2e": "POSTGRES_PORT=5400 docker compose -p colist-web-e2e --env-file .env.test -f docker-compose.test.yml up -d --wait --force-recreate --renew-anon-volumes && NODE_ENV=test nest start",
+    "stop:e2e": "docker compose -p colist-web-e2e --env-file .env.test -f docker-compose.test.yml down -v",
     "test": "bun run test:unit && bun run test:e2e",
     "test:e2e": "vitest run --config ./test/vitest.config.e2e.ts",
     "test:unit": "vitest run",
@@ -60,7 +62,7 @@
     "@types/node": "^24",
     "@types/pg": "^8.20.0",
     "@types/supertest": "^7.2.0",
-    "@vitest/coverage-v8": "^4.1.8",
+    "@vitest/coverage-v8": "^5.1.0",
     "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.11",
     "eslint": "^10.14.0",
@@ -76,7 +78,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
     "unplugin-swc": "^1.5.9",
-    "vitest": "^4.1.8",
+    "vitest": "^5.1.0",
     "vitest-mock-extended": "^5.1.1"
   }
 }
