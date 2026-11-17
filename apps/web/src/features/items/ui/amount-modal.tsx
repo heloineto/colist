@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Divider,
   Modal,
   NumberInput,
   type NumberInputHandlers,
@@ -66,7 +65,6 @@ export function AmountModal({ opened, value, onChange, onClose }: Props) {
           <PlusIcon size="1.25rem" weight="bold" />
         </ActionIcon>
       </div>
-      <Divider />
     </Modal>
   );
 }
